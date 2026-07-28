@@ -1,0 +1,89 @@
+2026-07-28 16:14:36,868 - __main__ - INFO - Starting Anime Downloader (full run)
+2026-07-28 16:14:37,246 - __main__ - ERROR - Failed to load scraper scraper.luciferdonghua.LuciferDonghuaScraper: No module named 'scraper.luciferdonghua'
+2026-07-28 16:14:37,247 - __main__ - INFO - Processing stellar transformation
+2026-07-28 16:14:37,247 - __main__ - WARNING - No episodes found for stellar transformation from any scraper
+2026-07-28 16:14:37,247 - __main__ - INFO - Processing The Great Ruler
+2026-07-28 16:14:37,248 - __main__ - WARNING - No episodes found for The Great Ruler from any scraper
+2026-07-28 16:14:37,248 - __main__ - INFO - Processing appotheosis
+2026-07-28 16:14:37,248 - __main__ - WARNING - No episodes found for appotheosis from any scraper
+2026-07-28 16:14:37,248 - __main__ - INFO - Processing Shrouding The Heavens
+2026-07-28 16:14:37,249 - __main__ - WARNING - No episodes found for Shrouding The Heavens from any scraper
+2026-07-28 16:14:37,249 - __main__ - INFO - Processing btth
+2026-07-28 16:14:37,249 - __main__ - WARNING - No episodes found for btth from any scraper
+2026-07-28 16:14:37,249 - __main__ - INFO - Processing perfect world
+2026-07-28 16:14:37,250 - __main__ - WARNING - No episodes found for perfect world from any scraper
+2026-07-28 16:14:37,250 - __main__ - INFO - Processing renegade immortal
+2026-07-28 16:14:37,250 - __main__ - WARNING - No episodes found for renegade immortal from any scraper
+2026-07-28 16:14:37,250 - __main__ - INFO - Processing soul land 2
+2026-07-28 16:14:37,251 - __main__ - WARNING - No episodes found for soul land 2 from any scraper
+2026-07-28 16:14:37,251 - __main__ - INFO - Processing swallowed star
+2026-07-28 16:14:37,251 - __main__ - WARNING - No episodes found for swallowed star from any scraper
+2026-07-28 16:14:37,251 - __main__ - INFO - Processing Tomb of Fallen Gods
+2026-07-28 16:14:37,252 - __main__ - WARNING - No episodes found for Tomb of Fallen Gods from any scraper
+2026-07-28 16:14:37,252 - __main__ - INFO - Processing Beyond the Timescape
+2026-07-28 16:14:37,252 - __main__ - WARNING - No episodes found for Beyond the Timescape from any scraper
+2026-07-28 16:14:37,252 - __main__ - INFO - Processing sword and fairy 3
+2026-07-28 16:14:37,252 - __main__ - WARNING - No episodes found for sword and fairy 3 from any scraper
+2026-07-28 16:14:37,253 - __main__ - INFO - Processing The Supreme Body Refining Master
+2026-07-28 16:14:37,253 - __main__ - WARNING - No episodes found for The Supreme Body Refining Master from any scraper
+2026-07-28 16:14:37,253 - __main__ - INFO - Processing sword of coming(jian lai)
+2026-07-28 16:14:37,253 - __main__ - WARNING - No episodes found for sword of coming(jian lai) from any scraper
+2026-07-28 16:14:37,254 - __main__ - INFO - Processing keyboard immortal
+2026-07-28 16:14:37,254 - __main__ - WARNING - No episodes found for keyboard immortal from any scraper
+2026-07-28 16:14:37,254 - __main__ - INFO - Processing The Divine Emperor of Destiny
+2026-07-28 16:14:37,254 - __main__ - WARNING - No episodes found for The Divine Emperor of Destiny from any scraper
+2026-07-28 16:14:37,255 - __main__ - INFO - Processing Twin Martial Spirits
+2026-07-28 16:14:37,255 - __main__ - WARNING - No episodes found for Twin Martial Spirits from any scraper
+2026-07-28 16:14:37,255 - __main__ - INFO - Processing Endless Heaven Realm
+2026-07-28 16:14:37,256 - __main__ - WARNING - No episodes found for Endless Heaven Realm from any scraper
+2026-07-28 16:14:37,256 - __main__ - INFO - Skipping completed: lord of all realms
+2026-07-28 16:14:37,256 - __main__ - INFO - Skipping completed: classroom of the elite
+2026-07-28 16:14:37,256 - __main__ - INFO - Skipping completed: against the gods
+2026-07-28 16:14:37,257 - __main__ - INFO - Skipping completed: appotheosis
+2026-07-28 16:14:37,257 - __main__ - INFO - Skipping completed: stellar transformation
+2026-07-28 16:14:37,257 - __main__ - INFO - Skipping completed: Return of the Divine Emperor
+2026-07-28 16:14:37,257 - __main__ - INFO - Skipping completed: The strongest upgrade
+2026-07-28 16:14:37,258 - __main__ - INFO - Skipping completed: The Demon Hunter
+2026-07-28 16:14:37,258 - __main__ - INFO - Skipping completed: Above the Kingdom of God
+2026-07-28 16:14:37,258 - __main__ - INFO - Skipping completed: Jade Dynasty
+2026-07-28 16:14:37,259 - __main__ - INFO - Skipping completed: Divine Lord Of Heavens
+2026-07-28 16:14:37,259 - __main__ - INFO - Skipping completed: Dragon Raja
+2026-07-28 16:14:37,259 - __main__ - INFO - Skipping completed: Martial Universe
+2026-07-28 16:14:37,259 - __main__ - INFO - Skipping completed: Legend of the Misty Sword Immortal
+2026-07-28 16:14:37,260 - __main__ - INFO - Skipping completed: Supreme Over the Sky
+2026-07-28 16:14:37,260 - __main__ - INFO - Skipping completed: Peerless Divine Emperor
+2026-07-28 16:14:37,260 - __main__ - INFO - Skipping completed: World Defying Dan God
+2026-07-28 16:14:37,260 - __main__ - INFO - Skipping completed: The Daily Life of Immortal King
+2026-07-28 16:14:37,261 - __main__ - INFO - Skipping completed: Nine Suns Martial God
+2026-07-28 16:14:37,261 - __main__ - INFO - Skipping completed: Throne of seal
+2026-07-28 16:14:37,261 - __main__ - INFO - Skipping completed: The Gate of Mystical Realm
+2026-07-28 16:14:37,261 - __main__ - INFO - Skipping completed: Immortality
+2026-07-28 16:14:37,262 - __main__ - INFO - Anime Downloader finished.
+2026-07-28 16:15:41,886 - __main__ - ERROR - Failed to load scraper scraper.luciferdonghua.LuciferDonghuaScraper: No module named 'scraper.luciferdonghua'
+2026-07-28 16:17:07,894 - scraper.luciferdonghua - WARNING - No search result for btth
+2026-07-28 16:18:47,467 - __main__ - INFO - Starting Anime Downloader (full run)
+2026-07-28 16:18:47,682 - __main__ - INFO - Processing stellar transformation
+2026-07-28 16:18:50,295 - scraper.luciferdonghua - WARNING - No search result for stellar transformation
+2026-07-28 16:18:50,298 - __main__ - WARNING - No episodes found for stellar transformation from any scraper
+2026-07-28 16:18:50,298 - __main__ - INFO - Processing The Great Ruler
+2026-07-28 16:18:51,298 - scraper.luciferdonghua - WARNING - No search result for The Great Ruler
+2026-07-28 16:18:51,301 - __main__ - WARNING - No episodes found for The Great Ruler from any scraper
+2026-07-28 16:18:51,302 - __main__ - INFO - Processing appotheosis
+2026-07-28 16:18:52,442 - scraper.luciferdonghua - WARNING - No search result for appotheosis
+2026-07-28 16:18:52,445 - __main__ - WARNING - No episodes found for appotheosis from any scraper
+2026-07-28 16:18:52,446 - __main__ - INFO - Processing Shrouding The Heavens
+2026-07-28 16:18:53,364 - scraper.luciferdonghua - WARNING - No search result for Shrouding The Heavens
+2026-07-28 16:18:53,367 - __main__ - WARNING - No episodes found for Shrouding The Heavens from any scraper
+2026-07-28 16:18:53,368 - __main__ - INFO - Processing btth
+2026-07-28 16:18:54,490 - scraper.luciferdonghua - WARNING - No search result for btth
+2026-07-28 16:18:54,494 - __main__ - WARNING - No episodes found for btth from any scraper
+2026-07-28 16:18:54,495 - __main__ - INFO - Processing perfect world
+2026-07-28 16:18:55,617 - scraper.luciferdonghua - WARNING - No search result for perfect world
+2026-07-28 16:18:55,620 - __main__ - WARNING - No episodes found for perfect world from any scraper
+2026-07-28 16:18:55,621 - __main__ - INFO - Processing renegade immortal
+2026-07-28 16:18:56,640 - scraper.luciferdonghua - WARNING - No search result for renegade immortal
+2026-07-28 16:18:56,644 - __main__ - WARNING - No episodes found for renegade immortal from any scraper
+2026-07-28 16:18:56,645 - __main__ - INFO - Processing soul land 2
+2026-07-28 16:18:57,665 - scraper.luciferdonghua - WARNING - No search result for soul land 2
+2026-07-28 16:18:57,669 - __main__ - WARNING - No episodes found for soul land 2 from any scraper
+2026-07-28 16:18:57,670 - __main__ - INFO - Processing swallowed star

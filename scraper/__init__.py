@@ -1,7 +1,7 @@
 """Scraper package."""
 
 from .base import Scraper
-from .cartoonsarea import CartoonsAreaScraper
 from .luciferdonghua import LuciferDonghuaScraper
+from .cartoonsarea import CartoonsAreaScraper
 
-__all__ = ["Scraper", "CartoonsAreaScraper", "LuciferDonghuaScraper"]
+__all__ = ["Scraper", "LuciferDonghuaScraper", "CartoonsAreaScraper"]

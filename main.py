@@ -1,22 +1,21 @@
-"""Anime Downloader – Full TUI with all enhancements, including sync."""
+"""Anime Downloader – Full TUI with Page Links Manager and all enhancements."""
 
 import argparse
 import logging
 import re
 import sys
 from pathlib import Path
+from typing import Optional
 
 from rich.console import Console
 from rich.table import Table, box
 from rich.columns import Columns
 from rich.panel import Panel
-from rich import print as rprint
 from rich.prompt import Prompt, Confirm
-from rich.live import Live
 
 from config import (
     DOWNLOAD_DIR, LOGS_DIR, DEBUG, VERSION,
-    QUALITY_OPTIONS, DEFAULT_QUALITY,
+    QUALITY_OPTIONS, DEFAULT_QUALITY, PREVIEW_MAX_SIZE_BYTES,
 )
 from downloader import set_quality, CURRENT_QUALITY
 from episode import get_missing_episodes
@@ -25,7 +24,6 @@ from scraper import LuciferDonghuaScraper, CartoonsAreaScraper
 from updater import update_watchlist
 from watchlist import load_watchlist, save_watchlist
 from queue_manager import DownloadQueue
-from models import Anime
 
 # Setup logging
 logging.basicConfig(
@@ -47,6 +45,97 @@ QUEUE = DownloadQueue(max_workers=2)
 # ------------------------------------------------------------
 # Helper functions
 # ------------------------------------------------------------
+
+def find_existing_file(anime_name: str, episode: int, season: Optional[str] = None) -> Optional[Path]:
+    """
+    Search the downloads directory for a file matching the anime and episode.
+    Returns the file path if found and size > PREVIEW_MAX_SIZE_BYTES, else None.
+    If a file is found but is too small (preview), it is deleted.
+    """
+    anime_slug = anime_name.lower().replace(" ", "_")
+    patterns = [
+        f"*_{anime_slug}_ep{episode}.mp4",
+        f"*{anime_slug}*_ep{episode}.mp4",
+        f"*ep{episode}*.mp4",
+    ]
+    if season:
+        season_num = re.search(r'\d+', season)
+        if season_num:
+            s = season_num.group(0)
+            patterns.append(f"*_s{s}_ep{episode}.mp4")
+            patterns.append(f"*s{s}*ep{episode}*.mp4")
+
+    # Search in DOWNLOAD_DIR
+    for pattern in patterns:
+        matches = list(DOWNLOAD_DIR.glob(pattern))
+        for f in matches:
+            if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
+                return f
+            else:
+                # This file is too small – delete it (preview)
+                logger.warning(f"Deleting small file (preview) : {f} ({f.stat().st_size} bytes)")
+                f.unlink()
+                # Continue searching for a valid file
+    return None
+
+
+def download_episode_background(anime, episode, watchlist):
+    # Build canonical destination
+    if anime.season:
+        season_num = re.search(r'\d+', anime.season)
+        season_str = f"_s{season_num.group(0)}" if season_num else ""
+    else:
+        season_str = ""
+    canonical_name = f"{anime.name.replace(' ', '_')}{season_str}_ep{episode}.mp4"
+    canonical_dest = DOWNLOAD_DIR / canonical_name
+
+    # 1. Check canonical file
+    if canonical_dest.exists():
+        size = canonical_dest.stat().st_size
+        if size > PREVIEW_MAX_SIZE_BYTES:
+            logger.info(f"✅ Episode {episode} of {anime.name} already downloaded (canonical).")
+            update_watchlist(watchlist, anime, episode)
+            return True
+        else:
+            # small file – delete and treat as failed
+            logger.warning(f"Deleting small canonical file (preview): {canonical_dest}")
+            canonical_dest.unlink()
+            add_failed(anime.name, episode)
+            return False
+
+    # 2. Fuzzy search (any file containing anime name and episode)
+    existing = find_existing_file(anime.name, episode, anime.season)
+    if existing:
+        # find_existing_file already deleted any small file and returned a valid one
+        logger.info(f"✅ Episode {episode} of {anime.name} already downloaded (found as {existing.name}).")
+        update_watchlist(watchlist, anime, episode)
+        return True
+
+    # 3. No valid file – queue download
+    try:
+        link = get_download_link_with_fallback(anime, episode)   # episode page
+        # Try to get direct video URL
+        direct_url = SCRAPER_PRIMARY.get_direct_video_url(anime, episode)
+        if direct_url:
+            logger.info(f"Found direct video URL for {anime.name} ep {episode}: {direct_url}")
+            link = direct_url
+        elif SCRAPER_FALLBACK:
+            # Also try fallback scraper
+            fallback_url = SCRAPER_FALLBACK.get_direct_video_url(anime, episode) if hasattr(SCRAPER_FALLBACK, 'get_direct_video_url') else None
+            if fallback_url:
+                logger.info(f"Found direct video URL via fallback: {fallback_url}")
+                link = fallback_url
+        # If still no direct URL, use the episode page (yt-dlp will handle it)
+        if not link:
+            logger.error(f"No download link for {anime.name} ep {episode}")
+            add_failed(anime.name, episode)
+            return False
+        QUEUE.add_job(anime, episode, watchlist, canonical_dest, link)
+        return True
+    except Exception as e:
+        logger.exception(f"Error queuing {anime.name} ep {episode}: {e}")
+        add_failed(anime.name, episode)
+        return False
 
 def get_anime_by_name(name: str):
     watchlist = load_watchlist()
@@ -82,29 +171,20 @@ def get_download_link_with_fallback(anime, episode):
         except:
             raise RuntimeError("No download link found")
 
-
-def download_episode_background(anime, episode, watchlist):
-    try:
-        link = get_download_link_with_fallback(anime, episode)
-        if not link:
-            logger.error(f"No link for {anime.name} ep {episode}")
-            add_failed(anime.name, episode)
-            return False
-        anime_dir = DOWNLOAD_DIR / anime.name
-        if anime.season:
-            anime_dir = anime_dir / anime.season
-        dest = anime_dir / f"Episode {episode}.mp4"
-        QUEUE.add_job(anime, episode, watchlist, dest, link)
-        return True
-    except Exception as e:
-        logger.exception(f"Error queuing {anime.name} ep {episode}: {e}")
-        add_failed(anime.name, episode)
-        return False
-
-
 def process_anime_background(anime, watchlist):
+             # If completed, check if new episodes exist
     if anime.status == "completed":
-        return
+        latest = get_latest_with_fallback(anime)
+        if latest > anime.episode:
+            if Confirm.ask(f"[yellow]New episodes found for completed '{anime.name}'. Move back to watching and download?[/yellow]"):
+                anime.status = "watching"
+                save_watchlist(watchlist)
+                console.print("[green]✅ Moved back to watching.[/green]")
+            else:
+                return
+        else:
+            return
+
 
     latest = get_latest_with_fallback(anime)
     if latest == 0:
@@ -126,7 +206,6 @@ def process_anime_background(anime, watchlist):
 
 
 def sync_watchlist(anime_name=None):
-    """Update watchlist to latest episodes without downloading."""
     watchlist = load_watchlist()
     updated = 0
     for anime in watchlist:
@@ -148,7 +227,111 @@ def sync_watchlist(anime_name=None):
 
 
 # ------------------------------------------------------------
-# TUI Views with Keyboard Shortcuts
+# Page Links Manager
+def manage_page_links():
+    """Interactive page link manager with loop."""
+    scraper = SCRAPER_PRIMARY
+    while True:
+        watchlist = load_watchlist()
+        if not watchlist:
+            console.print("[yellow]Watchlist is empty. Add some anime first.[/yellow]")
+            return
+
+        mappings = scraper._url_map.copy()
+
+        # Display current links
+        console.print("\n[bold cyan]Current Page Links[/bold cyan]")
+        table = Table(title="Mapped URLs", box=box.ROUNDED)
+        table.add_column("Anime", style="white")
+        table.add_column("URL", style="blue")
+        table.add_column("Status", justify="center")
+
+        for anime in watchlist:
+            matched_url = None
+            for key, url in mappings.items():
+                if key == anime.name.lower() or anime.name.lower() in key or key in anime.name.lower():
+                    matched_url = url
+                    break
+            status = "✓" if matched_url else "✗"
+            table.add_row(anime.name, matched_url or "—", f"[{'green' if matched_url else 'red'}]{status}[/{'green' if matched_url else 'red'}]")
+        console.print(table)
+
+        console.print("\n[bold]Options:[/bold]")
+        console.print("1. Assign/update a page link")
+        console.print("2. Exit link manager")
+        action = Prompt.ask("Choose", choices=["1", "2"])
+
+        if action == "2":
+            break
+
+        # Select anime
+        console.print("\nSelect anime to assign/update its page link:")
+        for i, anime in enumerate(watchlist, 1):
+            console.print(f"{i}. {anime.name}")
+        console.print("0. Cancel")
+        choice = Prompt.ask("Enter number", default="0")
+
+        if choice == "0":
+            continue
+
+        try:
+            idx = int(choice) - 1
+            if not (0 <= idx < len(watchlist)):
+                console.print("[red]Invalid selection.[/red]")
+                continue
+            selected_anime = watchlist[idx]
+        except ValueError:
+            console.print("[red]Invalid input.[/red]")
+            continue
+
+        # Search or manual
+        console.print(f"\n[bold]Anime: {selected_anime.name}[/bold]")
+        console.print("1. Search online for page URL")
+        console.print("2. Enter URL manually")
+        subchoice = Prompt.ask("Choose", choices=["1", "2"])
+
+        selected_url = None
+        if subchoice == "1":
+            query = Prompt.ask("Enter search keyword (press Enter to use anime name)", default=selected_anime.name)
+            results = scraper.search_anime(query)
+            if not results:
+                console.print("[yellow]No results found.[/yellow]")
+                continue
+            console.print("\n[bold]Search Results:[/bold]")
+            for i, (name, url, latest) in enumerate(results, 1):
+                console.print(f"{i}. {name} [dim](latest: {latest})[/dim]")
+                console.print(f"   {url}")
+            url_choice = Prompt.ask("Select result number (or 0 to cancel)", default="0")
+            if url_choice == "0":
+                continue
+            try:
+                url_idx = int(url_choice) - 1
+                if not (0 <= url_idx < len(results)):
+                    console.print("[red]Invalid selection.[/red]")
+                    continue
+                selected_url = results[url_idx][1]
+            except ValueError:
+                console.print("[red]Invalid input.[/red]")
+                continue
+        else:
+            selected_url = Prompt.ask("Enter full URL of the anime's main page")
+
+        if not selected_url:
+            console.print("[red]No URL provided.[/red]")
+            continue
+
+        if Confirm.ask(f"Assign [cyan]{selected_url}[/cyan] to [yellow]{selected_anime.name}[/yellow]?"):
+            new_mappings = {k: v for k, v in mappings.items() if k != selected_anime.name.lower()}
+            new_mappings[selected_anime.name.lower()] = selected_url
+            scraper.save_links(new_mappings)
+            console.print("[green]✅ Page link assigned successfully![/green]")
+            # Continue loop
+        else:
+            console.print("[dim]Cancelled.[/dim]")
+
+
+# ------------------------------------------------------------
+# TUI Views
 # ------------------------------------------------------------
 
 def view_watchlist():
@@ -347,19 +530,14 @@ def test_modules():
 
 
 # ------------------------------------------------------------
-# Main TUI with Keyboard Shortcuts
+# Main TUI
 # ------------------------------------------------------------
 
 def tui():
     console.print(Panel.fit(f" Anime Downloader v{VERSION} ", style="bold magenta"))
-    # Escaped brackets to display literally
-    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed [/dim]")
-    console.print("             [dim]\\[s]earch \\[l]ogs \\[q]ueue status \\[quality] \\[t]est \\[e]xit[/dim]\n")
-
-
+    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links \\[quality] \\[t]est \\[e]xit[/dim]\n")
 
     while True:
-        # Show queue status line
         status = QUEUE.get_status()
         if status:
             active = sum(1 for s in status.values() if s[0] == "downloading")
@@ -368,7 +546,7 @@ def tui():
 
         choice = Prompt.ask(
             "[bold cyan]Command[/bold cyan]",
-            choices=["w", "d", "v", "r", "s", "l", "q", "quality", "t", "e"],
+            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "t", "e"],
             default="w"
         )
 
@@ -387,6 +565,8 @@ def tui():
             view_logs()
         elif choice == "q":
             show_queue_status()
+        elif choice == "p":
+            manage_page_links()
         elif choice == "quality":
             set_download_quality()
         elif choice == "t":

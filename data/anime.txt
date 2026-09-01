@@ -1,15 +1,14 @@
 watching
+perfect world::season 1::episode 284
 stellar transformation::season 7::episode 7
 The Great Ruler::season 2::episode 7
-appotheosis::season 3::episode 10
-Shrouding The Heavens::season 1::episode 175
-btth::season 5::episode 207
-perfect world::season 1::episode 277
-renegade immortal::season 1::episode 152
+apotheosis::season 3::episode 26
+Shrouding The Heavens::season 1::episode 176
+Battle through the heavens::season 5::episode 207
+renegade immortal::season 1::episode 155
 soul land 2::season 1::episode 151
 swallowed star::season 4::episode 146
-Tomb of Fallen Gods::season 3::episode 52
-Beyond the Timescape::season 1::episode 33
+Beyond the Timescape::season 1::episode 36
 sword and fairy 3::episode 8
 The Supreme Body Refining Master::episode 13
 sword of coming(jian lai)::episode 16
@@ -41,3 +40,4 @@ Nine Suns Martial God::season 1::episode 20
 Throne of seal::season 1::episode 208
 The Gate of Mystical Realm::season 1::episode 26
 Immortality::season 5::episode 26
+Tomb of Fallen Gods::season 3::episode 52

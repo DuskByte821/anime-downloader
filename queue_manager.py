@@ -72,9 +72,10 @@ class DownloadQueue:
         job.status = "downloading"
         logger.info(f"⏳ Downloading {job.anime.name} episode {job.episode} (job {job_id})")
         success = download_file(job.url, job.destination)
+        # Inside _process_job()
         if success:
             job.status = "completed"
-            # Update watchlist
+            # Update watchlist with the provided list
             update_watchlist(job.watchlist, job.anime, job.episode)
             remove_success(job.anime.name, job.episode)
             logger.info(f"✅ Job {job_id} completed")

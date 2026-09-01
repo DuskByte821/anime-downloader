@@ -1,9 +1,9 @@
-"""Scraper for LuciferDonghua using links.txt and episode scraping."""
+"""Scraper for LuciferDonghua with link mapping reload."""
 
 import logging
 import re
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
 import requests
 from bs4 import BeautifulSoup
@@ -20,47 +20,51 @@ class LuciferDonghuaScraper(Scraper):
     LINKS_FILE = DATA_DIR / "links.txt"
 
     def __init__(self):
-        self._episode_cache: Dict[str, Dict[int, str]] = {}  # anime_name -> {ep: full_url}
+        self._episode_cache: Dict[str, Dict[int, str]] = {}
         self._url_map: Dict[str, str] = self._load_url_map()
+
+    def reload_links(self):
+        """Reload the URL mapping from links.txt."""
+        self._url_map = self._load_url_map()
+        logger.debug(f"Reloaded {len(self._url_map)} anime mappings")
 
     # ----------------------------------------------------------------------
     # Mapping from anime name to main page URL
     # ----------------------------------------------------------------------
     def _clean_slug(self, slug: str) -> str:
-        """
-        Remove season, year, 'new' from slug to get base name.
-        Example: "tomb-of-fallen-gods-season-3-2025" -> "tomb of fallen gods"
-        """
         slug = re.sub(r"-season-\d+", "", slug)
         slug = re.sub(r"-new", "", slug)
         slug = re.sub(r"-\d{4}", "", slug)
-        # Replace hyphens with spaces and title case
         name = slug.replace("-", " ").title()
         return name
 
     def _load_url_map(self) -> Dict[str, str]:
-        """Load mapping from cleaned anime name (lowercase) to main page URL."""
         mapping = {}
         if not self.LINKS_FILE.exists():
-            logger.warning(f"Links file {self.LINKS_FILE} not found.")
             return mapping
         with self.LINKS_FILE.open("r", encoding="utf-8") as f:
             for line in f:
                 url = line.strip()
                 if not url:
                     continue
-                # Extract slug from URL like "/anime/renegade-immortal-xian-ni/"
                 match = re.search(r"/anime/([^/]+)/?$", url)
                 if match:
                     slug = match.group(1)
                     clean_name = self._clean_slug(slug)
                     mapping[clean_name.lower()] = url
-        logger.debug(f"Loaded {len(mapping)} anime mappings from links.txt")
         return mapping
+        
+    def save_links(self, mapping: Dict[str, str]):
+        """Save a new mapping to links.txt (overwrites)."""
+        with self.LINKS_FILE.open("w", encoding="utf-8") as f:
+            for url in mapping.values():
+                f.write(url + "\n")
+        self.reload_links()
 
-    # Add to LuciferDonghuaScraper class
-    def search_anime(self, query: str) -> list:
-        """Search for anime on LuciferDonghua and return list of (name, url, latest_ep)."""
+    def search_anime(self, query: str) -> List[tuple]:
+        """
+        Search for anime on LuciferDonghua and return list of (name, url, latest_ep).
+        """
         results = []
         try:
             search_url = f"{self.BASE_URL}/search?keyword={query.replace(' ', '+')}"
@@ -75,7 +79,7 @@ class LuciferDonghuaScraper(Scraper):
                 url = a.get("href")
                 if not url.startswith("http"):
                     url = self.BASE_URL + url
-                # Get latest episode from this page if possible
+                # get latest episode (quick fetch)
                 latest = 0
                 try:
                     resp2 = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
@@ -92,7 +96,7 @@ class LuciferDonghuaScraper(Scraper):
                 results.append((name, url, latest))
         except Exception as e:
             logger.exception(f"Search failed: {e}")
-        return results    
+        return results
 
     # ----------------------------------------------------------------------
     # Helper methods
@@ -150,6 +154,38 @@ class LuciferDonghuaScraper(Scraper):
     # ----------------------------------------------------------------------
     # Episode scraping
     # ----------------------------------------------------------------------
+    def get_direct_video_url(self, anime: Anime, episode: int) -> Optional[str]:
+        """
+        Fetch the episode page and extract the direct video URL (e.g., Dailymotion embed).
+        Returns the URL or None if not found.
+        """
+        episode_url = self.get_download_link(anime, episode)  # gets the episode page
+        try:
+            resp = requests.get(episode_url, headers=HEADERS, timeout=TIMEOUT)
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, "html.parser")
+            # Look for iframes – common pattern for Dailymotion
+            iframe = soup.find("iframe", src=re.compile(r"(dailymotion|youtube|player\.vimeo)"))
+            if iframe:
+                src = iframe.get("src")
+                if src:
+                    # Clean up URL (remove query params if needed)
+                    return src
+            # Also look for video source tags
+            video = soup.find("video")
+            if video:
+                source = video.find("source")
+                if source and source.get("src"):
+                    return source["src"]
+            # Try to find any link ending with .mp4
+            for a in soup.find_all("a", href=True):
+                if a["href"].endswith(".mp4"):
+                    return a["href"]
+            return None
+        except Exception as e:
+            logger.exception(f"Failed to extract direct video URL for {anime.name} ep {episode}: {e}")
+            return None
+
     def _scrape_episode_links(self, page_url: str) -> Dict[int, str]:
         """
         Fetch the main page, extract all episode links.

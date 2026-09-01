@@ -2786,3 +2786,471 @@ requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in
 2026-08-06 16:09:33,148 - __main__ - INFO - ✅ Successfully updated Shrouding The Heavens to episode 175
 2026-08-06 16:09:33,148 - __main__ - INFO - ✅ Episode 175 done
 2026-08-06 18:08:04,279 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-08-07 15:18:53,863 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=btth
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 68, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=btth
+2026-08-07 15:19:28,692 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Perfect+World
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 68, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Perfect+World
+2026-08-20 17:35:19,853 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-08-20 17:35:21,586 - scraper.luciferdonghua - INFO - Latest episode for The Great Ruler: 35
+2026-08-20 17:35:25,547 - scraper.luciferdonghua - WARNING - Could not find main page for appotheosis
+2026-08-20 17:35:28,679 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 177
+2026-08-20 17:35:31,731 - scraper.luciferdonghua - WARNING - Could not find main page for btth
+2026-08-20 17:35:34,639 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-20 17:35:37,199 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 154
+2026-08-20 17:35:39,559 - scraper.luciferdonghua - INFO - Latest episode for soul land 2: 167
+2026-08-20 17:35:42,191 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 153
+2026-08-20 17:35:44,628 - scraper.luciferdonghua - INFO - Latest episode for Tomb of Fallen Gods: 52
+2026-08-20 17:35:47,410 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 36
+2026-08-20 17:35:49,823 - scraper.luciferdonghua - WARNING - Could not find main page for sword and fairy 3
+2026-08-20 17:35:51,945 - scraper.luciferdonghua - WARNING - Could not find main page for The Supreme Body Refining Master
+2026-08-20 17:35:54,866 - scraper.luciferdonghua - WARNING - Could not find main page for sword of coming(jian lai)
+2026-08-20 17:35:57,402 - scraper.luciferdonghua - WARNING - Could not find main page for keyboard immortal
+2026-08-20 17:36:02,994 - scraper.luciferdonghua - WARNING - Could not find main page for The Divine Emperor of Destiny
+2026-08-20 17:36:05,087 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
+2026-08-20 17:36:07,702 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm
+2026-08-20 17:36:42,147 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 36
+2026-08-20 17:36:42,151 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 34 (job 1)
+2026-08-20 17:36:42,151 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 35 (job 2)
+2026-08-20 17:36:44,332 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 35.mp4 (quality: 720p)
+2026-08-20 17:36:44,369 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 34.mp4 (quality: 720p)
+2026-08-20 18:01:00,379 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-20 18:01:00,383 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-20 18:01:00,383 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 36 (job 3)
+2026-08-20 18:01:02,261 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36.mp4 (quality: 720p)
+2026-08-20 18:01:10,186 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 18:01:19,934 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 18:01:31,312 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 18:01:31,313 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/
+2026-08-20 18:01:31,321 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-20 18:01:34,211 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-20 18:01:34,212 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-20 18:27:04,957 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 36
+2026-08-20 18:27:04,964 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 34 (job 1)
+2026-08-20 18:27:05,466 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 35 (job 2)
+2026-08-20 18:27:07,436 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 34.mp4 (quality: 720p)
+2026-08-20 18:27:08,035 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 35.mp4 (quality: 720p)
+2026-08-20 18:27:19,161 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-20 18:27:19,162 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-20 18:27:19,162 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 36 (job 3)
+2026-08-20 18:27:19,736 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-20 18:27:19,736 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-20 18:27:20,898 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36.mp4 (quality: 720p)
+2026-08-20 18:27:28,247 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 18:27:37,437 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 18:27:49,370 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 18:27:49,370 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/
+2026-08-20 18:27:49,371 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-20 18:28:41,301 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-08-20 18:28:42,318 - scraper.luciferdonghua - INFO - Latest episode for The Great Ruler: 35
+2026-08-20 22:30:42,738 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-08-20 22:30:44,121 - scraper.luciferdonghua - INFO - Latest episode for The Great Ruler: 35
+2026-08-20 22:30:46,539 - scraper.luciferdonghua - WARNING - Could not find main page for appotheosis
+2026-08-20 22:30:48,203 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 177
+2026-08-20 22:30:50,754 - scraper.luciferdonghua - WARNING - Could not find main page for btth
+2026-08-20 22:30:52,987 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-20 22:30:54,694 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 154
+2026-08-20 22:30:56,638 - scraper.luciferdonghua - INFO - Latest episode for soul land 2: 167
+2026-08-20 22:30:58,657 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 153
+2026-08-20 22:31:00,029 - scraper.luciferdonghua - INFO - Latest episode for Tomb of Fallen Gods: 52
+2026-08-20 22:31:01,527 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 36
+2026-08-20 22:31:03,408 - scraper.luciferdonghua - WARNING - Could not find main page for sword and fairy 3
+2026-08-20 22:31:05,101 - scraper.luciferdonghua - WARNING - Could not find main page for The Supreme Body Refining Master
+2026-08-20 22:31:06,737 - scraper.luciferdonghua - WARNING - Could not find main page for sword of coming(jian lai)
+2026-08-20 22:31:08,478 - scraper.luciferdonghua - WARNING - Could not find main page for keyboard immortal
+2026-08-20 22:31:10,954 - scraper.luciferdonghua - WARNING - Could not find main page for The Divine Emperor of Destiny
+2026-08-20 22:31:12,638 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
+2026-08-20 22:31:14,392 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm
+2026-08-20 22:34:05,527 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 154
+2026-08-20 22:34:05,531 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 1)
+2026-08-20 22:34:05,532 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 2)
+2026-08-20 22:34:07,562 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4 (quality: 720p)
+2026-08-20 22:34:07,563 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154.mp4 (quality: 720p)
+2026-08-20 22:34:17,915 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 22:34:33,234 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 22:34:47,100 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-20 22:34:47,100 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-20 22:34:47,101 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-20 22:46:26,603 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-20 22:46:26,604 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-22 15:49:47,762 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 154
+2026-08-22 15:49:47,768 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 1)
+2026-08-22 15:49:48,269 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 2)
+2026-08-22 15:49:48,776 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4 (quality: 720p)
+2026-08-22 15:49:49,061 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154.mp4 (quality: 720p)
+2026-08-22 15:49:56,345 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-22 15:50:07,015 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-22 15:50:16,813 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-22 15:50:16,813 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-22 15:50:16,816 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-22 16:03:05,504 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-22 16:03:05,505 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 12:48:10,238 - __main__ - DEBUG - Debug mode enabled
+2026-08-23 12:48:10,242 - scraper.luciferdonghua - DEBUG - Using fuzzy mapping for renegade immortal: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/
+2026-08-23 12:48:10,251 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): luciferdonghua.in:443
+2026-08-23 12:48:11,643 - urllib3.connectionpool - DEBUG - https://luciferdonghua.in:443 "GET /anime/renegade-immortal-xian-ni/ HTTP/1.1" 200 None
+2026-08-23 12:48:12,315 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-23 12:48:12,316 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 1)
+2026-08-23 12:48:12,317 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 2)
+2026-08-23 12:48:13,951 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154.mp4 (quality: 720p)
+2026-08-23 12:48:13,953 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4 (quality: 720p)
+2026-08-23 12:48:21,405 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 12:48:34,536 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 12:48:45,354 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 12:48:45,354 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-23 12:48:45,357 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 12:48:45,358 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 3)
+2026-08-23 12:48:46,102 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155.mp4 (quality: 720p)
+2026-08-23 12:48:54,583 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 12:49:06,609 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 12:49:17,614 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 12:49:17,615 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/
+2026-08-23 12:49:17,615 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-23 13:00:23,669 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-23 13:00:23,670 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 13:38:35,653 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=https://luciferdonghua.in/anime/sword-and-fairy-3-2025/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 72, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=https://luciferdonghua.in/anime/sword-and-fairy-3-2025/
+2026-08-23 13:39:52,548 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=https://luciferdonghua.in/anime/sword-and-fairy-3-2025/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 72, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=https://luciferdonghua.in/anime/sword-and-fairy-3-2025/
+2026-08-23 13:40:30,981 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-23 13:40:30,983 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 1)
+2026-08-23 13:40:30,984 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 2)
+2026-08-23 13:40:31,604 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154.mp4 (quality: 720p)
+2026-08-23 13:40:31,604 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4 (quality: 720p)
+2026-08-23 13:40:36,318 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 13:40:37,186 - downloader - ERROR - No file found after yt‑dlp completion.
+2026-08-23 13:40:37,186 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 13:40:37,186 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 3)
+2026-08-23 13:40:37,718 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155.mp4 (quality: 720p)
+2026-08-23 13:40:41,893 - downloader - WARNING - ⚠️ yt‑dlp attempt 1 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 13:40:42,512 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 13:40:49,430 - downloader - WARNING - ⚠️ yt‑dlp attempt 2 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 13:40:49,440 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 13:40:49,440 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-23 13:40:49,441 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 13:40:55,670 - downloader - WARNING - ⚠️ yt‑dlp attempt 3 failed: Command '['yt-dlp', 'https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/', '-o', '/home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155', '-f', 'bestvideo[height<=720]+bestaudio/best[height<=720]', '--no-playlist', '--no-warnings', '--output', '%(title)s.%(ext)s']' returned non-zero exit status 1.
+2026-08-23 13:40:55,670 - downloader - ERROR - ❌ All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/
+2026-08-23 13:40:55,670 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-23 14:01:54,502 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-23 14:01:54,504 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 1)
+2026-08-23 14:01:54,505 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 2)
+2026-08-23 14:01:55,119 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4 (quality: 720p)
+2026-08-23 14:01:55,138 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154.mp4 (quality: 720p)
+2026-08-23 14:02:00,417 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:02:11,963 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:02:20,728 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:02:20,728 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-23 14:02:20,728 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 14:02:20,728 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 3)
+2026-08-23 14:02:21,280 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155.mp4 (quality: 720p)
+2026-08-23 14:02:29,602 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:02:57,916 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-23 14:02:57,918 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 1)
+2026-08-23 14:02:57,919 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 2)
+2026-08-23 14:02:58,567 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4 (quality: 720p)
+2026-08-23 14:02:58,609 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 154.mp4 (quality: 720p)
+2026-08-23 14:03:04,671 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:03:06,327 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 153.mp4
+2026-08-23 14:03:06,327 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 14:03:06,328 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 3)
+2026-08-23 14:03:06,960 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/renegade immortal/season 1/Episode 155.mp4 (quality: 720p)
+2026-08-23 14:03:10,743 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:03:11,856 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:03:17,266 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:03:17,267 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-23 14:03:17,267 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 14:03:19,159 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:03:25,889 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:03:25,889 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/
+2026-08-23 14:03:25,890 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-23 14:29:29,651 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 37
+2026-08-23 14:29:29,653 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 34 (job 1)
+2026-08-23 14:29:29,654 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 35 (job 2)
+2026-08-23 14:29:30,335 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 35.mp4 (quality: 720p)
+2026-08-23 14:29:30,335 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 34.mp4 (quality: 720p)
+2026-08-23 14:34:23,861 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 37
+2026-08-23 14:34:23,864 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 36 (job 1)
+2026-08-23 14:34:23,864 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 37 (job 2)
+2026-08-23 14:34:24,758 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 37.mp4 (quality: 720p)
+2026-08-23 14:34:24,785 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Beyond the Timescape/season 1/Episode 36.mp4 (quality: 720p)
+2026-08-23 14:34:30,024 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: Unsupported URL: https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+
+2026-08-23 14:34:30,859 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:34:36,204 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: Unsupported URL: https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+
+2026-08-23 14:34:38,394 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:34:47,201 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: Unsupported URL: https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+
+2026-08-23 14:34:47,203 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+2026-08-23 14:34:47,209 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 14:34:48,376 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 14:34:48,377 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/
+2026-08-23 14:34:48,377 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 14:54:54,204 - scraper.luciferdonghua - WARNING - No episode links found for Battle through the heavens
+2026-08-23 14:54:54,205 - __main__ - INFO - Fallback scraper used for Battle through the heavens
+2026-08-23 14:54:54,207 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 208 (job 1)
+2026-08-23 14:54:54,207 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 209 (job 2)
+2026-08-23 14:54:55,056 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Battle through the heavens/season 5/Episode 209.mp4 (quality: 720p)
+2026-08-23 14:54:55,096 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Battle through the heavens/season 5/Episode 208.mp4 (quality: 720p)
+2026-08-23 14:54:57,702 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: [generic] episode-209: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:54:57,709 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: [generic] episode-208: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:03,191 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: [generic] episode-209: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:03,222 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: [generic] episode-208: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:08,110 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: [generic] episode-209: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:08,110 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-209/
+2026-08-23 14:55:08,111 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 14:55:08,111 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 210 (job 3)
+2026-08-23 14:55:08,112 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: [generic] episode-208: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:08,112 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-208/
+2026-08-23 14:55:08,114 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 14:55:08,992 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/Battle through the heavens/season 5/Episode 210.mp4 (quality: 720p)
+2026-08-23 14:55:11,648 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: [generic] episode-210: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:16,175 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: [generic] episode-210: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:21,008 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: [generic] episode-210: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)
+
+2026-08-23 14:55:21,009 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-210/
+2026-08-23 14:55:21,009 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-23 14:58:44,187 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 14:58:44,190 - queue_manager - INFO - ⏳ Downloading perfect world episode 278 (job 1)
+2026-08-23 14:58:44,190 - queue_manager - INFO - ⏳ Downloading perfect world episode 279 (job 2)
+2026-08-23 14:58:45,047 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 279.mp4 (quality: 720p)
+2026-08-23 14:58:45,065 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 278.mp4 (quality: 720p)
+2026-08-23 14:59:30,358 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 14:59:30,360 - queue_manager - INFO - ⏳ Downloading perfect world episode 281 (job 1)
+2026-08-23 14:59:30,360 - queue_manager - INFO - ⏳ Downloading perfect world episode 282 (job 2)
+2026-08-23 14:59:31,184 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 282.mp4 (quality: 720p)
+2026-08-23 14:59:31,218 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 281.mp4 (quality: 720p)
+2026-08-23 15:18:56,764 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 282.mp4
+2026-08-23 15:18:56,773 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 15:18:56,773 - queue_manager - INFO - ⏳ Downloading perfect world episode 283 (job 3)
+2026-08-23 15:18:57,853 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 283.mp4 (quality: 720p)
+2026-08-23 15:22:50,430 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 281.mp4
+2026-08-23 15:22:50,431 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 15:22:50,431 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 4)
+2026-08-23 15:22:51,467 - downloader - INFO - 📁 Downloading to: /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 284.mp4 (quality: 720p)
+2026-08-23 15:23:56,409 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 284.mp4
+2026-08-23 15:23:56,409 - queue_manager - ERROR - ❌ Job 4 failed
+2026-08-23 15:32:32,236 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Videos/Anime/anime-dl/perfect world/season 1/Episode 283.mp4
+2026-08-23 15:32:32,390 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-23 15:38:24,702 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 15:38:24,704 - queue_manager - INFO - ⏳ Downloading perfect world episode 281 (job 1)
+2026-08-23 15:38:24,704 - queue_manager - INFO - ⏳ Downloading perfect world episode 282 (job 2)
+2026-08-23 15:38:25,613 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect world/season 1/Episode 281.mp4 (quality: 720p)
+2026-08-23 15:38:25,614 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect world/season 1/Episode 282.mp4 (quality: 720p)
+2026-08-23 15:43:50,121 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 15:43:50,122 - queue_manager - INFO - ⏳ Downloading perfect world episode 281 (job 1)
+2026-08-23 15:43:50,623 - queue_manager - INFO - ⏳ Downloading perfect world episode 282 (job 2)
+2026-08-23 15:43:50,787 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep281.mp4 (quality: 720p)
+2026-08-23 15:43:51,455 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep282.mp4 (quality: 720p)
+2026-08-23 15:43:58,621 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep281.mp4
+2026-08-23 15:43:58,622 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 15:43:58,622 - queue_manager - INFO - ⏳ Downloading perfect world episode 283 (job 3)
+2026-08-23 15:43:59,384 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep283.mp4 (quality: 720p)
+2026-08-23 15:43:59,741 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep282.mp4
+2026-08-23 15:43:59,742 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 15:43:59,742 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 4)
+2026-08-23 15:44:00,539 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4 (quality: 720p)
+2026-08-23 15:44:06,676 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep283.mp4
+2026-08-23 15:44:06,676 - queue_manager - ERROR - ❌ Job 3 failed
+2026-08-23 16:42:04,158 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 16:42:04,159 - queue_manager - INFO - ⏳ Downloading perfect world episode 281 (job 1)
+2026-08-23 16:42:04,162 - queue_manager - INFO - ⏳ Downloading perfect world episode 282 (job 2)
+2026-08-23 16:42:04,979 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep282.mp4 (quality: 720p)
+2026-08-23 16:42:04,987 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep281.mp4 (quality: 720p)
+2026-08-23 16:42:13,903 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep282.mp4
+2026-08-23 16:42:13,903 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 16:42:13,904 - queue_manager - INFO - ⏳ Downloading perfect world episode 283 (job 3)
+2026-08-23 16:42:13,918 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep281.mp4
+2026-08-23 16:42:13,919 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 16:42:13,919 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 4)
+2026-08-23 16:42:14,752 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4 (quality: 720p)
+2026-08-23 16:42:14,754 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep283.mp4 (quality: 720p)
+2026-08-23 16:42:43,643 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 16:42:43,644 - queue_manager - INFO - ⏳ Downloading perfect world episode 281 (job 1)
+2026-08-23 16:42:43,646 - queue_manager - INFO - ⏳ Downloading perfect world episode 282 (job 2)
+2026-08-23 16:42:44,455 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep281.mp4 (quality: 720p)
+2026-08-23 16:42:44,463 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep282.mp4 (quality: 720p)
+2026-08-23 16:43:56,253 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 16:43:56,253 - __main__ - INFO - ✅ Episode 281 of perfect world already downloaded.
+2026-08-23 16:43:56,253 - updater - INFO - 🔄 Updating perfect world: 280 → 281
+2026-08-23 16:43:56,254 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-08-23 16:43:56,255 - updater - INFO - ✅ Verified: perfect world now at episode 281
+2026-08-23 16:43:56,255 - __main__ - INFO - ✅ Episode 282 of perfect world already downloaded.
+2026-08-23 16:43:56,255 - updater - INFO - 🔄 Updating perfect world: 281 → 282
+2026-08-23 16:43:56,256 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-08-23 16:43:56,257 - updater - INFO - ✅ Verified: perfect world now at episode 282
+2026-08-23 16:43:56,257 - __main__ - INFO - ✅ Episode 283 of perfect world already downloaded.
+2026-08-23 16:43:56,257 - updater - INFO - 🔄 Updating perfect world: 282 → 283
+2026-08-23 16:43:56,257 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-08-23 16:43:56,257 - updater - INFO - ✅ Verified: perfect world now at episode 283
+2026-08-23 16:43:56,259 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 1)
+2026-08-23 16:43:56,924 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4 (quality: 720p)
+2026-08-23 16:44:19,260 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4
+2026-08-23 16:44:19,260 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 16:45:39,259 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 16:45:39,261 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 1)
+2026-08-23 16:45:39,914 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4 (quality: 720p)
+2026-08-23 16:45:48,257 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4
+2026-08-23 16:45:48,258 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 16:59:25,936 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 16:59:25,938 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 1)
+2026-08-23 16:59:26,622 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4 (quality: 720p)
+2026-08-23 16:59:33,621 - downloader - ERROR - yt-dlp succeeded but no file found for /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4
+2026-08-23 16:59:33,621 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 17:08:37,474 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 17:08:37,476 - __main__ - INFO - ✅ Episode 284 of perfect world already downloaded (found as PW ep284 pv.mp4).
+2026-08-23 17:08:37,476 - updater - INFO - 🔄 Updating perfect world: 283 → 284
+2026-08-23 17:08:37,476 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-08-23 17:08:37,477 - updater - INFO - ✅ Verified: perfect world now at episode 284
+2026-08-23 17:11:50,882 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 177
+2026-08-23 17:11:50,885 - queue_manager - INFO - ⏳ Downloading Shrouding The Heavens episode 176 (job 1)
+2026-08-23 17:11:51,386 - queue_manager - INFO - ⏳ Downloading Shrouding The Heavens episode 177 (job 2)
+2026-08-23 17:11:51,584 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Shrouding_The_Heavens_s1_ep176.mp4 (quality: 720p)
+2026-08-23 17:11:52,189 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Shrouding_The_Heavens_s1_ep177.mp4 (quality: 720p)
+2026-08-23 17:12:41,225 - downloader - ERROR - yt-dlp completed but /home/zain/Scripts/anime-downloader/downloads/Shrouding_The_Heavens_s1_ep177.mp4 does not exist.
+2026-08-23 17:12:41,225 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 17:46:16,313 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 17:46:41,863 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 284
+2026-08-23 17:46:43,664 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-08-23 17:46:46,283 - scraper.luciferdonghua - INFO - Latest episode for The Great Ruler: 36
+2026-08-23 17:46:49,113 - scraper.luciferdonghua - INFO - Latest episode for apotheosis: 26
+2026-08-23 17:46:51,046 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 177
+2026-08-23 17:46:54,064 - scraper.luciferdonghua - WARNING - No episode links found for Battle through the heavens
+2026-08-23 17:46:54,065 - __main__ - INFO - Fallback scraper used for Battle through the heavens
+2026-08-23 17:46:56,897 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-23 17:47:00,055 - scraper.luciferdonghua - INFO - Latest episode for soul land 2: 168
+2026-08-23 17:47:03,745 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 153
+2026-08-23 17:47:05,481 - scraper.luciferdonghua - INFO - Latest episode for Tomb of Fallen Gods: 52
+2026-08-23 17:47:07,705 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 37
+2026-08-23 17:47:10,687 - scraper.luciferdonghua - WARNING - Could not find main page for sword and fairy 3
+2026-08-23 17:47:13,271 - scraper.luciferdonghua - WARNING - Could not find main page for The Supreme Body Refining Master
+2026-08-23 17:47:16,431 - scraper.luciferdonghua - WARNING - Could not find main page for sword of coming(jian lai)
+2026-08-23 17:47:19,221 - scraper.luciferdonghua - WARNING - Could not find main page for keyboard immortal
+2026-08-23 17:47:24,005 - scraper.luciferdonghua - WARNING - Could not find main page for The Divine Emperor of Destiny
+2026-08-23 17:47:26,940 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
+2026-08-23 17:47:29,429 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm
+2026-08-23 18:01:50,757 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 177
+2026-08-23 18:01:50,758 - __main__ - INFO - ✅ Episode 176 of Shrouding The Heavens already downloaded (found as STH ep176 engsub + indo cc [4K].fhls-720.mp4).
+2026-08-23 18:01:50,758 - updater - INFO - 🔄 Updating Shrouding The Heavens: 175 → 176
+2026-08-23 18:01:50,759 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-08-23 18:01:50,759 - updater - INFO - ✅ Verified: Shrouding The Heavens now at episode 176
+2026-08-23 18:01:50,761 - __main__ - WARNING - Deleting small file (preview) : /home/zain/Scripts/anime-downloader/downloads/STH ep177pv.mp4 (7801894 bytes)
+2026-08-23 18:01:50,767 - queue_manager - INFO - ⏳ Downloading Shrouding The Heavens episode 177 (job 1)
+2026-08-23 18:01:51,468 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Shrouding_The_Heavens_s1_ep177.mp4 (quality: 720p)
+2026-08-23 18:02:21,303 - downloader - WARNING - yt‑dlp attempt 1 failed (code 0): 
+2026-08-23 18:02:31,096 - downloader - WARNING - yt‑dlp attempt 2 failed (code 0): 
+2026-08-23 18:02:41,514 - downloader - WARNING - yt‑dlp attempt 3 failed (code 0): 
+2026-08-23 18:02:41,514 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/shrouding-the-heavens-episode-177-lucifer-donghua/
+2026-08-23 18:02:41,514 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-23 18:03:17,431 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 37
+2026-08-23 18:03:17,433 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 36 (job 1)
+2026-08-23 18:03:17,935 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 37 (job 2)
+2026-08-23 18:03:18,152 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep36.mp4 (quality: 720p)
+2026-08-23 18:03:18,816 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep37.mp4 (quality: 720p)
+2026-08-23 18:03:22,850 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: Unsupported URL: https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+
+2026-08-23 18:03:23,310 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 18:03:30,012 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: Unsupported URL: https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+
+2026-08-23 18:03:31,199 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 18:03:36,481 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: Unsupported URL: https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+
+2026-08-23 18:03:36,481 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-37-lucifer-donghua/
+2026-08-23 18:03:36,482 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-23 18:03:38,313 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-23 18:03:38,313 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-36-lucifer-donghua/
+2026-08-23 18:03:38,314 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-29 14:13:32,340 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-29 14:13:32,347 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 1)
+2026-08-29 14:13:32,848 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 2)
+2026-08-29 14:13:33,496 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep154.mp4 (quality: 720p)
+2026-08-29 14:13:33,723 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep155.mp4 (quality: 720p)
+2026-08-29 14:13:41,943 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:13:42,035 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:13:52,067 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:13:52,238 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:14:04,784 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:14:04,784 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-155-lucifer-donghua/
+2026-08-29 14:14:04,788 - queue_manager - ERROR - ❌ Job 2 failed
+2026-08-29 14:14:04,809 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:14:04,809 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/renegade-immortal-xian-ni-episode-154-lucifer-donghua/
+2026-08-29 14:14:04,809 - queue_manager - ERROR - ❌ Job 1 failed
+2026-08-29 14:19:29,434 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-29 14:19:29,438 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 1)
+2026-08-29 14:19:29,938 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 2)
+2026-08-29 14:19:30,135 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep154.mp4 (quality: 720p)
+2026-08-29 14:19:30,740 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep155.mp4 (quality: 720p)
+2026-08-29 14:19:34,197 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:19:35,535 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:19:40,386 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1): ERROR: 'NoneType' object is not subscriptable
+
+2026-08-29 14:40:10,870 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 155
+2026-08-29 14:40:11,856 - __main__ - INFO - Found direct video URL for renegade immortal ep 154: https://geo.dailymotion.com/player.html?video=k3rV0QFJJbyZ7KIOgyi
+2026-08-29 14:40:11,857 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 1)
+2026-08-29 14:40:11,860 - __main__ - INFO - ✅ Episode 155 of renegade immortal already downloaded (found as RIep155 engsub+Indo CC [4K].mp4).
+2026-08-29 14:40:11,861 - updater - INFO - 🔄 Updating renegade immortal: 153 → 155
+2026-08-29 14:40:11,861 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-08-29 14:40:11,865 - updater - INFO - ✅ Verified: renegade immortal now at episode 155
+2026-08-29 14:40:12,508 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep154.mp4 (quality: 720p)
+2026-08-29 14:51:56,790 - downloader - ERROR - yt-dlp completed but /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep154.mp4 does not exist.
+2026-08-29 14:51:56,791 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-01 20:57:40,372 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 156
+2026-09-01 20:57:41,324 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 156 (job 1)
+2026-09-01 20:57:42,346 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep156.mp4 (quality: 720p)
+2026-09-01 21:17:55,358 - downloader - ERROR - yt-dlp completed but /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep156.mp4 does not exist.
+2026-09-01 21:17:55,400 - queue_manager - ERROR - ❌ Job 1 failed

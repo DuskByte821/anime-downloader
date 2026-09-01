@@ -25,6 +25,7 @@ from config import (
     YT_DLP_OPTIONS,
     QUALITY_OPTIONS,
     DEFAULT_QUALITY,
+    PREVIEW_MAX_SIZE_BYTES,
 )
 
 logger = logging.getLogger(__name__)
@@ -64,7 +65,7 @@ def _download_with_ytdlp(url: str, destination: Path, retries: int) -> bool:
     dest_dir = destination.parent
     dest_dir.mkdir(parents=True, exist_ok=True)
 
-    output_template = str(destination.with_suffix(""))  # remove .mp4
+    output_template = str(destination.with_suffix(".%(ext)s"))
     format_option = QUALITY_OPTIONS.get(CURRENT_QUALITY, QUALITY_OPTIONS[DEFAULT_QUALITY])
 
     cmd = [

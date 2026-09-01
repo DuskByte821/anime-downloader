@@ -43,7 +43,6 @@ YT_DLP_OPTIONS = [
     "--no-playlist",
     "--no-warnings",
     "--merge-output-format", "mp4",   # ensures output is always .mp4
-    "--output", "%(title)s.%(ext)s", # yt-dlp will name as it likes; we'll rely on fuzzy matching
 ]
 
 LUCIFER_DONGHUA_BASE = "https://luciferdonghua.in"

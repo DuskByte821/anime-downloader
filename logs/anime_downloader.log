@@ -3254,3 +3254,47 @@ requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luci
 2026-09-01 20:57:42,346 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep156.mp4 (quality: 720p)
 2026-09-01 21:17:55,358 - downloader - ERROR - yt-dlp completed but /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep156.mp4 does not exist.
 2026-09-01 21:17:55,400 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-01 22:08:57,331 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 156
+2026-09-01 22:08:57,331 - __main__ - INFO - ✅ Episode 156 of renegade immortal already downloaded (canonical).
+2026-09-01 22:08:57,331 - updater - INFO - 🔄 Updating renegade immortal: 155 → 156
+2026-09-01 22:08:57,332 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-01 22:08:57,333 - updater - INFO - ✅ Verified: renegade immortal now at episode 156
+2026-09-01 22:09:31,377 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 285
+2026-09-01 22:09:32,325 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-09-01 22:09:33,231 - scraper.luciferdonghua - INFO - Latest episode for The Great Ruler: 37
+2026-09-01 22:09:34,133 - scraper.luciferdonghua - INFO - Latest episode for apotheosis: 26
+2026-09-01 22:09:35,128 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 180
+2026-09-01 22:09:36,519 - scraper.luciferdonghua - INFO - Latest episode for Battle through the heavens: 208
+2026-09-01 22:09:37,214 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 156
+2026-09-01 22:09:38,344 - scraper.luciferdonghua - INFO - Latest episode for soul land 2: 169
+2026-09-01 22:09:39,754 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-01 22:09:40,766 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 38
+2026-09-01 22:09:41,995 - scraper.luciferdonghua - WARNING - Could not find main page for sword and fairy 3
+2026-09-01 22:09:44,353 - scraper.luciferdonghua - WARNING - Could not find main page for The Supreme Body Refining Master
+2026-09-01 22:09:45,417 - scraper.luciferdonghua - WARNING - Could not find main page for sword of coming(jian lai)
+2026-09-01 22:09:46,624 - scraper.luciferdonghua - WARNING - Could not find main page for keyboard immortal
+2026-09-01 22:09:48,304 - scraper.luciferdonghua - WARNING - Could not find main page for The Divine Emperor of Destiny
+2026-09-01 22:09:49,459 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
+2026-09-01 22:09:50,536 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm
+2026-09-01 22:10:25,187 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 38
+2026-09-01 22:10:26,047 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 37 (job 1)
+2026-09-01 22:10:27,048 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 38 (job 2)
+2026-09-01 22:10:27,093 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep37.mp4 (quality: 720p)
+2026-09-01 22:10:27,817 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep38.mp4 (quality: 720p)
+2026-09-01 22:10:32,112 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-01 22:10:40,659 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-01 22:10:47,591 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-01 22:10:47,591 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-38-lucifer-donghua/
+2026-09-01 22:10:47,592 - queue_manager - ERROR - ❌ Job 2 failed
+2026-09-01 22:46:58,085 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 38
+2026-09-01 22:46:58,086 - __main__ - INFO - ✅ Episode 37 of Beyond the Timescape already downloaded (canonical).
+2026-09-01 22:46:58,086 - updater - INFO - 🔄 Updating Beyond the Timescape: 36 → 37
+2026-09-01 22:46:58,086 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-01 22:46:58,087 - updater - INFO - ✅ Verified: Beyond the Timescape now at episode 37
+2026-09-01 22:46:58,832 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 38 (job 1)
+2026-09-01 22:46:59,500 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep38.mp4 (quality: 720p)
+2026-09-01 22:47:02,754 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-01 22:47:14,670 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-01 22:47:33,729 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-01 22:47:33,730 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-38-lucifer-donghua/
+2026-09-01 22:47:33,733 - queue_manager - ERROR - ❌ Job 1 failed

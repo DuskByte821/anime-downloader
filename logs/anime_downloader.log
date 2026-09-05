@@ -3298,3 +3298,457 @@ requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luci
 2026-09-01 22:47:33,729 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
 2026-09-01 22:47:33,730 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-38-lucifer-donghua/
 2026-09-01 22:47:33,733 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-03 22:27:07,810 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-03 22:27:09,315 - queue_manager - INFO - ⏳ Downloading swallowed star episode 147 (job 1)
+2026-09-03 22:27:10,488 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep147.mp4 (quality: 720p)
+2026-09-03 22:27:10,819 - queue_manager - INFO - ⏳ Downloading swallowed star episode 148 (job 2)
+2026-09-03 22:27:11,526 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep148.mp4 (quality: 720p)
+2026-09-03 22:27:18,948 - __main__ - INFO - Found direct video URL for swallowed star ep 153: https://geo.dailymotion.com/player.html?video=k4c54A8QYqiqinJ35Zk
+2026-09-03 23:09:46,955 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-03 23:09:47,794 - queue_manager - INFO - ⏳ Downloading swallowed star episode 147 (job 1)
+2026-09-03 23:09:48,518 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep147.mp4 (quality: 720p)
+2026-09-03 23:09:48,800 - queue_manager - INFO - ⏳ Downloading swallowed star episode 148 (job 2)
+2026-09-03 23:09:49,661 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep148.mp4 (quality: 720p)
+2026-09-03 23:09:54,177 - __main__ - INFO - Found direct video URL for swallowed star ep 153: https://geo.dailymotion.com/player.html?video=k4c54A8QYqiqinJ35Zk
+2026-09-03 23:29:04,867 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep147.mp4
+2026-09-03 23:29:04,869 - updater - INFO - 🔄 Updating swallowed star: 146 → 147
+2026-09-03 23:29:04,870 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-03 23:29:04,871 - updater - INFO - ✅ Verified: swallowed star now at episode 147
+2026-09-03 23:29:04,873 - queue_manager - INFO - ✅ Job 1 completed
+2026-09-03 23:29:04,874 - queue_manager - INFO - ⏳ Downloading swallowed star episode 149 (job 3)
+2026-09-03 23:29:05,469 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep149.mp4 (quality: 720p)
+2026-09-03 23:29:49,131 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep148.mp4
+2026-09-03 23:29:49,132 - updater - INFO - 🔄 Updating swallowed star: 147 → 148
+2026-09-03 23:29:49,133 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-03 23:29:49,133 - updater - INFO - ✅ Verified: swallowed star now at episode 148
+2026-09-03 23:29:49,133 - queue_manager - INFO - ✅ Job 2 completed
+2026-09-03 23:29:49,134 - queue_manager - INFO - ⏳ Downloading swallowed star episode 150 (job 4)
+2026-09-03 23:29:49,664 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep150.mp4 (quality: 720p)
+2026-09-03 23:50:14,661 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep149.mp4
+2026-09-03 23:50:14,662 - updater - INFO - 🔄 Updating swallowed star: 148 → 149
+2026-09-03 23:50:14,662 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-03 23:50:14,663 - updater - INFO - ✅ Verified: swallowed star now at episode 149
+2026-09-03 23:50:14,664 - queue_manager - INFO - ✅ Job 3 completed
+2026-09-03 23:50:14,664 - queue_manager - INFO - ⏳ Downloading swallowed star episode 151 (job 5)
+2026-09-03 23:50:15,231 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep151.mp4 (quality: 720p)
+2026-09-03 23:58:44,758 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep150.mp4
+2026-09-03 23:58:44,759 - updater - INFO - 🔄 Updating swallowed star: 149 → 150
+2026-09-03 23:58:45,254 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-03 23:58:45,256 - updater - INFO - ✅ Verified: swallowed star now at episode 150
+2026-09-03 23:58:45,303 - queue_manager - INFO - ✅ Job 4 completed
+2026-09-03 23:58:45,303 - queue_manager - INFO - ⏳ Downloading swallowed star episode 152 (job 6)
+2026-09-03 23:58:45,892 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep152.mp4 (quality: 720p)
+2026-09-04 00:14:17,430 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep151.mp4
+2026-09-04 00:14:17,432 - updater - INFO - 🔄 Updating swallowed star: 150 → 151
+2026-09-04 00:14:17,432 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-04 00:14:17,433 - updater - INFO - ✅ Verified: swallowed star now at episode 151
+2026-09-04 00:14:17,433 - queue_manager - INFO - ✅ Job 5 completed
+2026-09-04 00:14:17,434 - queue_manager - INFO - ⏳ Downloading swallowed star episode 153 (job 7)
+2026-09-04 00:14:17,991 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep153.mp4 (quality: 720p)
+2026-09-04 00:20:29,668 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep152.mp4
+2026-09-04 00:20:29,669 - updater - INFO - 🔄 Updating swallowed star: 151 → 152
+2026-09-04 00:20:29,670 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-04 00:20:29,670 - updater - INFO - ✅ Verified: swallowed star now at episode 152
+2026-09-04 00:20:29,671 - queue_manager - INFO - ✅ Job 6 completed
+2026-09-04 00:20:29,671 - queue_manager - INFO - ⏳ Downloading swallowed star episode 154 (job 8)
+2026-09-04 00:20:30,211 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep154.mp4 (quality: 720p)
+2026-09-04 00:29:45,866 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 00:29:49,797 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 00:29:51,250 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 00:29:52,745 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 00:29:52,745 - downloader - ERROR - All yt‑dlp attempts failed for https://geo.dailymotion.com/player.html?video=k4c54A8QYqiqinJ35Zk
+2026-09-04 00:29:52,746 - queue_manager - ERROR - ❌ Job 7 failed
+2026-09-04 00:29:52,746 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 9)
+2026-09-04 00:29:53,388 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-04 00:29:54,777 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 00:29:54,923 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 00:29:58,188 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 00:29:58,188 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/swallowed-star-season-4-episode-154-239-lucifer-donghua/
+2026-09-04 00:29:58,189 - queue_manager - ERROR - ❌ Job 8 failed
+2026-09-04 00:29:58,432 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 00:30:01,819 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 00:30:01,820 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/swallowed-star-season-4-episode-155-240-lucifer-donghua/
+2026-09-04 00:30:01,820 - queue_manager - ERROR - ❌ Job 9 failed
+2026-09-04 11:52:20,945 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-04 11:52:20,950 - __main__ - INFO - ✅ Episode 153 of swallowed star already downloaded (found as swallowed_star_s4_ep153.fhls-720.mp4).
+2026-09-04 11:52:20,950 - updater - INFO - 🔄 Updating swallowed star: 152 → 153
+2026-09-04 11:52:20,950 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-04 11:52:20,951 - updater - INFO - ✅ Verified: swallowed star now at episode 153
+2026-09-04 11:52:20,951 - __main__ - INFO - ✅ Episode 154 of swallowed star already downloaded (found as swallowed_star_s4_ep154.fhls-720.mp4).
+2026-09-04 11:52:20,952 - updater - INFO - 🔄 Updating swallowed star: 153 → 154
+2026-09-04 11:52:20,952 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-04 11:52:20,952 - updater - INFO - ✅ Verified: swallowed star now at episode 154
+2026-09-04 11:52:22,401 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 1)
+2026-09-04 11:52:23,529 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-04 11:53:13,223 - downloader - WARNING - Downloaded file is too small (preview): /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (8223614 bytes). Deleting.
+2026-09-04 11:53:13,225 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-04 12:13:19,084 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-04 12:13:19,707 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 1)
+2026-09-04 12:13:20,325 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-04 12:18:08,414 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 38
+2026-09-04 12:18:10,765 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 38 (job 1)
+2026-09-04 12:18:12,055 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep38.mp4 (quality: 720p)
+2026-09-04 12:18:19,492 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 12:18:30,317 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 12:18:43,588 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 12:18:43,589 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-38-lucifer-donghua/
+2026-09-04 12:18:43,590 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-04 23:27:27,878 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for stellar transformation ep 8: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/stellar-transformation-season-7/episode-8/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/stellar-transformation-season-7/episode-8/
+2026-09-04 23:27:27,892 - queue_manager - INFO - ⏳ Downloading stellar transformation episode 8 (job 1)
+2026-09-04 23:27:28,694 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Tomb of Fallen Gods ep 51: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/tomb-of-fallen-gods-season-3-2025/episode-51/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/tomb-of-fallen-gods-season-3-2025/episode-51/
+2026-09-04 23:27:28,893 - queue_manager - INFO - ⏳ Downloading Tomb of Fallen Gods episode 51 (job 2)
+2026-09-04 23:27:29,236 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/stellar_transformation_s7_ep8.mp4 (quality: 720p)
+2026-09-04 23:27:29,393 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Beyond the Timescape ep 34: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-34/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-34/
+2026-09-04 23:27:29,864 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Tomb_of_Fallen_Gods_s3_ep51.mp4 (quality: 720p)
+2026-09-04 23:27:30,110 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Beyond the Timescape ep 36: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-36/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-36/
+2026-09-04 23:27:30,806 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Beyond the Timescape ep 35: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-35/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-35/
+2026-09-04 23:27:31,514 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for renegade immortal ep 154: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-154/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-154/
+2026-09-04 23:27:31,800 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:27:32,098 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:27:32,221 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for renegade immortal ep 153: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-153/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-153/
+2026-09-04 23:27:32,936 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for renegade immortal ep 155: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-155/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-155/
+2026-09-04 23:27:33,656 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Beyond the Timescape ep 37: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-37/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-37/
+2026-09-04 23:27:34,467 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Battle through the heavens ep 209: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-209/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-209/
+2026-09-04 23:27:35,229 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Battle through the heavens ep 208: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-208/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-208/
+2026-09-04 23:27:35,990 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:27:36,058 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Battle through the heavens ep 210: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-210/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-210/
+2026-09-04 23:27:36,218 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:27:36,829 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for perfect world ep 282: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-282/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-282/
+2026-09-04 23:27:37,541 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for perfect world ep 281: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-281/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-281/
+2026-09-04 23:27:38,360 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for perfect world ep 284: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-284/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-284/
+2026-09-04 23:27:39,085 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for perfect world ep 283: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-283/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/perfect-world-new/episode-283/
+2026-09-04 23:27:39,775 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Shrouding The Heavens ep 177: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/shrouding-the-heavens/episode-177/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/shrouding-the-heavens/episode-177/
+2026-09-04 23:27:40,473 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for renegade immortal ep 156: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-156/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-156/
+2026-09-04 23:27:40,512 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:27:40,512 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/stellar-transformation-season-7/episode-8/
+2026-09-04 23:27:40,513 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-04 23:27:40,513 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 34 (job 3)
+2026-09-04 23:27:40,620 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:27:40,620 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/tomb-of-fallen-gods-season-3-2025/episode-51/
+2026-09-04 23:27:40,621 - queue_manager - ERROR - ❌ Job 2 failed
+2026-09-04 23:27:40,621 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 36 (job 4)
+2026-09-04 23:27:41,235 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for Beyond the Timescape ep 38: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-38/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-38/
+2026-09-04 23:27:41,303 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep34.mp4 (quality: 720p)
+2026-09-04 23:27:41,396 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep36.mp4 (quality: 720p)
+2026-09-04 23:27:41,989 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for swallowed star ep 153: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-153/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-153/
+2026-09-04 23:27:42,769 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for swallowed star ep 154: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-154/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-154/
+2026-09-04 23:27:43,446 - scraper.luciferdonghua - ERROR - Failed to extract direct video URL for swallowed star ep 155: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-155/
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 165, in get_direct_video_url
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-155/
+2026-09-04 23:27:43,517 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:27:43,537 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:27:48,229 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:27:48,257 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:27:52,619 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:27:52,619 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-36/
+2026-09-04 23:27:52,622 - queue_manager - ERROR - ❌ Job 4 failed
+2026-09-04 23:27:52,622 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 35 (job 5)
+2026-09-04 23:27:52,664 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:27:52,665 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-34/
+2026-09-04 23:27:52,665 - queue_manager - ERROR - ❌ Job 3 failed
+2026-09-04 23:27:52,665 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 154 (job 6)
+2026-09-04 23:27:53,443 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep35.mp4 (quality: 720p)
+2026-09-04 23:27:53,477 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep154.mp4 (quality: 720p)
+2026-09-04 23:27:55,739 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:27:55,790 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:00,844 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:00,884 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:05,510 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:05,511 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-35/
+2026-09-04 23:28:05,511 - queue_manager - ERROR - ❌ Job 5 failed
+2026-09-04 23:28:05,511 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 153 (job 7)
+2026-09-04 23:28:05,541 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:05,542 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-154/
+2026-09-04 23:28:05,542 - queue_manager - ERROR - ❌ Job 6 failed
+2026-09-04 23:28:05,543 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 155 (job 8)
+2026-09-04 23:28:06,336 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep155.mp4 (quality: 720p)
+2026-09-04 23:28:06,495 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep153.mp4 (quality: 720p)
+2026-09-04 23:28:08,973 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:08,999 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:13,531 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:13,619 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:18,057 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:18,058 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-155/
+2026-09-04 23:28:18,058 - queue_manager - ERROR - ❌ Job 8 failed
+2026-09-04 23:28:18,059 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 37 (job 9)
+2026-09-04 23:28:18,125 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:18,125 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-153/
+2026-09-04 23:28:18,125 - queue_manager - ERROR - ❌ Job 7 failed
+2026-09-04 23:28:18,126 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 209 (job 10)
+2026-09-04 23:28:18,855 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep37.mp4 (quality: 720p)
+2026-09-04 23:28:18,952 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Battle_through_the_heavens_s5_ep209.mp4 (quality: 720p)
+2026-09-04 23:28:21,258 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:21,279 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:25,847 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:25,855 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:31,175 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:31,176 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-37/
+2026-09-04 23:28:31,176 - queue_manager - ERROR - ❌ Job 9 failed
+2026-09-04 23:28:31,176 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 208 (job 11)
+2026-09-04 23:28:31,181 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:31,181 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-209/
+2026-09-04 23:28:31,182 - queue_manager - ERROR - ❌ Job 10 failed
+2026-09-04 23:28:31,182 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 210 (job 12)
+2026-09-04 23:28:32,109 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Battle_through_the_heavens_s5_ep208.mp4 (quality: 720p)
+2026-09-04 23:28:32,142 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Battle_through_the_heavens_s5_ep210.mp4 (quality: 720p)
+2026-09-04 23:28:34,760 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:34,863 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:42,256 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:42,399 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:28:48,039 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:48,040 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-208/
+2026-09-04 23:28:48,041 - queue_manager - ERROR - ❌ Job 11 failed
+2026-09-04 23:28:48,041 - queue_manager - INFO - ⏳ Downloading perfect world episode 282 (job 13)
+2026-09-04 23:28:48,160 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:28:48,160 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/battle-through-the-heavens-season-5-new/episode-210/
+2026-09-04 23:28:48,161 - queue_manager - ERROR - ❌ Job 12 failed
+2026-09-04 23:28:48,161 - queue_manager - INFO - ⏳ Downloading perfect world episode 281 (job 14)
+2026-09-04 23:28:49,504 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep282.mp4 (quality: 720p)
+2026-09-04 23:28:50,101 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep281.mp4 (quality: 720p)
+2026-09-04 23:28:53,262 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:28:53,331 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:00,904 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:00,988 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:07,486 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:29:07,487 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/perfect-world-new/episode-282/
+2026-09-04 23:29:07,489 - queue_manager - ERROR - ❌ Job 13 failed
+2026-09-04 23:29:07,489 - queue_manager - INFO - ⏳ Downloading perfect world episode 284 (job 15)
+2026-09-04 23:29:07,605 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:29:07,606 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/perfect-world-new/episode-281/
+2026-09-04 23:29:07,609 - queue_manager - ERROR - ❌ Job 14 failed
+2026-09-04 23:29:07,609 - queue_manager - INFO - ⏳ Downloading perfect world episode 283 (job 16)
+2026-09-04 23:29:08,991 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep283.mp4 (quality: 720p)
+2026-09-04 23:29:09,149 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/perfect_world_s1_ep284.mp4 (quality: 720p)
+2026-09-04 23:29:13,675 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:13,720 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:19,632 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:19,851 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:26,028 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:29:26,028 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/perfect-world-new/episode-283/
+2026-09-04 23:29:26,032 - queue_manager - ERROR - ❌ Job 16 failed
+2026-09-04 23:29:26,033 - queue_manager - INFO - ⏳ Downloading Shrouding The Heavens episode 177 (job 17)
+2026-09-04 23:29:26,142 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:29:26,142 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/perfect-world-new/episode-284/
+2026-09-04 23:29:26,143 - queue_manager - ERROR - ❌ Job 15 failed
+2026-09-04 23:29:26,143 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 156 (job 18)
+2026-09-04 23:29:27,592 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep156.mp4 (quality: 720p)
+2026-09-04 23:29:27,615 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Shrouding_The_Heavens_s1_ep177.mp4 (quality: 720p)
+2026-09-04 23:29:32,813 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:33,610 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:38,350 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:38,460 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:44,114 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:29:44,114 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/shrouding-the-heavens/episode-177/
+2026-09-04 23:29:44,115 - queue_manager - ERROR - ❌ Job 17 failed
+2026-09-04 23:29:44,116 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:29:44,116 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/renegade-immortal-xian-ni/episode-156/
+2026-09-04 23:29:44,117 - queue_manager - ERROR - ❌ Job 18 failed
+2026-09-04 23:29:44,117 - queue_manager - INFO - ⏳ Downloading swallowed star episode 153 (job 20)
+2026-09-04 23:29:44,116 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 38 (job 19)
+2026-09-04 23:29:45,459 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep153.mp4 (quality: 720p)
+2026-09-04 23:29:45,604 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep38.mp4 (quality: 720p)
+2026-09-04 23:29:48,753 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:48,880 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:29:55,914 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:29:55,981 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:30:02,803 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:30:02,804 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-153/
+2026-09-04 23:30:02,806 - queue_manager - ERROR - ❌ Job 20 failed
+2026-09-04 23:30:02,807 - queue_manager - INFO - ⏳ Downloading swallowed star episode 154 (job 21)
+2026-09-04 23:30:02,889 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:30:02,889 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/beyond-the-timescape-2025/episode-38/
+2026-09-04 23:30:02,890 - queue_manager - ERROR - ❌ Job 19 failed
+2026-09-04 23:30:02,890 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 22)
+2026-09-04 23:30:04,467 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep154.mp4 (quality: 720p)
+2026-09-04 23:30:04,536 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-04 23:30:08,833 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:30:08,872 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-04 23:30:15,465 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:30:15,502 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-04 23:30:21,707 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:30:21,707 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-154/
+2026-09-04 23:30:21,707 - queue_manager - ERROR - ❌ Job 21 failed
+2026-09-04 23:30:21,722 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-04 23:30:21,722 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/anime/swallowed-star-season-4-new/episode-155/
+2026-09-04 23:30:21,723 - queue_manager - ERROR - ❌ Job 22 failed
+2026-09-05 15:08:29,463 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 156
+2026-09-05 15:08:52,936 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 156
+2026-09-05 15:08:58,888 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-05 15:08:59,990 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 1)
+2026-09-05 15:09:01,216 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-05 15:09:36,456 - downloader - WARNING - Downloaded file is too small (preview): /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (8223614 bytes). Deleting.
+2026-09-05 15:09:36,461 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-05 15:33:51,353 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-05 15:33:52,142 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 1)
+2026-09-05 15:33:52,794 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-05 15:34:32,263 - downloader - WARNING - Downloaded file is too small (preview): /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (8223614 bytes). Deleting.
+2026-09-05 15:34:32,264 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-05 16:02:11,841 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 286
+2026-09-05 16:02:12,811 - scraper.luciferdonghua - INFO - Latest episode for stellar transformation: 11
+2026-09-05 16:02:13,804 - scraper.luciferdonghua - INFO - Latest episode for The Great Ruler: 38
+2026-09-05 16:02:14,832 - scraper.luciferdonghua - INFO - Latest episode for apotheosis: 26
+2026-09-05 16:02:15,873 - scraper.luciferdonghua - INFO - Latest episode for Shrouding The Heavens: 180
+2026-09-05 16:02:17,463 - scraper.luciferdonghua - INFO - Latest episode for Battle through the heavens: 208
+2026-09-05 16:02:18,206 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 156
+2026-09-05 16:02:19,281 - scraper.luciferdonghua - INFO - Latest episode for soul land 2: 170
+2026-09-05 16:02:20,150 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 155
+2026-09-05 16:02:21,186 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 38
+2026-09-05 16:02:22,346 - scraper.luciferdonghua - WARNING - Could not find main page for sword and fairy 3
+2026-09-05 16:02:23,609 - scraper.luciferdonghua - WARNING - Could not find main page for The Supreme Body Refining Master
+2026-09-05 16:02:24,777 - scraper.luciferdonghua - WARNING - Could not find main page for sword of coming(jian lai)
+2026-09-05 16:02:26,085 - scraper.luciferdonghua - WARNING - Could not find main page for keyboard immortal
+2026-09-05 16:02:28,036 - scraper.luciferdonghua - WARNING - Could not find main page for The Divine Emperor of Destiny
+2026-09-05 16:02:29,257 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
+2026-09-05 16:02:30,454 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm

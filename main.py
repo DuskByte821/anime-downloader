@@ -144,6 +144,43 @@ def get_anime_by_name(name: str):
             return a
     return None
 
+def mark_completed():
+    """Manually mark watching anime as completed."""
+    watchlist = load_watchlist()
+    watching = [a for a in watchlist if a.status == "watching"]
+    if not watching:
+        console.print("[yellow]No anime in 'watching' status.[/yellow]")
+        return
+
+    console.print("\n[bold cyan]Mark Anime as Completed[/bold cyan]")
+    for i, anime in enumerate(watching, 1):
+        latest = get_latest_with_fallback(anime)
+        console.print(f"{i}. {anime.name} [dim](current: {anime.episode}, latest: {latest})[/dim]")
+    console.print("0. Mark all as completed")
+    console.print("q. Cancel")
+
+    choice = Prompt.ask("Enter number (or q to cancel)", default="q")
+    if choice.lower() == "q":
+        return
+
+    if choice == "0":
+        for anime in watching:
+            anime.status = "completed"
+        save_watchlist(watchlist)
+        console.print(f"[green]✅ Marked {len(watching)} anime as completed.[/green]")
+    else:
+        try:
+            idx = int(choice) - 1
+            if 0 <= idx < len(watching):
+                anime = watching[idx]
+                anime.status = "completed"
+                save_watchlist(watchlist)
+                console.print(f"[green]✅ Marked {anime.name} as completed.[/green]")
+            else:
+                console.print("[red]Invalid selection.[/red]")
+        except ValueError:
+            console.print("[red]Invalid input.[/red]")
+
 
 def get_latest_with_fallback(anime):
     try:
@@ -198,11 +235,11 @@ def process_anime_background(anime, watchlist):
         download_episode_background(anime, ep, watchlist)
 
     # Auto‑mark completed if all caught up
-    if latest == anime.episode + len(missing) or latest == anime.episode:
-        if Confirm.ask(f"[yellow]You've caught up to episode {latest} of {anime.name}. Mark as completed?[/yellow]"):
-            anime.status = "completed"
-            save_watchlist(watchlist)
-            console.print(f"[green]✅ {anime.name} marked as completed.[/green]")
+#    if latest == anime.episode + len(missing) or latest == anime.episode:
+#        if Confirm.ask(f"[yellow]You've caught up to episode {latest} of {anime.name}. Mark as completed?[/yellow]"):
+#            anime.status = "completed"
+#            save_watchlist(watchlist)
+#            console.print(f"[green]✅ {anime.name} marked as completed.[/green]")
 
 
 def sync_watchlist(anime_name=None):
@@ -535,7 +572,7 @@ def test_modules():
 
 def tui():
     console.print(Panel.fit(f" Anime Downloader v{VERSION} ", style="bold magenta"))
-    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links \\[quality] \\[t]est \\[e]xit[/dim]\n")
+    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links \\[m]ark completed \\[quality] \\[t]est \\[e]xit[/dim]\n")
 
     while True:
         status = QUEUE.get_status()
@@ -546,7 +583,7 @@ def tui():
 
         choice = Prompt.ask(
             "[bold cyan]Command[/bold cyan]",
-            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "t", "e"],
+            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "m", "t", "e"],
             default="w"
         )
 
@@ -571,6 +608,8 @@ def tui():
             set_download_quality()
         elif choice == "t":
             test_modules()
+        elif choice == "m":
+            mark_completed()
         elif choice == "e":
             console.print("[bold green]Goodbye![/bold green]")
             break

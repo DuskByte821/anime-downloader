@@ -2,12 +2,11 @@ watching
 perfect world::season 1::episode 284
 stellar transformation::season 7::episode 7
 The Great Ruler::season 2::episode 7
-apotheosis::season 3::episode 26
 Shrouding The Heavens::season 1::episode 176
 Battle through the heavens::season 5::episode 207
 renegade immortal::season 1::episode 156
 soul land 2::season 1::episode 151
-swallowed star::season 4::episode 146
+swallowed star::season 4::episode 154
 Beyond the Timescape::season 1::episode 37
 sword and fairy 3::episode 8
 The Supreme Body Refining Master::episode 13
@@ -18,6 +17,7 @@ Twin Martial Spirits::episode 44
 Endless Heaven Realm::episode 65
 
 completed
+apotheosis::season 3::episode 26
 lord of all realms::episode 11
 classroom of the elite::season 2::episode 13
 against the gods::season 1

@@ -18,7 +18,7 @@ def update_watchlist(anime_list: List[Anime], anime: Anime, new_episode: int) ->
     """
     try:
         logger.info(f"🔄 Updating {anime.name}: {anime.episode} → {new_episode}")
-        anime.episode = new_episode
+        anime.downloaded = new_episode
         save_watchlist(anime_list)
         logger.info(f"💾 Watchlist saved to {WATCHLIST_FILE.resolve()}")
 

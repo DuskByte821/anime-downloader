@@ -227,7 +227,7 @@ def process_anime_background(anime, watchlist):
     if latest == 0:
         return
 
-    missing = get_missing_episodes(anime.episode, latest)
+    missing = get_missing_episodes(anime.downloaded, latest)
     if not missing:
         return
 

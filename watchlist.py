@@ -33,54 +33,30 @@ def parse_entry(line: str) -> Tuple[str, Optional[str], int]:
 
     season = None
     episode = 0
-
-    # Look through the remaining parts to find season and episode
+    downloaded = 0
+    watched = 0
     for part in parts[1:]:
         lower = part.lower()
         if "season" in lower:
-            # Extract season number, e.g., "season 7" -> 7, but we keep the whole string
-            season = part  # keep as "season 7"
+            season = part
+        elif "downloaded" in lower:
+            downloaded = extract_number(part)
+        elif "watched" in lower:
+            watched = extract_number(part)
         elif "episode" in lower:
-            # Extract episode number from "episode 07[59]" -> 7
-            episode = extract_number(part)
-        else:
-            # If part is just a number, treat as episode
-            if part.isdigit():
-                episode = int(part)
-            # If part has numbers but no keyword, treat as episode (e.g., "[59]" won't happen as separate part)
-            # but we already handled above.
-
-    # If no episode found and there is a number in the last part that is not season, assume episode
-    # For example: "against the gods::season 1" -> no episode, fine.
-    # If there is a part that is pure number, it would have been caught above.
-
-    return name, season, episode
-
+            downloaded = extract_number(part)   # legacy
+        elif part.isdigit():
+            downloaded = int(part)              # fallback for plain number
+    return name, season, downloaded, watched
 
 # ----------------------------------------------------------------------
 # Main watchlist I/O
 # ----------------------------------------------------------------------
-
 def load_watchlist(file_path: Path = WATCHLIST_FILE) -> List[Anime]:
-    """
-    Parse anime.txt and return a list of Anime objects.
-
-    Format:
-        watching
-        Name::season X::episode Y
-        Name::episode Y
-        Name::season X   (no episode → episode=0)
-
-        completed
-        Name::season X::episode Y
-        ...
-    """
     if not file_path.exists():
         return []
-
-    anime_list: List[Anime] = []
+    anime_list = []
     current_status = "watching"
-
     with file_path.open("r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
@@ -89,21 +65,16 @@ def load_watchlist(file_path: Path = WATCHLIST_FILE) -> List[Anime]:
             if line.lower() in ("watching", "completed"):
                 current_status = line.lower()
                 continue
-
-            # Parse the line
-            name, season, episode = parse_entry(line)
-
-            # Create Anime object
+            name, season, downloaded, watched = parse_entry(line)
             anime = Anime(
                 name=name,
                 season=season,
-                episode=episode,
+                downloaded=downloaded,
+                watched=watched,
                 status=current_status
             )
             anime_list.append(anime)
-
     return anime_list
-
 
 def save_watchlist(anime_list: List[Anime], file_path: Path = WATCHLIST_FILE) -> None:
     """

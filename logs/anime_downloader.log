@@ -3752,3 +3752,4 @@ requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luci
 2026-09-05 16:02:28,036 - scraper.luciferdonghua - WARNING - Could not find main page for The Divine Emperor of Destiny
 2026-09-05 16:02:29,257 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
 2026-09-05 16:02:30,454 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm
+2026-09-05 17:38:35,962 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 286

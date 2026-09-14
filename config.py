@@ -16,6 +16,8 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
+# Locating Files
+LINKS_FILE = DATA_DIR / "links.txt"
 WATCHLIST_FILE = DATA_DIR / "anime.txt"
 FAILED_LOG_FILE = LOGS_DIR / "failed_downloads.txt"
 

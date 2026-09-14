@@ -99,17 +99,11 @@ def save_watchlist(anime_list: List[Anime], file_path: Path = WATCHLIST_FILE) ->
 
     file_path.write_text("\n".join(lines), encoding="utf-8")
 
-
 def format_anime_line(anime: Anime) -> str:
-    """
-    Format a single Anime object into a watchlist line.
-    Always includes episode for watching entries; for completed, includes only if >0.
-    """
+    """Format a single Anime object into the new watchlist line format."""
     parts = [anime.name]
     if anime.season:
         parts.append(anime.season)
-    # Include episode if it's >0 or if status is watching (we want to keep it)
-    if anime.episode > 0 or anime.status == "watching":
-        parts.append(f"episode {anime.episode}")
-    # If episode is 0 and status is completed, we omit it entirely (as in "against the gods::season 1")
+    parts.append(f"downloaded {anime.downloaded}")
+    parts.append(f"watched {anime.watched}")
     return "::".join(parts)

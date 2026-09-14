@@ -3753,3 +3753,1715 @@ requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luci
 2026-09-05 16:02:29,257 - scraper.luciferdonghua - WARNING - Could not find main page for Twin Martial Spirits
 2026-09-05 16:02:30,454 - scraper.luciferdonghua - WARNING - Could not find main page for Endless Heaven Realm
 2026-09-05 17:38:35,962 - scraper.luciferdonghua - INFO - Latest episode for perfect world: 286
+2026-09-05 19:09:35,790 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=perfect+world
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=perfect+world
+2026-09-05 19:09:35,797 - scraper.luciferdonghua - WARNING - No search results for perfect world
+2026-09-05 19:09:36,701 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=stellar+transformation
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=stellar+transformation
+2026-09-05 19:09:36,705 - scraper.luciferdonghua - WARNING - No search results for stellar transformation
+2026-09-05 19:09:37,591 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Great+Ruler
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Great+Ruler
+2026-09-05 19:09:37,596 - scraper.luciferdonghua - WARNING - No search results for The Great Ruler
+2026-09-05 19:09:38,526 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Shrouding+The+Heavens
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Shrouding+The+Heavens
+2026-09-05 19:09:38,530 - scraper.luciferdonghua - WARNING - No search results for Shrouding The Heavens
+2026-09-05 19:09:39,469 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Battle+through+the+heavens
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Battle+through+the+heavens
+2026-09-05 19:09:39,475 - scraper.luciferdonghua - WARNING - No search results for Battle through the heavens
+2026-09-05 19:09:40,359 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=renegade+immortal
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=renegade+immortal
+2026-09-05 19:09:40,363 - scraper.luciferdonghua - WARNING - No search results for renegade immortal
+2026-09-05 19:09:41,238 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Demon+Hunter
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Demon+Hunter
+2026-09-05 19:09:41,243 - scraper.luciferdonghua - WARNING - No search results for The Demon Hunter
+2026-09-05 19:09:42,261 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=soul+land+2
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=soul+land+2
+2026-09-05 19:09:42,266 - scraper.luciferdonghua - WARNING - No search results for soul land 2
+2026-09-05 19:09:43,288 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=swallowed+star
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=swallowed+star
+2026-09-05 19:09:43,292 - scraper.luciferdonghua - WARNING - No search results for swallowed star
+2026-09-05 19:09:44,251 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Beyond+the+Timescape
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Beyond+the+Timescape
+2026-09-05 19:09:44,255 - scraper.luciferdonghua - WARNING - No search results for Beyond the Timescape
+2026-09-05 19:09:45,167 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=sword+and+fairy+3
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=sword+and+fairy+3
+2026-09-05 19:09:45,173 - scraper.luciferdonghua - WARNING - No search results for sword and fairy 3
+2026-09-05 19:09:46,108 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Supreme+Body+Refining+Master
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Supreme+Body+Refining+Master
+2026-09-05 19:09:46,114 - scraper.luciferdonghua - WARNING - No search results for The Supreme Body Refining Master
+2026-09-05 19:09:47,015 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=sword+of+coming(jian+lai)
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=sword+of+coming(jian+lai)
+2026-09-05 19:09:47,021 - scraper.luciferdonghua - WARNING - No search results for sword of coming(jian lai)
+2026-09-05 19:09:47,946 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=keyboard+immortal
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=keyboard+immortal
+2026-09-05 19:09:47,951 - scraper.luciferdonghua - WARNING - No search results for keyboard immortal
+2026-09-05 19:09:48,823 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Divine+Emperor+of+Destiny
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Divine+Emperor+of+Destiny
+2026-09-05 19:09:48,827 - scraper.luciferdonghua - WARNING - No search results for The Divine Emperor of Destiny
+2026-09-05 19:09:49,676 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Twin+Martial+Spirits
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Twin+Martial+Spirits
+2026-09-05 19:09:49,681 - scraper.luciferdonghua - WARNING - No search results for Twin Martial Spirits
+2026-09-05 19:09:50,600 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Endless+Heaven+Realm
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Endless+Heaven+Realm
+2026-09-05 19:09:50,604 - scraper.luciferdonghua - WARNING - No search results for Endless Heaven Realm
+2026-09-05 19:09:51,447 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=apotheosis
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=apotheosis
+2026-09-05 19:09:51,453 - scraper.luciferdonghua - WARNING - No search results for apotheosis
+2026-09-05 19:09:52,336 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=lord+of+all+realms
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=lord+of+all+realms
+2026-09-05 19:09:52,342 - scraper.luciferdonghua - WARNING - No search results for lord of all realms
+2026-09-05 19:09:53,359 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=classroom+of+the+elite
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=classroom+of+the+elite
+2026-09-05 19:09:53,363 - scraper.luciferdonghua - WARNING - No search results for classroom of the elite
+2026-09-05 19:09:54,301 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=against+the+gods
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=against+the+gods
+2026-09-05 19:09:54,306 - scraper.luciferdonghua - WARNING - No search results for against the gods
+2026-09-05 19:09:55,200 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=stellar+transformation
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=stellar+transformation
+2026-09-05 19:09:55,204 - scraper.luciferdonghua - WARNING - No search results for stellar transformation
+2026-09-05 19:09:56,041 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Return+of+the+Divine+Emperor
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Return+of+the+Divine+Emperor
+2026-09-05 19:09:56,046 - scraper.luciferdonghua - WARNING - No search results for Return of the Divine Emperor
+2026-09-05 19:09:56,942 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+strongest+upgrade
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+strongest+upgrade
+2026-09-05 19:09:56,947 - scraper.luciferdonghua - WARNING - No search results for The strongest upgrade
+2026-09-05 19:09:57,828 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Above+the+Kingdom+of+God
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Above+the+Kingdom+of+God
+2026-09-05 19:09:57,832 - scraper.luciferdonghua - WARNING - No search results for Above the Kingdom of God
+2026-09-05 19:09:58,684 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Jade+Dynasty
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Jade+Dynasty
+2026-09-05 19:09:58,689 - scraper.luciferdonghua - WARNING - No search results for Jade Dynasty
+2026-09-05 19:09:59,548 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Divine+Lord+Of+Heavens
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Divine+Lord+Of+Heavens
+2026-09-05 19:09:59,553 - scraper.luciferdonghua - WARNING - No search results for Divine Lord Of Heavens
+2026-09-05 19:10:00,441 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Dragon+Raja
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Dragon+Raja
+2026-09-05 19:10:00,446 - scraper.luciferdonghua - WARNING - No search results for Dragon Raja
+2026-09-05 19:10:01,854 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Martial+Universe
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Martial+Universe
+2026-09-05 19:10:01,859 - scraper.luciferdonghua - WARNING - No search results for Martial Universe
+2026-09-05 19:10:03,395 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Legend+of+the+Misty+Sword+Immortal
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Legend+of+the+Misty+Sword+Immortal
+2026-09-05 19:10:03,400 - scraper.luciferdonghua - WARNING - No search results for Legend of the Misty Sword Immortal
+2026-09-05 19:10:04,451 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Supreme+Over+the+Sky
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Supreme+Over+the+Sky
+2026-09-05 19:10:04,456 - scraper.luciferdonghua - WARNING - No search results for Supreme Over the Sky
+2026-09-05 19:10:05,436 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Peerless+Divine+Emperor
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Peerless+Divine+Emperor
+2026-09-05 19:10:05,441 - scraper.luciferdonghua - WARNING - No search results for Peerless Divine Emperor
+2026-09-05 19:10:06,367 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=World+Defying+Dan+God
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=World+Defying+Dan+God
+2026-09-05 19:10:06,371 - scraper.luciferdonghua - WARNING - No search results for World Defying Dan God
+2026-09-05 19:10:07,349 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Daily+Life+of+Immortal+King
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Daily+Life+of+Immortal+King
+2026-09-05 19:10:07,353 - scraper.luciferdonghua - WARNING - No search results for The Daily Life of Immortal King
+2026-09-05 19:10:08,199 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Nine+Suns+Martial+God
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Nine+Suns+Martial+God
+2026-09-05 19:10:08,204 - scraper.luciferdonghua - WARNING - No search results for Nine Suns Martial God
+2026-09-05 19:10:09,128 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Throne+of+seal
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Throne+of+seal
+2026-09-05 19:10:09,133 - scraper.luciferdonghua - WARNING - No search results for Throne of seal
+2026-09-05 19:10:09,993 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Gate+of+Mystical+Realm
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=The+Gate+of+Mystical+Realm
+2026-09-05 19:10:09,998 - scraper.luciferdonghua - WARNING - No search results for The Gate of Mystical Realm
+2026-09-05 19:10:10,867 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Immortality
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Immortality
+2026-09-05 19:10:10,871 - scraper.luciferdonghua - WARNING - No search results for Immortality
+2026-09-05 19:10:11,728 - scraper.luciferdonghua - ERROR - Search failed: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Tomb+of+Fallen+Gods
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 64, in search_anime
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://luciferdonghua.in/search?keyword=Tomb+of+Fallen+Gods
+2026-09-05 19:10:11,734 - scraper.luciferdonghua - WARNING - No search results for Tomb of Fallen Gods
+2026-09-05 19:26:17,791 - scraper.luciferdonghua - INFO - Best match for perfect world: DONGHUAOngoingSubPerfect World [Wanmei Shijie]Perfect World [Wanmei Shijie] (score 50)
+2026-09-05 19:26:44,282 - scraper.luciferdonghua - WARNING - No strong match for stellar transformation; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:26:49,570 - scraper.luciferdonghua - INFO - Best match for The Great Ruler: DONGHUAOngoingSubThe Great Ruler Season 2 (2026)The Great Ruler Season 2 (2026) (score 80)
+2026-09-05 19:26:54,481 - scraper.luciferdonghua - INFO - Best match for Shrouding The Heavens: DONGHUAOngoingSubShrouding The Heavens (2023)Shrouding The Heavens (2023) (score 50)
+2026-09-05 19:27:15,174 - scraper.luciferdonghua - INFO - Best match for Battle through the heavens: Battle Through The Heavens Season 5 (score 80)
+2026-09-05 19:27:20,660 - scraper.luciferdonghua - INFO - Best match for renegade immortal: DONGHUAOngoingSubLing Cage Season 1 (2019)Ling Cage Season 1 (2019) (score 30)
+2026-09-05 19:27:26,136 - scraper.luciferdonghua - INFO - Best match for The Demon Hunter: ONAOngoingSubThe Demon Hunter Season 3The Demon Hunter Season 3 (score 80)
+2026-09-05 19:27:31,372 - scraper.luciferdonghua - WARNING - No strong match for soul land 2; using first result: ONAOngoingSubRelease that Witch (2026)Release that Witch (2026)
+2026-09-05 19:27:37,367 - scraper.luciferdonghua - INFO - Best match for swallowed star: ONAOngoingSubSwallowed Star Season 4 (2023)Swallowed Star Season 4 (2023) (score 80)
+2026-09-05 19:27:41,446 - scraper.luciferdonghua - INFO - Best match for Beyond the Timescape: DONGHUAOngoingSubBeyond the Timescape (2025)Beyond the Timescape (2025) (score 50)
+2026-09-05 19:27:46,874 - scraper.luciferdonghua - INFO - Best match for sword and fairy 3: CompletedONACompletedSubSword and Fairy 3 (2025)Sword and Fairy 3 (2025) (score 50)
+2026-09-05 19:27:52,113 - scraper.luciferdonghua - WARNING - No strong match for The Supreme Body Refining Master; using first result: DONGHUAOngoingSubSupreme God Emperor Season 02Supreme God Emperor Season 02
+2026-09-05 19:28:12,649 - scraper.luciferdonghua - WARNING - No strong match for sword of coming(jian lai); using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:28:32,755 - scraper.luciferdonghua - WARNING - No strong match for keyboard immortal; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:28:53,277 - scraper.luciferdonghua - WARNING - No strong match for The Divine Emperor of Destiny; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:29:13,960 - scraper.luciferdonghua - WARNING - No strong match for Twin Martial Spirits; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:29:34,633 - scraper.luciferdonghua - WARNING - No strong match for Endless Heaven Realm; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:29:55,511 - scraper.luciferdonghua - WARNING - No strong match for apotheosis; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:29:59,761 - scraper.luciferdonghua - INFO - Best match for lord of all realms: CompletedDONGHUACompletedSubLord of All Realms (2024)Lord of All Realms (2024) (score 50)
+2026-09-05 19:30:21,549 - scraper.luciferdonghua - WARNING - No strong match for classroom of the elite; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:30:29,125 - scraper.luciferdonghua - INFO - Best match for against the gods: CompletedDONGHUACompletedSubAgainst the Gods (2023)Against the Gods (2023) (score 50)
+2026-09-05 19:30:48,375 - scraper.luciferdonghua - WARNING - No strong match for stellar transformation; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:30:52,607 - scraper.luciferdonghua - WARNING - No strong match for Return of the Divine Emperor; using first result: DONGHUAOngoingSubTales of Herding Gods (2024)Tales of Herding Gods (2024)
+2026-09-05 19:30:56,847 - scraper.luciferdonghua - WARNING - No strong match for The strongest upgrade; using first result: CompletedDONGHUACompletedSubHidden Sect Leader (2024)Hidden Sect Leader (2024)
+2026-09-05 19:31:17,467 - scraper.luciferdonghua - WARNING - No strong match for Above the Kingdom of God; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:31:22,359 - scraper.luciferdonghua - INFO - Best match for Jade Dynasty: CompletedCompletedSubJade Dynasty [Zhu Xian]Jade Dynasty [Zhu Xian] (score 50)
+2026-09-05 19:31:26,825 - scraper.luciferdonghua - WARNING - No strong match for Divine Lord Of Heavens; using first result: CompletedCompletedSubMaster of the Star SpringMaster of the Star Spring
+2026-09-05 19:31:31,278 - scraper.luciferdonghua - INFO - Best match for Dragon Raja: CompletedONACompletedSubDragon RajaDragon Raja (score 50)
+2026-09-05 19:31:53,609 - scraper.luciferdonghua - WARNING - No strong match for Martial Universe; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:32:14,214 - scraper.luciferdonghua - WARNING - No strong match for Legend of the Misty Sword Immortal; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:32:18,943 - scraper.luciferdonghua - INFO - Best match for Supreme Over the Sky: CompletedONACompletedSubSupreme Over the Sky (2025)Supreme Over the Sky (2025) (score 50)
+2026-09-05 19:32:39,517 - scraper.luciferdonghua - WARNING - No strong match for Peerless Divine Emperor; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:33:00,285 - scraper.luciferdonghua - WARNING - No strong match for World Defying Dan God; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:33:21,475 - scraper.luciferdonghua - INFO - Best match for The Daily Life of Immortal King: Battle Through The Heavens Season 5 (score 30)
+2026-09-05 19:33:41,859 - scraper.luciferdonghua - WARNING - No strong match for Nine Suns Martial God; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:34:13,807 - scraper.luciferdonghua - INFO - Best match for Throne of seal: Throne of Seal [Shen Yin Wang Zuo] (score 50)
+2026-09-05 19:34:34,082 - scraper.luciferdonghua - WARNING - No strong match for The Gate of Mystical Realm; using first result: Renegade Immortal [Xian Ni] (2023)
+2026-09-05 19:34:40,128 - scraper.luciferdonghua - INFO - Best match for Immortality: CompletedONACompletedSubImmortality (Yong Sheng)Immortality (Yong Sheng) (score 50)
+2026-09-05 19:34:44,897 - scraper.luciferdonghua - INFO - Best match for Tomb of Fallen Gods: CompletedCompletedSubTomb of Fallen Gods [Shen Mu]Tomb of Fallen Gods [Shen Mu] (score 50)
+2026-09-05 20:02:54,395 - scraper.luciferdonghua - WARNING - No strong match for perfect world (best score 50); recording not_found
+2026-09-05 20:03:38,066 - scraper.luciferdonghua - WARNING - No strong match for stellar transformation (best score 60); recording not_found
+2026-09-05 20:05:23,807 - scraper.luciferdonghua - WARNING - No strong match for perfect world (best score 50); recording not_found
+2026-09-05 20:06:06,930 - scraper.luciferdonghua - WARNING - No strong match for stellar transformation (best score 60); recording not_found
+2026-09-05 20:06:49,311 - scraper.luciferdonghua - WARNING - No strong match for The Great Ruler (best score 10); recording not_found
+2026-09-05 20:07:29,860 - scraper.luciferdonghua - WARNING - No strong match for Shrouding The Heavens (best score 50); recording not_found
+2026-09-05 20:08:19,549 - scraper.luciferdonghua - WARNING - No strong match for Battle through the heavens (best score 30); recording not_found
+2026-09-05 20:09:01,005 - scraper.luciferdonghua - WARNING - No strong match for renegade immortal (best score 30); recording not_found
+2026-09-05 20:09:54,156 - scraper.luciferdonghua - WARNING - No strong match for The Demon Hunter (best score 60); recording not_found
+2026-09-05 20:10:43,537 - scraper.luciferdonghua - WARNING - No strong match for soul land 2 (best score 10); recording not_found
+2026-09-05 20:11:32,551 - scraper.luciferdonghua - WARNING - No strong match for swallowed star (best score 60); recording not_found
+2026-09-05 20:12:10,340 - scraper.luciferdonghua - WARNING - No strong match for Beyond the Timescape (best score 50); recording not_found
+2026-09-05 20:12:49,143 - scraper.luciferdonghua - WARNING - No strong match for sword and fairy 3 (best score 30); recording not_found
+2026-09-05 20:13:32,109 - scraper.luciferdonghua - WARNING - No strong match for The Supreme Body Refining Master (best score 10); recording not_found
+2026-09-05 20:14:14,224 - scraper.luciferdonghua - WARNING - No strong match for sword of coming(jian lai) (best score 10); recording not_found
+2026-09-05 20:14:57,138 - scraper.luciferdonghua - WARNING - No strong match for keyboard immortal (best score 10); recording not_found
+2026-09-05 20:15:45,681 - scraper.luciferdonghua - WARNING - No strong match for The Divine Emperor of Destiny (best score 10); recording not_found
+2026-09-05 20:16:27,754 - scraper.luciferdonghua - WARNING - No strong match for Twin Martial Spirits (best score 50); recording not_found
+2026-09-05 20:17:10,499 - scraper.luciferdonghua - WARNING - No strong match for Endless Heaven Realm (best score 50); recording not_found
+2026-09-05 20:18:10,449 - scraper.luciferdonghua - WARNING - No strong match for apotheosis (best score 30); recording not_found
+2026-09-05 20:18:56,987 - scraper.luciferdonghua - WARNING - No strong match for lord of all realms (best score 30); recording not_found
+2026-09-05 20:19:36,185 - scraper.luciferdonghua - WARNING - No strong match for classroom of the elite (best score 10); recording not_found
+2026-09-05 20:20:17,335 - scraper.luciferdonghua - WARNING - No strong match for against the gods (best score 50); recording not_found
+2026-09-05 20:20:54,292 - scraper.luciferdonghua - WARNING - No strong match for stellar transformation (best score 30); recording not_found
+2026-09-05 20:21:30,337 - scraper.luciferdonghua - WARNING - No strong match for Return of the Divine Emperor (best score 10); recording not_found
+2026-09-05 20:22:06,597 - scraper.luciferdonghua - WARNING - No strong match for The strongest upgrade (best score 50); recording not_found
+2026-09-05 20:22:42,630 - scraper.luciferdonghua - WARNING - No strong match for Above the Kingdom of God (best score 10); recording not_found
+2026-09-05 20:23:21,188 - scraper.luciferdonghua - WARNING - No strong match for Jade Dynasty (best score 50); recording not_found
+2026-09-05 20:23:57,626 - scraper.luciferdonghua - WARNING - No strong match for Divine Lord Of Heavens (best score 10); recording not_found
+2026-09-05 20:24:32,410 - scraper.luciferdonghua - WARNING - No strong match for Dragon Raja (best score 50); recording not_found
+2026-09-05 20:25:12,543 - scraper.luciferdonghua - WARNING - No strong match for Martial Universe (best score 10); recording not_found
+2026-09-05 20:25:48,632 - scraper.luciferdonghua - WARNING - No strong match for Legend of the Misty Sword Immortal (best score 10); recording not_found
+2026-09-05 20:26:26,512 - scraper.luciferdonghua - WARNING - No strong match for Supreme Over the Sky (best score 30); recording not_found
+2026-09-05 20:27:08,678 - scraper.luciferdonghua - WARNING - No strong match for Peerless Divine Emperor (best score 50); recording not_found
+2026-09-05 20:27:45,340 - scraper.luciferdonghua - WARNING - No strong match for World Defying Dan God (best score 30); recording not_found
+2026-09-05 20:28:25,378 - scraper.luciferdonghua - WARNING - No strong match for The Daily Life of Immortal King (best score 40); recording not_found
+2026-09-05 20:29:00,526 - scraper.luciferdonghua - WARNING - No strong match for Nine Suns Martial God (best score 30); recording not_found
+2026-09-05 20:29:48,922 - scraper.luciferdonghua - WARNING - No strong match for Throne of seal (best score 10); recording not_found
+2026-09-05 20:30:25,892 - scraper.luciferdonghua - WARNING - No strong match for The Gate of Mystical Realm (best score 10); recording not_found
+2026-09-05 20:31:13,005 - scraper.luciferdonghua - WARNING - No strong match for Immortality (best score 50); recording not_found
+2026-09-05 20:31:50,686 - scraper.luciferdonghua - WARNING - No strong match for Tomb of Fallen Gods (best score 10); recording not_found
+2026-09-06 13:35:56,646 - scraper.luciferdonghua - INFO - Best match for perfect world: DONGHUAOngoingSubPerfect World [Wanmei Shijie]Perfect World [Wanmei Shijie] (score 50)
+2026-09-06 13:37:34,510 - scraper.luciferdonghua - INFO - Best match for stellar transformation: ONAOngoingSubStellar Transformation Season 7 (2026)Stellar Transformation Season 7 (2026) (score 60)
+2026-09-06 13:39:17,023 - scraper.luciferdonghua - WARNING - No strong match for The Great Ruler (best score 10); recording not_found
+2026-09-06 13:41:06,031 - scraper.luciferdonghua - INFO - Best match for Shrouding The Heavens: DONGHUAOngoingSubShrouding The Heavens (2023)Shrouding The Heavens (2023) (score 50)
+2026-09-06 13:42:41,015 - scraper.luciferdonghua - WARNING - No strong match for Battle through the heavens (best score 30); recording not_found
+2026-09-06 13:43:58,581 - scraper.luciferdonghua - WARNING - No strong match for renegade immortal (best score 30); recording not_found
+2026-09-06 13:44:54,340 - scraper.luciferdonghua - INFO - Best match for The Demon Hunter: ONAOngoingSubThe Demon Hunter Season 3The Demon Hunter Season 3 (score 60)
+2026-09-06 13:45:46,795 - scraper.luciferdonghua - WARNING - No strong match for soul land 2 (best score 10); recording not_found
+2026-09-06 13:46:39,634 - scraper.luciferdonghua - INFO - Best match for swallowed star: ONAOngoingSubSwallowed Star Season 4 (2023)Swallowed Star Season 4 (2023) (score 60)
+2026-09-06 13:48:14,060 - scraper.luciferdonghua - INFO - Best match for Beyond the Timescape: DONGHUAOngoingSubBeyond the Timescape (2025)Beyond the Timescape (2025) (score 50)
+2026-09-06 13:49:53,887 - scraper.luciferdonghua - WARNING - No strong match for sword and fairy 3 (best score 30); recording not_found
+2026-09-06 13:51:28,578 - scraper.luciferdonghua - WARNING - No strong match for The Supreme Body Refining Master (best score 10); recording not_found
+2026-09-06 13:53:08,877 - scraper.luciferdonghua - WARNING - No strong match for sword of coming(jian lai) (best score 10); recording not_found
+2026-09-06 13:54:57,740 - scraper.luciferdonghua - WARNING - No strong match for keyboard immortal (best score 10); recording not_found
+2026-09-06 13:56:38,580 - scraper.luciferdonghua - WARNING - No strong match for The Divine Emperor of Destiny (best score 10); recording not_found
+2026-09-06 13:57:48,057 - scraper.luciferdonghua - INFO - Best match for Twin Martial Spirits: CompletedDONGHUACompletedSubTwin Martial Spirits (2025)Twin Martial Spirits (2025) (score 50)
+2026-09-06 13:59:11,246 - scraper.luciferdonghua - INFO - Best match for Endless Heaven Realm: CompletedDONGHUACompletedSubEndless Heaven Realm (2024)Endless Heaven Realm (2024) (score 50)
+2026-09-06 14:00:52,341 - scraper.luciferdonghua - WARNING - No strong match for apotheosis (best score 30); recording not_found
+2026-09-06 14:02:17,274 - scraper.luciferdonghua - WARNING - No strong match for lord of all realms (best score 30); recording not_found
+2026-09-06 14:03:39,499 - scraper.luciferdonghua - WARNING - No strong match for classroom of the elite (best score 10); recording not_found
+2026-09-06 14:05:33,285 - scraper.luciferdonghua - INFO - Best match for against the gods: CompletedDONGHUACompletedSubAgainst the Gods (2023)Against the Gods (2023) (score 50)
+2026-09-06 14:06:58,325 - scraper.luciferdonghua - WARNING - No strong match for stellar transformation (best score 30); recording not_found
+2026-09-06 14:08:24,668 - scraper.luciferdonghua - WARNING - No strong match for Return of the Divine Emperor (best score 10); recording not_found
+2026-09-06 14:09:21,978 - scraper.luciferdonghua - INFO - Best match for The strongest upgrade: CompletedDONGHUACompletedSubThe strongest upgrade (2025)The strongest upgrade (2025) (score 50)
+2026-09-06 14:10:11,189 - scraper.luciferdonghua - WARNING - No strong match for Above the Kingdom of God (best score 10); recording not_found
+2026-09-06 14:11:35,800 - scraper.luciferdonghua - INFO - Best match for Jade Dynasty: CompletedCompletedSubJade Dynasty [Zhu Xian]Jade Dynasty [Zhu Xian] (score 50)
+2026-09-06 14:11:35,807 - scraper.luciferdonghua - ERROR - Search failed for 'Divine Lord Of Heavens': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Divine+Lord+Of+Heavens (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Divine+Lord+Of+Heavens (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Divine+Lord+Of+Heavens (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,821 - scraper.luciferdonghua - WARNING - No search results for Divine Lord Of Heavens
+2026-09-06 14:11:35,826 - scraper.luciferdonghua - ERROR - Search failed for 'Dragon Raja': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Dragon+Raja (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Dragon+Raja (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Dragon+Raja (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,834 - scraper.luciferdonghua - WARNING - No search results for Dragon Raja
+2026-09-06 14:11:35,839 - scraper.luciferdonghua - ERROR - Search failed for 'Martial Universe': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Martial+Universe (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Martial+Universe (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Martial+Universe (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,857 - scraper.luciferdonghua - WARNING - No search results for Martial Universe
+2026-09-06 14:11:35,864 - scraper.luciferdonghua - ERROR - Search failed for 'Legend of the Misty Sword Immortal': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Legend+of+the+Misty+Sword+Immortal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Legend+of+the+Misty+Sword+Immortal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Legend+of+the+Misty+Sword+Immortal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,873 - scraper.luciferdonghua - WARNING - No search results for Legend of the Misty Sword Immortal
+2026-09-06 14:11:35,883 - scraper.luciferdonghua - ERROR - Search failed for 'Supreme Over the Sky': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Supreme+Over+the+Sky (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Supreme+Over+the+Sky (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Supreme+Over+the+Sky (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,890 - scraper.luciferdonghua - WARNING - No search results for Supreme Over the Sky
+2026-09-06 14:11:35,896 - scraper.luciferdonghua - ERROR - Search failed for 'Peerless Divine Emperor': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Peerless+Divine+Emperor (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Peerless+Divine+Emperor (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Peerless+Divine+Emperor (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,902 - scraper.luciferdonghua - WARNING - No search results for Peerless Divine Emperor
+2026-09-06 14:11:35,908 - scraper.luciferdonghua - ERROR - Search failed for 'World Defying Dan God': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=World+Defying+Dan+God (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=World+Defying+Dan+God (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=World+Defying+Dan+God (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,917 - scraper.luciferdonghua - WARNING - No search results for World Defying Dan God
+2026-09-06 14:11:35,922 - scraper.luciferdonghua - ERROR - Search failed for 'The Daily Life of Immortal King': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=The+Daily+Life+of+Immortal+King (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=The+Daily+Life+of+Immortal+King (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=The+Daily+Life+of+Immortal+King (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,933 - scraper.luciferdonghua - WARNING - No search results for The Daily Life of Immortal King
+2026-09-06 14:11:35,938 - scraper.luciferdonghua - ERROR - Search failed for 'Nine Suns Martial God': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Nine+Suns+Martial+God (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Nine+Suns+Martial+God (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Nine+Suns+Martial+God (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,948 - scraper.luciferdonghua - WARNING - No search results for Nine Suns Martial God
+2026-09-06 14:11:35,954 - scraper.luciferdonghua - ERROR - Search failed for 'Throne of seal': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Throne+of+seal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Throne+of+seal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Throne+of+seal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,961 - scraper.luciferdonghua - WARNING - No search results for Throne of seal
+2026-09-06 14:11:35,966 - scraper.luciferdonghua - ERROR - Search failed for 'The Gate of Mystical Realm': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=The+Gate+of+Mystical+Realm (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=The+Gate+of+Mystical+Realm (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=The+Gate+of+Mystical+Realm (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,974 - scraper.luciferdonghua - WARNING - No search results for The Gate of Mystical Realm
+2026-09-06 14:11:35,983 - scraper.luciferdonghua - ERROR - Search failed for 'Immortality': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Immortality (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Immortality (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Immortality (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:35,989 - scraper.luciferdonghua - WARNING - No search results for Immortality
+2026-09-06 14:11:35,997 - scraper.luciferdonghua - ERROR - Search failed for 'Tomb of Fallen Gods': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Tomb+of+Fallen+Gods (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Tomb+of+Fallen+Gods (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=Tomb+of+Fallen+Gods (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 14:11:36,004 - scraper.luciferdonghua - WARNING - No search results for Tomb of Fallen Gods
+2026-09-06 23:31:03,086 - scraper.luciferdonghua - ERROR - Search failed for 'renegade immortal': HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=renegade+immortal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/socket.py", line 989, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/usr/lib/python3.14/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=renegade+immortal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 65, in search_anime
+    resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Max retries exceeded with url: /?s=renegade+immortal (Caused by NameResolutionError("HTTPSConnection(host='luciferdonghua.in', port=443): Failed to resolve 'luciferdonghua.in' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-06 23:31:03,110 - scraper.luciferdonghua - WARNING - No search results for renegade immortal
+2026-09-10 23:14:34,070 - scraper.luciferdonghua - WARNING - No strong match for renegade immortal (best score 30); recording not_found
+2026-09-10 23:28:26,580 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 157
+2026-09-10 23:28:27,691 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 157 (job 1)
+2026-09-10 23:28:28,873 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep157.mp4 (quality: 720p)
+2026-09-10 23:33:56,611 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep157.mp4
+2026-09-10 23:33:56,612 - updater - ERROR - ❌ Failed to update watchlist: 'Anime' object has no attribute 'episode'
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/updater.py", line 20, in update_watchlist
+    logger.info(f"🔄 Updating {anime.name}: {anime.episode} → {new_episode}")
+                                             ^^^^^^^^^^^^^
+AttributeError: 'Anime' object has no attribute 'episode'
+2026-09-10 23:44:33,908 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 157
+2026-09-10 23:44:33,908 - __main__ - INFO - ✅ Episode 157 of renegade immortal already downloaded (canonical).
+2026-09-10 23:44:33,908 - updater - INFO - 🔄 Updating renegade immortal: downloaded 156 → 157
+2026-09-10 23:44:33,908 - updater - ERROR - ❌ Failed to update watchlist: 'Anime' object has no attribute 'episode'
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/updater.py", line 21, in update_watchlist
+    save_watchlist(anime_list)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/zain/Scripts/anime-downloader/watchlist.py", line 91, in save_watchlist
+    lines.append(format_anime_line(a))
+                 ~~~~~~~~~~~~~~~~~^^^
+  File "/home/zain/Scripts/anime-downloader/watchlist.py", line 112, in format_anime_line
+    if anime.episode > 0 or anime.status == "watching":
+       ^^^^^^^^^^^^^
+AttributeError: 'Anime' object has no attribute 'episode'
+2026-09-10 23:46:24,199 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 157
+2026-09-10 23:46:24,199 - __main__ - INFO - ✅ Episode 157 of renegade immortal already downloaded (canonical).
+2026-09-10 23:46:24,199 - updater - INFO - 🔄 Updating renegade immortal: downloaded 156 → 157
+2026-09-10 23:46:24,199 - updater - ERROR - ❌ Failed to update watchlist: 'Anime' object has no attribute 'episode'
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/updater.py", line 21, in update_watchlist
+    save_watchlist(anime_list)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/zain/Scripts/anime-downloader/watchlist.py", line 91, in save_watchlist
+    lines.append(format_anime_line(a))
+                 ~~~~~~~~~~~~~~~~~^^^
+  File "/home/zain/Scripts/anime-downloader/watchlist.py", line 112, in format_anime_line
+    if anime.episode > 0 or anime.status == "watching":
+       ^^^^^^^^^^^^^
+AttributeError: 'Anime' object has no attribute 'episode'
+2026-09-10 23:54:19,738 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 157
+2026-09-10 23:54:19,739 - __main__ - INFO - ✅ Episode 157 of renegade immortal already downloaded (canonical).
+2026-09-10 23:54:19,739 - updater - INFO - 🔄 Updating renegade immortal: downloaded 156 → 157
+2026-09-10 23:54:19,739 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-10 23:54:19,740 - updater - INFO - ✅ Verified: renegade immortal downloaded=157
+2026-09-10 23:54:45,625 - scraper.luciferdonghua - INFO - Latest episode for Battle through the heavens: 210
+2026-09-10 23:54:47,084 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 208 (job 1)
+2026-09-10 23:54:47,693 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Battle_through_the_heavens_s5_ep208.mp4 (quality: 720p)
+2026-09-10 23:54:48,585 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 209 (job 2)
+2026-09-10 23:54:49,241 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Battle_through_the_heavens_s5_ep209.mp4 (quality: 720p)
+2026-09-10 23:54:49,713 - __main__ - INFO - Found direct video URL for Battle through the heavens ep 210: https://geo.dailymotion.com/player.html?video=k10WpDfvXuy2ldJu938
+2026-09-11 00:04:06,212 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-11 00:04:07,493 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-11 00:04:09,779 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-11 00:04:11,058 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-11 00:04:13,278 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-11 00:04:13,278 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/battle-through-the-heavens-season-5-episode-208-lucifer-donghua/
+2026-09-11 00:04:13,281 - queue_manager - ERROR - ❌ Job 1 failed
+2026-09-11 00:04:13,282 - queue_manager - INFO - ⏳ Downloading Battle through the heavens episode 210 (job 3)
+2026-09-11 00:04:13,987 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Battle_through_the_heavens_s5_ep210.mp4 (quality: 720p)
+2026-09-11 00:04:14,639 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-11 00:04:14,640 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/battle-through-the-heavens-season-5-episode-209-lucifer-donghua/
+2026-09-11 00:04:14,640 - queue_manager - ERROR - ❌ Job 2 failed
+2026-09-11 00:04:14,953 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-11 00:04:17,886 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-11 00:04:20,816 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-11 00:04:20,816 - downloader - ERROR - All yt‑dlp attempts failed for https://geo.dailymotion.com/player.html?video=k10WpDfvXuy2ldJu938
+2026-09-11 00:04:20,816 - queue_manager - ERROR - ❌ Job 3 failed
+2026-09-13 22:31:31,933 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 40
+2026-09-13 22:31:32,931 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 38 (job 1)
+2026-09-13 22:31:33,879 - __main__ - INFO - Found direct video URL for Beyond the Timescape ep 39: https://geo.dailymotion.com/player.html?video=k7qjjxcx1p8yMeJNGcS
+2026-09-13 22:31:33,933 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 39 (job 2)
+2026-09-13 22:31:34,071 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep38.mp4 (quality: 720p)
+2026-09-13 22:31:34,776 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep39.mp4 (quality: 720p)
+2026-09-13 22:55:16,107 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep39.mp4
+2026-09-13 22:55:16,109 - updater - INFO - 🔄 Updating Beyond the Timescape: downloaded 37 → 39
+2026-09-13 22:55:16,110 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-13 22:55:16,111 - updater - INFO - ✅ Verified: Beyond the Timescape downloaded=39
+2026-09-13 22:55:16,113 - queue_manager - INFO - ✅ Job 2 completed
+2026-09-13 22:55:16,114 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 40 (job 3)
+2026-09-13 22:55:17,144 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep40.mp4 (quality: 720p)
+2026-09-13 22:55:22,929 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-13 22:55:26,964 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep38.mp4
+2026-09-13 22:55:26,965 - updater - INFO - 🔄 Updating Beyond the Timescape: downloaded 39 → 38
+2026-09-13 22:55:26,966 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-13 22:55:26,966 - updater - INFO - ✅ Verified: Beyond the Timescape downloaded=38
+2026-09-13 22:55:26,967 - queue_manager - INFO - ✅ Job 1 completed
+2026-09-13 22:55:30,475 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-13 22:55:37,445 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-13 22:55:37,445 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-40-lucifer-donghua/
+2026-09-13 22:55:37,446 - queue_manager - ERROR - ❌ Job 3 failed
+2026-09-13 23:27:06,052 - scraper.luciferdonghua - INFO - Latest episode for Beyond the Timescape: 40
+2026-09-13 23:27:06,053 - __main__ - INFO - ✅ Episode 39 of Beyond the Timescape already downloaded (canonical).
+2026-09-13 23:27:06,053 - updater - INFO - 🔄 Updating Beyond the Timescape: downloaded 38 → 39
+2026-09-13 23:27:06,053 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-13 23:27:06,054 - updater - INFO - ✅ Verified: Beyond the Timescape downloaded=39
+2026-09-13 23:27:07,042 - queue_manager - INFO - ⏳ Downloading Beyond the Timescape episode 40 (job 4)
+2026-09-13 23:27:08,291 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/Beyond_the_Timescape_s1_ep40.mp4 (quality: 720p)
+2026-09-13 23:27:13,321 - downloader - WARNING - yt‑dlp attempt 1 failed (code 1)
+2026-09-13 23:27:20,475 - downloader - WARNING - yt‑dlp attempt 2 failed (code 1)
+2026-09-13 23:27:27,859 - downloader - WARNING - yt‑dlp attempt 3 failed (code 1)
+2026-09-13 23:27:27,859 - downloader - ERROR - All yt‑dlp attempts failed for https://luciferdonghua.in/beyond-the-timescape-episode-40-lucifer-donghua/
+2026-09-13 23:27:27,860 - queue_manager - ERROR - ❌ Job 4 failed
+2026-09-14 20:50:29,875 - scraper.luciferdonghua - ERROR - Failed to build episode map from https://luciferdonghua.in/anime/renegade-immortal-xian-ni/: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Read timed out.
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/urllib3/response.py", line 905, in _error_catcher
+    yield
+  File "/usr/lib/python3.14/site-packages/urllib3/response.py", line 1434, in read_chunked
+    chunk = self._handle_chunk(amt)
+  File "/usr/lib/python3.14/site-packages/urllib3/response.py", line 1364, in _handle_chunk
+    value = self._fp._safe_read(amt)  # type: ignore[union-attr]
+  File "/usr/lib/python3.14/http/client.py", line 667, in _safe_read
+    data = self.fp.read(cursize)
+  File "/usr/lib/python3.14/socket.py", line 729, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "/usr/lib/python3.14/ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 937, in generate
+    yield from self.raw.stream(chunk_size, decode_content=True)
+  File "/usr/lib/python3.14/site-packages/urllib3/response.py", line 1260, in stream
+    yield from self.read_chunked(amt, decode_content=decode_content)
+  File "/usr/lib/python3.14/site-packages/urllib3/response.py", line 1407, in read_chunked
+    with self._error_catcher():
+         ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/lib/python3.14/site-packages/urllib3/response.py", line 910, in _error_catcher
+    raise ReadTimeoutError(self._pool, None, "Read timed out.") from e  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Read timed out.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/zain/Scripts/anime-downloader/scraper/luciferdonghua.py", line 194, in _build_episode_map
+    resp = requests.get(series_url, headers=HEADERS, timeout=TIMEOUT)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3.14/site-packages/requests/sessions.py", line 827, in send
+    r.content
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 1042, in content
+    self._content = b"".join(self.iter_content(CONTENT_CHUNK_SIZE)) or b""
+                    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/site-packages/requests/models.py", line 943, in generate
+    raise ConnectionError(e)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='luciferdonghua.in', port=443): Read timed out.
+2026-09-14 20:51:50,169 - scraper.luciferdonghua - INFO - Latest episode for renegade immortal: 158
+2026-09-14 20:51:53,319 - queue_manager - INFO - ⏳ Downloading renegade immortal episode 158 (job 1)
+2026-09-14 20:52:04,992 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep158.mp4 (quality: 720p)
+2026-09-14 21:05:31,052 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/renegade_immortal_s1_ep158.mp4
+2026-09-14 21:05:31,054 - updater - INFO - 🔄 Updating renegade immortal: downloaded 157 → 158
+2026-09-14 21:05:31,055 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-14 21:05:31,055 - updater - INFO - ✅ Verified: renegade immortal downloaded=158
+2026-09-14 21:05:31,057 - queue_manager - INFO - ✅ Job 1 completed
+2026-09-14 21:09:29,781 - scraper.luciferdonghua - INFO - Latest episode for swallowed star: 157
+2026-09-14 21:09:32,251 - __main__ - INFO - Found direct video URL for swallowed star ep 155: https://geo.dailymotion.com/player.html?video=k12elHtk2Jf5yQJA8QO
+2026-09-14 21:09:32,572 - queue_manager - INFO - ⏳ Downloading swallowed star episode 155 (job 2)
+2026-09-14 21:09:33,251 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4 (quality: 720p)
+2026-09-14 21:09:43,541 - __main__ - INFO - ✅ Episode 157 of swallowed star already downloaded (found as renegade_immortal_s1_ep157.mp4).
+2026-09-14 21:09:43,542 - updater - INFO - 🔄 Updating swallowed star: downloaded 154 → 157
+2026-09-14 21:09:43,542 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-14 21:09:43,543 - updater - INFO - ✅ Verified: swallowed star downloaded=157
+2026-09-14 21:09:43,716 - queue_manager - INFO - ⏳ Downloading swallowed star episode 156 (job 3)
+2026-09-14 21:09:44,296 - downloader - INFO - 📁 Downloading to: /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep156.mp4 (quality: 720p)
+2026-09-14 21:41:32,644 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep155.mp4
+2026-09-14 21:41:32,645 - updater - INFO - 🔄 Updating swallowed star: downloaded 157 → 155
+2026-09-14 21:41:32,689 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-14 21:41:32,690 - updater - INFO - ✅ Verified: swallowed star downloaded=155
+2026-09-14 21:41:32,724 - queue_manager - INFO - ✅ Job 2 completed
+2026-09-14 21:42:10,256 - downloader - INFO - ✅ Downloaded to /home/zain/Scripts/anime-downloader/downloads/swallowed_star_s4_ep156.mp4
+2026-09-14 21:42:10,257 - updater - INFO - 🔄 Updating swallowed star: downloaded 155 → 156
+2026-09-14 21:42:10,257 - updater - INFO - 💾 Watchlist saved to /home/zain/Scripts/anime-downloader/data/anime.txt
+2026-09-14 21:42:10,258 - updater - INFO - ✅ Verified: swallowed star downloaded=156
+2026-09-14 21:42:10,258 - queue_manager - INFO - ✅ Job 3 completed

@@ -13,6 +13,7 @@ from rich.columns import Columns
 from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
 
+from link_manager import LinkManager
 from config import (
     DOWNLOAD_DIR, LOGS_DIR, DEBUG, VERSION,
     QUALITY_OPTIONS, DEFAULT_QUALITY, PREVIEW_MAX_SIZE_BYTES,
@@ -155,7 +156,7 @@ def mark_completed():
     console.print("\n[bold cyan]Mark Anime as Completed[/bold cyan]")
     for i, anime in enumerate(watching, 1):
         latest = get_latest_with_fallback(anime)
-        console.print(f"{i}. {anime.name} [dim](current: {anime.episode}, latest: {latest})[/dim]")
+        console.print(f"{i}. {anime.name} [dim](current: {anime.downloaded}, latest: {latest})[/dim]")
     console.print("0. Mark all as completed")
     console.print("q. Cancel")
 
@@ -212,7 +213,7 @@ def process_anime_background(anime, watchlist):
              # If completed, check if new episodes exist
     if anime.status == "completed":
         latest = get_latest_with_fallback(anime)
-        if latest > anime.episode:
+        if latest > anime.downloaded:
             if Confirm.ask(f"[yellow]New episodes found for completed '{anime.name}'. Move back to watching and download?[/yellow]"):
                 anime.status = "watching"
                 save_watchlist(watchlist)
@@ -234,13 +235,38 @@ def process_anime_background(anime, watchlist):
     for ep in missing:
         download_episode_background(anime, ep, watchlist)
 
-    # Auto‑mark completed if all caught up
-#    if latest == anime.episode + len(missing) or latest == anime.episode:
-#        if Confirm.ask(f"[yellow]You've caught up to episode {latest} of {anime.name}. Mark as completed?[/yellow]"):
-#            anime.status = "completed"
-#            save_watchlist(watchlist)
-#            console.print(f"[green]✅ {anime.name} marked as completed.[/green]")
+# Define sync_links() function somewhere before main()
+def sync_links():
+    """Synchronize links for all watchlist entries across all supported sites."""
+    console.print("[bold cyan]Syncing links for all watchlist entries...[/bold cyan]")
+    watchlist = load_watchlist()
+    if not watchlist:
+        console.print("[yellow]Watchlist is empty.[/yellow]")
+        return
 
+    link_manager = LinkManager()
+    sites = [LuciferDonghuaScraper(link_manager)]
+
+    for site_scraper in sites:
+        site_name = site_scraper.SITE_NAME
+        console.print(f"\n[bold]{site_name}[/bold]")
+        for anime in watchlist:
+            season_str = anime.season or ""
+
+            # If completed and NOT explicit, invalidate the current season's cache
+            if anime.status == "completed" and not link_manager.is_explicit(anime.name, site_name, season_str):
+                link_manager.invalidate(anime.name, site_name, season_str)
+                console.print(f"[dim]Invalidated {anime.name}::{season_str}[/dim]")
+
+            # Discover (or re-discover) the URL
+            status, url = site_scraper.discover_series_url(anime)
+            link_manager.set(anime.name, site_name, season_str, status, url)
+            if status == "found":
+                console.print(f"  ✓ {anime.name} → found")
+            else:
+                console.print(f"  ✗ {anime.name} → not_found")
+
+    console.print("\n[bold green]Link sync complete![/bold green]")
 
 def sync_watchlist(anime_name=None):
     watchlist = load_watchlist()
@@ -251,9 +277,9 @@ def sync_watchlist(anime_name=None):
         if anime_name and anime.name.lower() != anime_name.lower():
             continue
         latest = get_latest_with_fallback(anime)
-        if latest > 0 and latest > anime.episode:
-            old = anime.episode
-            anime.episode = latest
+        if latest > 0 and latest > anime.download:
+            old = anime.downloaded
+            anime.downloaded = latest
             updated += 1
             console.print(f"[green]✓[/green] {anime.name}: {old} → {latest}")
     if updated:
@@ -370,7 +396,6 @@ def manage_page_links():
 # ------------------------------------------------------------
 # TUI Views
 # ------------------------------------------------------------
-
 def view_watchlist():
     watchlist = load_watchlist()
     if not watchlist:
@@ -384,21 +409,103 @@ def view_watchlist():
         table = Table(title=title, title_style=f"bold {color}", header_style="bold cyan", box=box.ROUNDED)
         table.add_column("Anime", style="white", no_wrap=False)
         table.add_column("Season", justify="center", style="green")
-        table.add_column("Episode", justify="center", style="yellow")
+        table.add_column("Downloaded", justify="center", style="cyan")
+        table.add_column("Watched", justify="center", style="magenta")
         for a in items:
             if a.season:
                 season_match = re.search(r'\d+', a.season)
-                season = f"S{season_match.group(0)}" if season_match else a.season
+                season = f"{season_match.group(0)}" if season_match else a.season
             else:
                 season = "—"
-            episode = f"E{a.episode}" if a.episode > 0 else "—"
-            table.add_row(a.name, season, episode)
+            downloaded = f"{a.downloaded}" if a.downloaded > 0 else "—"
+            watched = f"{a.watched}" if a.watched > 0 else "—"
+            table.add_row(a.name, season, downloaded, watched)
         return table
 
     left = Panel(build_table(watching, "Watching", "green"), title="Watching", border_style="green")
     right = Panel(build_table(completed, "Completed", "blue"), title="Completed", border_style="blue")
     console.print(Columns([left, right], equal=True, expand=True))
 
+def update_watched():
+    """Update the watched progress for one or more anime."""
+    watchlist = load_watchlist()
+    watching = [a for a in watchlist if a.status == "watching"]
+    if not watching:
+        console.print("[yellow]No anime in 'watching' status.[/yellow]")
+        return
+
+    console.print("\n[bold cyan]Update Watched Progress[/bold cyan]")
+    table = Table(box=box.SIMPLE, show_header=True, header_style="bold cyan", pad_edge=False)
+    table.add_column("#", justify="right", style="dim", width=4)
+    table.add_column("Anime", style="white")
+    table.add_column("Downloaded", justify="right", style="cyan", width=10)
+    table.add_column("Watched", justify="right", style="magenta", width=8)
+
+    for i, anime in enumerate(watching, 1):
+        dl = str(anime.downloaded) if anime.downloaded > 0 else "—"
+        wt = str(anime.watched) if anime.watched > 0 else "—"
+        table.add_row(str(i), anime.name, dl, wt)
+
+    table.add_row("0", "[italic]Cancel[/italic]", "", "")
+    console.print(table)
+    while(True):
+        choice = Prompt.ask(
+            "Select anime to update \n    OR Press enter to Exit OR 0 ",
+            choices=[str(i) for i in range(len(watching) + 1) ],
+            default="0"
+        )
+        if choice == "0":
+            return
+
+        try:
+            idx = int(choice) - 1
+            if not (0 <= idx < len(watching)):
+                console.print("[red]Invalid selection.[/red]")
+                return
+            anime = watching[idx]
+        except ValueError:
+            console.print("[red]Invalid input.[/red]")
+            return
+
+        console.print(f"\n[bold]{anime.name}[/bold]")
+        console.print(f"Downloaded: [cyan]{anime.downloaded}[/cyan]")
+        console.print(f"Watched:    [magenta]{anime.watched}[/magenta]")
+        console.print("\nOptions:")
+        console.print("1. Set watched to a specific episode")
+        console.print("2. Increment watched by 1")
+        console.print("3. Set watched = downloaded (mark all as watched)")
+        console.print("0. Cancel")
+
+        action = Prompt.ask("Choose", choices=["1", "2", "3", "0 OR Press enter to Exit"], default="0")
+        if action == "0":
+            return
+
+        new_watched = anime.watched
+        if action == "1":
+            val = Prompt.ask("Enter episode number", default=str(anime.watched))
+            try:
+                new_watched = int(val)
+            except ValueError:
+                console.print("[red]Invalid number.[/red]")
+                return
+        elif action == "2":
+            new_watched = anime.watched + 1
+        elif action == "3":
+            new_watched = anime.downloaded
+
+        # Sanity check
+        if new_watched < 0:
+            console.print("[red]Watched cannot be negative.[/red]")
+            return
+        if new_watched > anime.downloaded:
+            if not Confirm.ask(
+                f"[yellow]Watched ({new_watched}) exceeds downloaded ({anime.downloaded}). Continue?[/yellow]"
+            ):
+                return
+
+        anime.watched = new_watched
+        save_watchlist(watchlist)
+        console.print(f"[green]✅ {anime.name} watched → {new_watched}[/green]")
 
 def view_available(anime_name=None):
     watchlist = load_watchlist()
@@ -415,7 +522,7 @@ def view_available(anime_name=None):
         if latest == 0:
             console.print(f"[yellow]No episodes found for {anime.name}[/yellow]")
         else:
-            missing = get_missing_episodes(anime.episode, latest)
+            missing = get_missing_episodes(anime.downloaded, latest)
             console.print(f"[cyan]{anime.name}[/cyan]: latest = [green]{latest}[/green], missing = {missing if missing else 'None'}")
         return
 
@@ -428,14 +535,13 @@ def view_available(anime_name=None):
         if anime.status == "completed":
             continue
         latest = get_latest_with_fallback(anime)
-        missing = get_missing_episodes(anime.episode, latest) if latest > 0 else []
+        missing = get_missing_episodes(anime.downloaded, latest) if latest > 0 else []
         table.add_row(
             anime.name,
             str(latest) if latest > 0 else "—",
             ", ".join(map(str, missing)) if missing else "None"
         )
     console.print(table)
-
 
 def download_submenu():
     watchlist = load_watchlist()
@@ -445,10 +551,25 @@ def download_submenu():
         return
 
     console.print("\n[bold cyan]Select Anime to Download[/bold cyan]")
+    table = Table(box=box.SIMPLE, show_header=True, header_style="bold cyan", pad_edge=False)
+    table.add_column("#", justify="right", style="dim", width=4)
+    table.add_column("Anime", style="white", no_wrap=False)
+    table.add_column("Downloaded", justify="right", style="cyan", width=10)
+    table.add_column("Watched", justify="right", style="magenta", width=8)
+
     for i, anime in enumerate(watching, 1):
-        console.print(f"{i}. {anime.name} [dim](current ep: {anime.episode})[/dim]")
-    console.print("0. Download all")
-    choice = Prompt.ask("Enter number", choices=[str(i) for i in range(len(watching)+1)], default="0")
+        dl = str(anime.downloaded) if anime.downloaded > 0 else "—"
+        wt = str(anime.watched) if anime.watched > 0 else "—"
+        table.add_row(str(i), anime.name, dl, wt)
+
+    table.add_row("0", "[italic]Download all[/italic]", "", "")
+    console.print(table)
+
+    choice = Prompt.ask(
+        "Enter number",
+        choices=[str(i) for i in range(len(watching) + 1)],
+        default="0"
+    )
 
     if choice == "0":
         for anime in watching:
@@ -462,7 +583,6 @@ def download_submenu():
                 console.print("[red]Invalid selection.[/red]")
         except ValueError:
             console.print("[red]Invalid input.[/red]")
-
 
 def retry_failed():
     failed = load_failed()
@@ -572,7 +692,7 @@ def test_modules():
 
 def tui():
     console.print(Panel.fit(f" Anime Downloader v{VERSION} ", style="bold magenta"))
-    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links \\[m]ark completed \\[quality] \\[t]est \\[e]xit[/dim]\n")
+    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links \\[m]ark completed \\[u]pdate watched \\[quality] \\[t]est \\[e]xit[/dim]\n")
 
     while True:
         status = QUEUE.get_status()
@@ -583,7 +703,7 @@ def tui():
 
         choice = Prompt.ask(
             "[bold cyan]Command[/bold cyan]",
-            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "m", "t", "e"],
+            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "m", "u", "t", "e"],
             default="w"
         )
 
@@ -610,6 +730,8 @@ def tui():
             test_modules()
         elif choice == "m":
             mark_completed()
+        elif choice == "u":
+            update_watched()
         elif choice == "e":
             console.print("[bold green]Goodbye![/bold green]")
             break
@@ -625,6 +747,7 @@ def main():
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     parser.add_argument("--menu", action="store_true", help="Force interactive menu")
     parser.add_argument("--sync", action="store_true", help="Update watchlist to latest episodes (no download)")
+    parser.add_argument("--sync-links", action="store_true", help="Sync links for all watchlist entries")
     args = parser.parse_args()
 
     if args.debug:
@@ -633,6 +756,10 @@ def main():
 
     if args.sync:
         sync_watchlist(args.test_anime)
+        return
+    
+    if args.sync_links:
+        sync_links()
         return
 
     if args.menu or (not args.test_anime and not args.menu):

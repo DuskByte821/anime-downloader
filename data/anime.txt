@@ -1,43 +1,41 @@
 watching
-perfect world::season 1::episode 284
-stellar transformation::season 7::episode 7
-The Great Ruler::season 2::episode 7
-Shrouding The Heavens::season 1::episode 176
-Battle through the heavens::season 5::episode 207
-renegade immortal::season 1::episode 156
-soul land 2::season 1::episode 151
-swallowed star::season 4::episode 154
-Beyond the Timescape::season 1::episode 37
-sword and fairy 3::episode 8
-The Supreme Body Refining Master::episode 13
-sword of coming(jian lai)::episode 16
-keyboard immortal::episode 15
-The Divine Emperor of Destiny::season 1::episode 20
-Twin Martial Spirits::episode 44
-Endless Heaven Realm::episode 65
+perfect world::season 1::downloaded 284::watched 270
+stellar transformation::season 7::downloaded 7::watched 1
+The Great Ruler::season 2::downloaded 7::watched 5
+Shrouding The Heavens::season 1::downloaded 176::watched 170
+Battle through the heavens::season 5::downloaded 207::watched 207
+renegade immortal::season 1::downloaded 158::watched 156
+The Demon Hunter::season 3::downloaded 1::watched 5
+soul land 2::season 1::downloaded 151::watched 140
+swallowed star::season 4::downloaded 156::watched 150
+Beyond the Timescape::season 1::downloaded 39::watched 37
+sword and fairy 3::downloaded 8::watched 4
+The Supreme Body Refining Master::downloaded 13::watched 0
+sword of coming(jian lai)::downloaded 16::watched 0
+keyboard immortal::downloaded 15::watched 0
+The Divine Emperor of Destiny::season 1::downloaded 20::watched 0
+Twin Martial Spirits::downloaded 44::watched 0
+Endless Heaven Realm::downloaded 65::watched 0
 
 completed
-apotheosis::season 3::episode 26
-lord of all realms::episode 11
-classroom of the elite::season 2::episode 13
-against the gods::season 1
-appotheosis::season 2::episode 51
-stellar transformation::season 6::episode 28
-Return of the Divine Emperor::season 1::episode 16
-The strongest upgrade::episode 15
-The Demon Hunter::season 2
-Above the Kingdom of God::episode 17
-Jade Dynasty::season 3::episode 26
-Divine Lord Of Heavens::episode 48
-Dragon Raja::season 2::episode 24
-Martial Universe::season 6::episode 7
-Legend of the Misty Sword Immortal::episode 40
-Supreme Over the Sky::episode 60
-Peerless Divine Emperor::episode 40
-World Defying Dan God::season 1::episode 11
-The Daily Life of Immortal King::season 5::episode 12
-Nine Suns Martial God::season 1::episode 20
-Throne of seal::season 1::episode 208
-The Gate of Mystical Realm::season 1::episode 26
-Immortality::season 5::episode 26
-Tomb of Fallen Gods::season 3::episode 52
+apotheosis::season 3::downloaded 26::watched 0
+lord of all realms::downloaded 11::watched 0
+classroom of the elite::season 2::downloaded 13::watched 0
+against the gods::season 1::downloaded 0::watched 0
+Return of the Divine Emperor::season 1::downloaded 16::watched 0
+The strongest upgrade::downloaded 15::watched 0
+Above the Kingdom of God::downloaded 17::watched 0
+Jade Dynasty::season 3::downloaded 26::watched 0
+Divine Lord Of Heavens::downloaded 48::watched 0
+Dragon Raja::season 2::downloaded 24::watched 0
+Martial Universe::season 6::downloaded 7::watched 0
+Legend of the Misty Sword Immortal::downloaded 40::watched 0
+Supreme Over the Sky::downloaded 60::watched 0
+Peerless Divine Emperor::downloaded 40::watched 0
+World Defying Dan God::season 1::downloaded 11::watched 0
+The Daily Life of Immortal King::season 5::downloaded 12::watched 0
+Nine Suns Martial God::season 1::downloaded 20::watched 0
+Throne of seal::season 1::downloaded 208::watched 0
+The Gate of Mystical Realm::season 1::downloaded 26::watched 0
+Immortality::season 5::downloaded 26::watched 0
+Tomb of Fallen Gods::season 3::downloaded 52::watched 0

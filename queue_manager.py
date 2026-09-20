@@ -1,4 +1,4 @@
-"""Background download queue with threading."""
+"""Background download queue with watchlist-file propagation."""
 
 import logging
 import threading
@@ -10,7 +10,6 @@ from typing import Optional
 
 from downloader import download_file
 from updater import update_watchlist
-from models import Anime
 from failed_downloads import add_failed, remove_success
 
 logger = logging.getLogger(__name__)
@@ -18,33 +17,47 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class DownloadJob:
-    anime: Anime
+    anime: "Anime"
     episode: int
     watchlist: list
     destination: Path
     url: str
-    status: str = "queued"   # queued, downloading, completed, failed
+    watchlist_file: Optional[Path] = None   # <-- new
+    status: str = "queued"
 
 
 class DownloadQueue:
-    def __init__(self, max_workers=2):
+    def __init__(self, max_workers: int = 2):
         self.queue = deque()
-        self.jobs = {}  # job_id -> DownloadJob
+        self.jobs = {}
         self.lock = threading.Lock()
-        self.workers = []
         self.max_workers = max_workers
         self.running = False
         self.job_counter = 0
 
-    def add_job(self, anime: Anime, episode: int, watchlist: list, destination: Path, url: str) -> int:
+    def add_job(
+        self,
+        anime,
+        episode: int,
+        watchlist: list,
+        destination: Path,
+        url: str,
+        watchlist_file: Optional[Path] = None,   # <-- new
+    ) -> int:
         with self.lock:
             self.job_counter += 1
-            job = DownloadJob(anime, episode, watchlist, destination, url)
-            job_id = self.job_counter
-            self.jobs[job_id] = job
-            self.queue.append(job_id)
+            job = DownloadJob(
+                anime=anime,
+                episode=episode,
+                watchlist=watchlist,
+                destination=destination,
+                url=url,
+                watchlist_file=watchlist_file,
+            )
+            self.jobs[self.job_counter] = job
+            self.queue.append(self.job_counter)
             self._start_workers()
-        return job_id
+        return self.job_counter
 
     def _start_workers(self):
         if not self.running:
@@ -52,7 +65,6 @@ class DownloadQueue:
             for _ in range(self.max_workers):
                 t = threading.Thread(target=self._worker_loop, daemon=True)
                 t.start()
-                self.workers.append(t)
 
     def _worker_loop(self):
         while self.running:
@@ -70,27 +82,33 @@ class DownloadQueue:
         if not job:
             return
         job.status = "downloading"
-        logger.info(f"⏳ Downloading {job.anime.name} episode {job.episode} (job {job_id})")
-        success = download_file(job.url, job.destination)
-        # Inside _process_job()
+        logger.info(
+            f"⏳ Downloading {job.anime.name} episode {job.episode} (job {job_id})"
+        )
+        success = download_file(
+            job.url,
+            job.destination,
+            anime_name=job.anime.name,
+            episode=job.episode,
+        )
         if success:
             job.status = "completed"
-            # Update watchlist with the provided list
-            update_watchlist(job.watchlist, job.anime, job.episode)
+            update_watchlist(
+                job.watchlist,
+                job.anime,
+                job.episode,
+                file_path=job.watchlist_file,
+            )
             remove_success(job.anime.name, job.episode)
             logger.info(f"✅ Job {job_id} completed")
         else:
             job.status = "failed"
             add_failed(job.anime.name, job.episode)
             logger.error(f"❌ Job {job_id} failed")
-        # Remove from active jobs after some time
-        # Keep in memory for status display
 
     def get_status(self):
         with self.lock:
-            return {jid: (job.status, job.anime.name, job.episode) for jid, job in self.jobs.items()}
-
-    def shutdown(self):
-        self.running = False
-        for t in self.workers:
-            t.join(timeout=1)
+            return {
+                jid: (job.status, job.anime.name, job.episode)
+                for jid, job in self.jobs.items()
+            }

@@ -16,6 +16,7 @@ Thumbs.db
 
 data/anime.txt
 data/links.txt
+data/donghua.txt
 
 logs/*.log
 logs/failed_downloads.txt

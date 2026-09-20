@@ -5,7 +5,7 @@ import logging
 import re
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Pattern
 
 from rich.console import Console
 from rich.table import Table, box
@@ -16,14 +16,17 @@ from rich.prompt import Prompt, Confirm
 from link_manager import LinkManager
 from config import (
     DOWNLOAD_DIR, LOGS_DIR, DEBUG, VERSION,
-    QUALITY_OPTIONS, DEFAULT_QUALITY, PREVIEW_MAX_SIZE_BYTES,
+    QUALITY_OPTIONS, DEFAULT_QUALITY, PREVIEW_MAX_SIZE_BYTES, ABBREVIATIONS,
+    WATCHLIST_FILES, ANIME_WATCHLIST_FILE, DONGHUA_WATCHLIST_FILE, DEFAULT_CONTENT_TYPE,
 )
 from downloader import set_quality, CURRENT_QUALITY
 from episode import get_missing_episodes
 from failed_downloads import add_failed, load_failed, remove_success
 from scraper import LuciferDonghuaScraper, CartoonsAreaScraper
 from updater import update_watchlist
-from watchlist import load_watchlist, save_watchlist
+from watchlist import (    load_watchlist, save_watchlist, normalize_name,
+    change_status, VALID_STATUSES,
+)
 from queue_manager import DownloadQueue
 
 # Setup logging
@@ -43,44 +46,138 @@ SCRAPER_FALLBACK = CartoonsAreaScraper()
 QUEUE = DownloadQueue(max_workers=2)
 
 
+
+
+# -----------------------------------------------------------
+# Content-Type Functions
+# -----------------------------------------------------------
+#
+#
+def choose_content_type(prompt_label: str = "Select content type") -> Optional[str]:
+    current = get_default_content_type()
+    console.print(f"\n[bold cyan]{prompt_label}[/bold cyan]")
+    console.print(f"1. Anime{'  [dim](default)[/dim]' if current == 'anime' else ''}")
+    console.print(f"2. Donghua{'  [dim](default)[/dim]' if current == 'donghua' else ''}")
+    console.print(f"Enter. Use default ({current})")
+    console.print("0. Back")
+    choice = Prompt.ask(
+        "Enter number",
+        choices=["0", "1", "2", ""],
+        default="",
+    )
+    if choice == "0":
+        return None
+    if choice == "":
+        return current
+    return "anime" if choice == "1" else "donghua"
+
+
+def watchlist_menu():
+    while True:
+        ctype = choose_content_type("Watchlist")
+        if ctype is None:
+            return
+
+        file_path = WATCHLIST_FILES[ctype]
+
+        console.print(f"\n[bold cyan]{ctype.title()} – select status[/bold cyan]")
+        console.print("1. Watching")
+        console.print("2. Ended")
+        console.print("3. Dropped")
+        console.print("4. Completed")
+        console.print("5. All")
+        console.print("0. Back")
+        choice = Prompt.ask("Enter number", choices=["0", "1", "2", "3", "4", "5"], default="5")
+        if choice == "0":
+            continue
+
+        status_map = {"1": "watching", "2": "ended", "3": "dropped", "4": "completed"}
+        status_filter = status_map.get(choice)  # None -> "all"
+
+        view_watchlist(file_path, status_filter)
+
+
 # ------------------------------------------------------------
 # Helper functions
 # ------------------------------------------------------------
+# Episode Matching Functions
 
-def find_existing_file(anime_name: str, episode: int, season: Optional[str] = None) -> Optional[Path]:
+def _episode_pattern(episode: int) -> Pattern[str]:
     """
-    Search the downloads directory for a file matching the anime and episode.
-    Returns the file path if found and size > PREVIEW_MAX_SIZE_BYTES, else None.
-    If a file is found but is too small (preview), it is deleted.
+    Match 'ep<episode>' (or 'e<episode>', 'episode <episode>') with a
+    digit boundary on the right so 'ep21' does not match 'ep211'.
     """
-    anime_slug = anime_name.lower().replace(" ", "_")
-    patterns = [
-        f"*_{anime_slug}_ep{episode}.mp4",
-        f"*{anime_slug}*_ep{episode}.mp4",
-        f"*ep{episode}*.mp4",
-    ]
-    if season:
-        season_num = re.search(r'\d+', season)
-        if season_num:
-            s = season_num.group(0)
-            patterns.append(f"*_s{s}_ep{episode}.mp4")
-            patterns.append(f"*s{s}*ep{episode}*.mp4")
+    # Matches: ep21, e21, episode 21, episode-21, episode_21
+    # Not matched: ep211, ep210, e219
+    return re.compile(
+        rf"(?:ep|e|episode[\s_-]?)(?P<n>{episode})(?!\d)",
+        re.IGNORECASE,
+    )
 
-    # Search in DOWNLOAD_DIR
-    for pattern in patterns:
-        matches = list(DOWNLOAD_DIR.glob(pattern))
-        for f in matches:
-            if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
-                return f
-            else:
-                # This file is too small – delete it (preview)
-                logger.warning(f"Deleting small file (preview) : {f} ({f.stat().st_size} bytes)")
-                f.unlink()
-                # Continue searching for a valid file
+
+def _anime_matches_filename(anime_name: str, filename: str) -> bool:
+    """
+    Fuzzy match: at least one abbreviation for this anime must appear in
+    the filename, OR 60% of anime-name tokens must appear.
+    """
+    def slug(s: str) -> str:
+        return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
+
+    file_slug = slug(filename)
+    name_key = anime_name.lower().strip()
+
+    # 1. Abbreviation check
+    abbrs = ABBREVIATIONS.get(name_key, [])
+    for ab in abbrs:
+        if ab in file_slug:
+            return True
+
+    # 2. Token overlap check
+    anime_tokens = [t for t in slug(anime_name).split() if len(t) > 1]
+    if not anime_tokens:
+        return False
+    present = sum(1 for t in anime_tokens if t in file_slug)
+    return present / len(anime_tokens) >= 0.6
+
+def find_existing_file(
+    anime_name: str,
+    episode: int,
+    season: Optional[str] = None,
+) -> Optional[Path]:
+    """
+    Search DOWNLOAD_DIR for a file matching the anime and episode.
+
+    A match requires:
+      - the anime name to appear in the filename (fuzzy, 60% token overlap)
+      - the episode number to match with a digit boundary (ep21 != ep211)
+
+    If a matching file exists but is below PREVIEW_MAX_SIZE_BYTES,
+    it is deleted and the search continues (preview file).
+    """
+    if not DOWNLOAD_DIR.exists():
+        return None
+
+    ep_re = _episode_pattern(episode)
+
+    for f in DOWNLOAD_DIR.glob("*.mp4"):
+        # 1. Episode match (with digit boundary)
+        if not ep_re.search(f.name):
+            continue
+
+        # 2. Anime match (fuzzy, but must be non-empty)
+        if not _anime_matches_filename(anime_name, f.name):
+            continue
+
+        # 3. Size check
+        if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
+            return f
+        else:
+            logger.warning(f"Deleting small file (preview): {f} ({f.stat().st_size} bytes)")
+            f.unlink()
+
     return None
 
-
-def download_episode_background(anime, episode, watchlist):
+def download_episode_background(anime, episode, watchlist, file_path: Path):
     # Build canonical destination
     if anime.season:
         season_num = re.search(r'\d+', anime.season)
@@ -90,98 +187,94 @@ def download_episode_background(anime, episode, watchlist):
     canonical_name = f"{anime.name.replace(' ', '_')}{season_str}_ep{episode}.mp4"
     canonical_dest = DOWNLOAD_DIR / canonical_name
 
-    # 1. Check canonical file
+    # 1. Canonical file exists
     if canonical_dest.exists():
         size = canonical_dest.stat().st_size
         if size > PREVIEW_MAX_SIZE_BYTES:
             logger.info(f"✅ Episode {episode} of {anime.name} already downloaded (canonical).")
-            update_watchlist(watchlist, anime, episode)
+            update_watchlist(watchlist, anime, episode, file_path=file_path)   # ← FIX
             return True
         else:
-            # small file – delete and treat as failed
             logger.warning(f"Deleting small canonical file (preview): {canonical_dest}")
             canonical_dest.unlink()
             add_failed(anime.name, episode)
             return False
 
-    # 2. Fuzzy search (any file containing anime name and episode)
+    # 2. Fuzzy existing file
     existing = find_existing_file(anime.name, episode, anime.season)
     if existing:
-        # find_existing_file already deleted any small file and returned a valid one
         logger.info(f"✅ Episode {episode} of {anime.name} already downloaded (found as {existing.name}).")
-        update_watchlist(watchlist, anime, episode)
+        update_watchlist(watchlist, anime, episode, file_path=file_path)       # ← FIX
         return True
 
-    # 3. No valid file – queue download
+    # 3. Queue the download
     try:
-        link = get_download_link_with_fallback(anime, episode)   # episode page
-        # Try to get direct video URL
-        direct_url = SCRAPER_PRIMARY.get_direct_video_url(anime, episode)
-        if direct_url:
-            logger.info(f"Found direct video URL for {anime.name} ep {episode}: {direct_url}")
-            link = direct_url
-        elif SCRAPER_FALLBACK:
-            # Also try fallback scraper
-            fallback_url = SCRAPER_FALLBACK.get_direct_video_url(anime, episode) if hasattr(SCRAPER_FALLBACK, 'get_direct_video_url') else None
-            if fallback_url:
-                logger.info(f"Found direct video URL via fallback: {fallback_url}")
-                link = fallback_url
-        # If still no direct URL, use the episode page (yt-dlp will handle it)
+        link = get_download_link_with_fallback(anime, episode)
         if not link:
-            logger.error(f"No download link for {anime.name} ep {episode}")
+            logger.error(f"No link for {anime.name} ep {episode}")
             add_failed(anime.name, episode)
             return False
-        QUEUE.add_job(anime, episode, watchlist, canonical_dest, link)
+        QUEUE.add_job(
+            anime, episode, watchlist, canonical_dest, link,
+            watchlist_file=file_path,
+        )
         return True
     except Exception as e:
         logger.exception(f"Error queuing {anime.name} ep {episode}: {e}")
         add_failed(anime.name, episode)
         return False
 
-def get_anime_by_name(name: str):
-    watchlist = load_watchlist()
-    for a in watchlist:
-        if a.name.lower() == name.lower():
-            return a
-    return None
+# ------------------------------------------------------------
+# Changes Media Status
+# ------------------------------------------------------------
+#
+def change_status_menu():
+    ctype = choose_content_type("Change Status")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
 
-def mark_completed():
-    """Manually mark watching anime as completed."""
-    watchlist = load_watchlist()
-    watching = [a for a in watchlist if a.status == "watching"]
-    if not watching:
-        console.print("[yellow]No anime in 'watching' status.[/yellow]")
+    watchlist = load_watchlist(file_path)
+    if not watchlist:
+        console.print(f"[yellow]{file_path.name} is empty.[/yellow]")
         return
 
-    console.print("\n[bold cyan]Mark Anime as Completed[/bold cyan]")
-    for i, anime in enumerate(watching, 1):
-        latest = get_latest_with_fallback(anime)
-        console.print(f"{i}. {anime.name} [dim](current: {anime.downloaded}, latest: {latest})[/dim]")
-    console.print("0. Mark all as completed")
-    console.print("q. Cancel")
-
-    choice = Prompt.ask("Enter number (or q to cancel)", default="q")
-    if choice.lower() == "q":
-        return
-
+    # Select anime
+    console.print(f"\n[bold cyan]Select anime[/bold cyan]")
+    for i, a in enumerate(watchlist, 1):
+        console.print(f"{i}. {a.name} [dim]({a.status})[/dim]")
+    console.print("0. Cancel")
+    choice = Prompt.ask("Enter number", default="0")
     if choice == "0":
-        for anime in watching:
-            anime.status = "completed"
-        save_watchlist(watchlist)
-        console.print(f"[green]✅ Marked {len(watching)} anime as completed.[/green]")
-    else:
-        try:
-            idx = int(choice) - 1
-            if 0 <= idx < len(watching):
-                anime = watching[idx]
-                anime.status = "completed"
-                save_watchlist(watchlist)
-                console.print(f"[green]✅ Marked {anime.name} as completed.[/green]")
-            else:
-                console.print("[red]Invalid selection.[/red]")
-        except ValueError:
-            console.print("[red]Invalid input.[/red]")
+        return
+    try:
+        idx = int(choice) - 1
+        if not (0 <= idx < len(watchlist)):
+            console.print("[red]Invalid selection.[/red]")
+            return
+    except ValueError:
+        console.print("[red]Invalid input.[/red]")
+        return
+    anime = watchlist[idx]
 
+    # Select new status
+    console.print(f"\n[bold]{anime.name}[/bold] (current: {anime.status})")
+    console.print("1. Watching")
+    console.print("2. Ended")
+    console.print("3. Dropped")
+    console.print("4. Completed")
+    console.print("0. Cancel")
+    s_choice = Prompt.ask("New status", choices=["0", "1", "2", "3", "4"], default="0")
+    if s_choice == "0":
+        return
+    status_map = {"1": "watching", "2": "ended", "3": "dropped", "4": "completed"}
+    new_status = status_map[s_choice]
+
+    if change_status(watchlist, anime, new_status):
+        save_watchlist(watchlist, file_path)
+        console.print(f"[green]✅ {anime.name} → {new_status}[/green]")
+    else:
+        console.print(f"[dim]No change (already {anime.status}).[/dim]")
 
 def get_latest_with_fallback(anime):
     try:
@@ -209,20 +302,9 @@ def get_download_link_with_fallback(anime, episode):
         except:
             raise RuntimeError("No download link found")
 
-def process_anime_background(anime, watchlist):
-             # If completed, check if new episodes exist
+def process_anime_background(anime, watchlist, file_path: Path):
     if anime.status == "completed":
-        latest = get_latest_with_fallback(anime)
-        if latest > anime.downloaded:
-            if Confirm.ask(f"[yellow]New episodes found for completed '{anime.name}'. Move back to watching and download?[/yellow]"):
-                anime.status = "watching"
-                save_watchlist(watchlist)
-                console.print("[green]✅ Moved back to watching.[/green]")
-            else:
-                return
-        else:
-            return
-
+        return
 
     latest = get_latest_with_fallback(anime)
     if latest == 0:
@@ -233,13 +315,13 @@ def process_anime_background(anime, watchlist):
         return
 
     for ep in missing:
-        download_episode_background(anime, ep, watchlist)
+        download_episode_background(anime, ep, watchlist, file_path)
 
 # Define sync_links() function somewhere before main()
-def sync_links():
+def sync_links(file_path: Path, content_type: str):
     """Synchronize links for all watchlist entries across all supported sites."""
     console.print("[bold cyan]Syncing links for all watchlist entries...[/bold cyan]")
-    watchlist = load_watchlist()
+    watchlist = load_watchlist(file_path)
     if not watchlist:
         console.print("[yellow]Watchlist is empty.[/yellow]")
         return
@@ -247,26 +329,85 @@ def sync_links():
     link_manager = LinkManager()
     sites = [LuciferDonghuaScraper(link_manager)]
 
+    changed = False
+
     for site_scraper in sites:
         site_name = site_scraper.SITE_NAME
         console.print(f"\n[bold]{site_name}[/bold]")
+
         for anime in watchlist:
             season_str = anime.season or ""
 
-            # If completed and NOT explicit, invalidate the current season's cache
-            if anime.status == "completed" and not link_manager.is_explicit(anime.name, site_name, season_str):
-                link_manager.invalidate(anime.name, site_name, season_str)
-                console.print(f"[dim]Invalidated {anime.name}::{season_str}[/dim]")
+            # ----------------------------------------------------------
+            # 1. Explicit entries: never touch.
+            # ----------------------------------------------------------
+            if link_manager.is_explicit(anime.name, site_name, season_str):
+                console.print(f"  ⊘ {anime.name} → explicit (skipped)")
+                continue
 
-            # Discover (or re-discover) the URL
-            status, url = site_scraper.discover_series_url(anime)
-            link_manager.set(anime.name, site_name, season_str, status, url)
-            if status == "found":
-                console.print(f"  ✓ {anime.name} → found")
+            # ----------------------------------------------------------
+            # 2. Completed anime: try n+1, else check same URL.
+            # ----------------------------------------------------------
+            if anime.status == "completed":
+                if not link_manager.is_explicit(anime.name, site_name, season_str):
+                    link_manager.invalidate(anime.name, site_name, season_str)
+
+                current_season_num = site_scraper._extract_season_number(anime.season) or 1
+                target_season_str = f"season {current_season_num + 1}"
+
+                status, url = site_scraper.discover_series_url(
+                    anime, force_discover=True, target_season=target_season_str
+                )
+
+                if status == "found":
+                    console.print(
+                        f"  ✓ {anime.name} → found season {current_season_num + 1}"
+                    )
+                    link_manager.set(anime.name, site_name, target_season_str, "found", url, explicit=True, override_explicit=True,)
+                    anime.season = target_season_str
+                    anime.status = "watching"
+                    anime.downloaded = 0
+                    anime.watched = 0
+                    changed = True
+                    continue
+
+                # No new season page → check same URL for new episodes
+                status_base, base_url = site_scraper.discover_series_url(
+                    anime, force_discover=True
+                )
+                if status_base == "found" and base_url:
+                    latest = site_scraper.check_same_url_for_new_episodes(anime, base_url)
+                    if latest > anime.downloaded:
+                        console.print(
+                            f"  ↻ {anime.name} → continuous, "
+                            f"{latest - anime.downloaded} new episode(s)"
+                        )
+                        link_manager.set(anime.name, site_name, season_str, "found", base_url)
+                        anime.status = "watching"
+                        changed = True
+                        continue
+
+                # Truly finished
+                console.print(
+                    f"  ✗ {anime.name} → not_found (no new season, no new episodes)"
+                )
+                link_manager.set(anime.name, site_name, target_season_str, "not_found", "")
+
+            # ----------------------------------------------------------
+            # 3. Watching anime: normal discovery.
+            # ----------------------------------------------------------
             else:
-                console.print(f"  ✗ {anime.name} → not_found")
+                status, url = site_scraper.discover_series_url(anime)
+                link_manager.set(anime.name, site_name, season_str, status, url)
+                if status == "found":
+                    console.print(f"  ✓ {anime.name} → found")
+                else:
+                    console.print(f"  ✗ {anime.name} → not_found")
 
+    if changed:
+        save_watchlist(watchlist)
     console.print("\n[bold green]Link sync complete![/bold green]")
+
 
 def sync_watchlist(anime_name=None):
     watchlist = load_watchlist()
@@ -277,7 +418,7 @@ def sync_watchlist(anime_name=None):
         if anime_name and anime.name.lower() != anime_name.lower():
             continue
         latest = get_latest_with_fallback(anime)
-        if latest > 0 and latest > anime.download:
+        if latest > 0 and latest > anime.downloaded:
             old = anime.downloaded
             anime.downloaded = latest
             updated += 1
@@ -291,52 +432,70 @@ def sync_watchlist(anime_name=None):
 
 # ------------------------------------------------------------
 # Page Links Manager
-def manage_page_links():
-    """Interactive page link manager with loop."""
+def page_links_menu():
+    ctype = choose_content_type("Page Links")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
+    manage_page_links(file_path)
+
+
+def manage_page_links(file_path: Path):
+    """Interactive page-link manager scoped to one watchlist file."""
+    from link_manager import LinkManager
+    link_manager = LinkManager()
     scraper = SCRAPER_PRIMARY
+    site = scraper.SITE_NAME
+
     while True:
-        watchlist = load_watchlist()
+        watchlist = load_watchlist(file_path)
         if not watchlist:
-            console.print("[yellow]Watchlist is empty. Add some anime first.[/yellow]")
+            console.print(f"[yellow]{file_path.name} is empty.[/yellow]")
             return
 
-        mappings = scraper._url_map.copy()
-
-        # Display current links
-        console.print("\n[bold cyan]Current Page Links[/bold cyan]")
-        table = Table(title="Mapped URLs", box=box.ROUNDED)
+        console.print(f"\n[bold cyan]Current Page Links – {file_path.stem.title()}[/bold cyan]")
+        table = Table(box=box.ROUNDED)
         table.add_column("Anime", style="white")
-        table.add_column("URL", style="blue")
+        table.add_column("Season", justify="center", style="green")
         table.add_column("Status", justify="center")
+        table.add_column("Explicit", justify="center")
+        table.add_column("URL", style="blue", overflow="fold")
 
         for anime in watchlist:
-            matched_url = None
-            for key, url in mappings.items():
-                if key == anime.name.lower() or anime.name.lower() in key or key in anime.name.lower():
-                    matched_url = url
-                    break
-            status = "✓" if matched_url else "✗"
-            table.add_row(anime.name, matched_url or "—", f"[{'green' if matched_url else 'red'}]{status}[/{'green' if matched_url else 'red'}]")
+            season_str = anime.season or ""
+            entry = link_manager.get(anime.name, site, season_str)
+            if entry is None:
+                status_disp = "[red]✗[/red]"
+                explicit_disp = "—"
+                url_disp = "—"
+            else:
+                status, url, explicit = entry
+                status_disp = (
+                    "[green]✓ found[/green]" if status == "found"
+                    else "[yellow]not_found[/yellow]"
+                )
+                explicit_disp = "[green]yes[/green]" if explicit else "[dim]no[/dim]"
+                url_disp = url or "—"
+            table.add_row(anime.name, season_str or "—", status_disp, explicit_disp, url_disp)
         console.print(table)
 
         console.print("\n[bold]Options:[/bold]")
-        console.print("1. Assign/update a page link")
-        console.print("2. Exit link manager")
-        action = Prompt.ask("Choose", choices=["1", "2"])
-
-        if action == "2":
-            break
+        console.print("1. Assign / re-discover a link for an anime")
+        console.print("2. Toggle 'explicit' on an existing link")
+        console.print("3. Remove a link from the cache")
+        console.print("4. Exit")
+        action = Prompt.ask("Choose", choices=["1", "2", "3", "4"], default="4")
+        if action == "4":
+            return
 
         # Select anime
-        console.print("\nSelect anime to assign/update its page link:")
+        console.print("\nSelect an anime:")
         for i, anime in enumerate(watchlist, 1):
-            console.print(f"{i}. {anime.name}")
+            console.print(f"{i}. {anime.name} [dim]({anime.season or 'no season'})[/dim]")
         console.print("0. Cancel")
         choice = Prompt.ask("Enter number", default="0")
-
         if choice == "0":
             continue
-
         try:
             idx = int(choice) - 1
             if not (0 <= idx < len(watchlist)):
@@ -347,112 +506,136 @@ def manage_page_links():
             console.print("[red]Invalid input.[/red]")
             continue
 
-        # Search or manual
-        console.print(f"\n[bold]Anime: {selected_anime.name}[/bold]")
-        console.print("1. Search online for page URL")
-        console.print("2. Enter URL manually")
-        subchoice = Prompt.ask("Choose", choices=["1", "2"])
+        season_str = selected_anime.season or ""
 
-        selected_url = None
-        if subchoice == "1":
-            query = Prompt.ask("Enter search keyword (press Enter to use anime name)", default=selected_anime.name)
-            results = scraper.search_anime(query)
-            if not results:
-                console.print("[yellow]No results found.[/yellow]")
-                continue
-            console.print("\n[bold]Search Results:[/bold]")
-            for i, (name, url, latest) in enumerate(results, 1):
-                console.print(f"{i}. {name} [dim](latest: {latest})[/dim]")
-                console.print(f"   {url}")
-            url_choice = Prompt.ask("Select result number (or 0 to cancel)", default="0")
-            if url_choice == "0":
-                continue
-            try:
-                url_idx = int(url_choice) - 1
-                if not (0 <= url_idx < len(results)):
-                    console.print("[red]Invalid selection.[/red]")
+        if action == "1":
+            console.print(f"\n[bold]{selected_anime.name}[/bold]")
+            console.print("1. Re-discover from site (search + score)")
+            console.print("2. Enter URL manually")
+            sub = Prompt.ask("Choose", choices=["1", "2"], default="1")
+
+            if sub == "1":
+                console.print("[dim]Searching...[/dim]")
+                status, url = scraper.discover_series_url(selected_anime)
+                if status == "found":
+                    link_manager.set(selected_anime.name, site, season_str, "found", url)
+                    console.print(f"[green]✅ Found:[/green] {url}")
+                else:
+                    link_manager.set(selected_anime.name, site, season_str, "not_found", "")
+                    console.print("[yellow]✗ Not found on site.[/yellow]")
+            else:
+                url = Prompt.ask("Enter full URL")
+                if not url:
                     continue
-                selected_url = results[url_idx][1]
-            except ValueError:
-                console.print("[red]Invalid input.[/red]")
+                if "/anime/" not in url:
+                    if not Confirm.ask("[yellow]URL does not look like an anime page. Continue?[/yellow]"):
+                        continue
+                link_manager.set(
+                    selected_anime.name, site, season_str, "found", url,
+                    explicit=True, override_explicit=True,
+                )
+                console.print(f"[green]✅ Assigned (explicit):[/green] {url}")
+
+        elif action == "2":
+            entry = link_manager.get(selected_anime.name, site, season_str)
+            if entry is None:
+                console.print("[red]No cached link.[/red]")
                 continue
-        else:
-            selected_url = Prompt.ask("Enter full URL of the anime's main page")
+            status, url, explicit = entry
+            link_manager.set(
+                selected_anime.name, site, season_str, status, url,
+                explicit=not explicit, override_explicit=True,
+            )
+            console.print(f"[green]Explicit set to {not explicit}.[/green]")
 
-        if not selected_url:
-            console.print("[red]No URL provided.[/red]")
-            continue
-
-        if Confirm.ask(f"Assign [cyan]{selected_url}[/cyan] to [yellow]{selected_anime.name}[/yellow]?"):
-            new_mappings = {k: v for k, v in mappings.items() if k != selected_anime.name.lower()}
-            new_mappings[selected_anime.name.lower()] = selected_url
-            scraper.save_links(new_mappings)
-            console.print("[green]✅ Page link assigned successfully![/green]")
-            # Continue loop
-        else:
-            console.print("[dim]Cancelled.[/dim]")
-
-
+        elif action == "3":
+            link_manager.invalidate(selected_anime.name, site, season_str)
+            if link_manager.get(selected_anime.name, site, season_str) is not None:
+                console.print(
+                    "[yellow]Link is explicit and was not removed. "
+                    "Toggle explicit off first.[/yellow]"
+                )
+            else:
+                console.print("[green]Removed cache entry.[/green]")
 # ------------------------------------------------------------
 # TUI Views
 # ------------------------------------------------------------
-def view_watchlist():
-    watchlist = load_watchlist()
+def view_watchlist(file_path: Path, status_filter: Optional[str] = None):
+    watchlist = load_watchlist(file_path)
     if not watchlist:
-        console.print("[yellow]Watchlist is empty.[/yellow]")
+        console.print(f"[yellow]{file_path.name} is empty.[/yellow]")
         return
 
-    watching = sorted([a for a in watchlist if a.status == "watching"], key=lambda a: a.name.lower())
-    completed = sorted([a for a in watchlist if a.status == "completed"], key=lambda a: a.name.lower())
+    # Filter
+    if status_filter:
+        shown = [a for a in watchlist if a.status == status_filter]
+        title = status_filter.title()
+    else:
+        shown = watchlist
+        title = "All"
 
-    def build_table(items, title, color):
-        table = Table(title=title, title_style=f"bold {color}", header_style="bold cyan", box=box.ROUNDED)
-        table.add_column("Anime", style="white", no_wrap=False)
-        table.add_column("Season", justify="center", style="green")
-        table.add_column("Downloaded", justify="center", style="cyan")
-        table.add_column("Watched", justify="center", style="magenta")
-        for a in items:
-            if a.season:
-                season_match = re.search(r'\d+', a.season)
-                season = f"{season_match.group(0)}" if season_match else a.season
-            else:
-                season = "—"
-            downloaded = f"{a.downloaded}" if a.downloaded > 0 else "—"
-            watched = f"{a.watched}" if a.watched > 0 else "—"
-            table.add_row(a.name, season, downloaded, watched)
-        return table
+    shown = sorted(shown, key=lambda a: a.name.lower())
 
-    left = Panel(build_table(watching, "Watching", "green"), title="Watching", border_style="green")
-    right = Panel(build_table(completed, "Completed", "blue"), title="Completed", border_style="blue")
-    console.print(Columns([left, right], equal=True, expand=True))
-
-def update_watched():
-    """Update the watched progress for one or more anime."""
-    watchlist = load_watchlist()
-    watching = [a for a in watchlist if a.status == "watching"]
-    if not watching:
-        console.print("[yellow]No anime in 'watching' status.[/yellow]")
+    if not shown:
+        console.print(f"[yellow]No entries in status '{status_filter}'.[/yellow]")
         return
 
-    console.print("\n[bold cyan]Update Watched Progress[/bold cyan]")
-    table = Table(box=box.SIMPLE, show_header=True, header_style="bold cyan", pad_edge=False)
+    table = Table(
+        title=f"{file_path.stem.title()} – {title}",
+        title_style="bold cyan",
+        header_style="bold cyan",
+        box=box.ROUNDED,
+    )
     table.add_column("#", justify="right", style="dim", width=4)
     table.add_column("Anime", style="white")
-    table.add_column("Downloaded", justify="right", style="cyan", width=10)
-    table.add_column("Watched", justify="right", style="magenta", width=8)
+    table.add_column("Status", justify="center", style="green")
+    table.add_column("Season", justify="center", style="green")
+    table.add_column("Downloaded", justify="right", style="cyan")
+    table.add_column("Watched", justify="right", style="magenta")
 
-    for i, anime in enumerate(watching, 1):
-        dl = str(anime.downloaded) if anime.downloaded > 0 else "—"
-        wt = str(anime.watched) if anime.watched > 0 else "—"
-        table.add_row(str(i), anime.name, dl, wt)
+    for i, a in enumerate(shown, 1):
+        season = a.season or "—"
+        dl = str(a.downloaded) if a.downloaded > 0 else "—"
+        wt = str(a.watched) if a.watched > 0 else "—"
+        table.add_row(str(i), a.name, a.status, season, dl, wt)
 
-    table.add_row("0", "[italic]Cancel[/italic]", "", "")
     console.print(table)
-    while(True):
+
+def update_watched_entry():
+    ctype = choose_content_type("Update Watched")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
+    update_watched(file_path)
+
+def update_watched(file_path: Path):
+    """Update the watched progress for one or more anime in the given watchlist."""
+    watchlist = load_watchlist(file_path)
+    watching = [a for a in watchlist if a.status in ("watching", "ended", "dropped")]
+    if not watching:
+        console.print(f"[yellow]No updateable entries in {file_path.name}.[/yellow]")
+        return
+
+    while True:
+        console.print(f"\n[bold cyan]Update Watched – {file_path.stem.title()}[/bold cyan]")
+        table = Table(box=box.SIMPLE, show_header=True, header_style="bold cyan", pad_edge=False)
+        table.add_column("#", justify="right", style="dim", width=4)
+        table.add_column("Anime", style="white")
+        table.add_column("Status", justify="center", style="green")
+        table.add_column("Downloaded", justify="right", style="cyan", width=10)
+        table.add_column("Watched", justify="right", style="magenta", width=8)
+
+        for i, anime in enumerate(watching, 1):
+            dl = str(anime.downloaded) if anime.downloaded > 0 else "—"
+            wt = str(anime.watched) if anime.watched > 0 else "—"
+            table.add_row(str(i), anime.name, anime.status, dl, wt)
+        table.add_row("0", "[italic]Back[/italic]", "", "", "")
+        console.print(table)
+
         choice = Prompt.ask(
-            "Select anime to update \n    OR Press enter to Exit OR 0 ",
-            choices=[str(i) for i in range(len(watching) + 1) ],
-            default="0"
+            "Select anime to update (0 to exit)",
+            choices=[str(i) for i in range(len(watching) + 1)],
+            default="0",
         )
         if choice == "0":
             return
@@ -461,11 +644,11 @@ def update_watched():
             idx = int(choice) - 1
             if not (0 <= idx < len(watching)):
                 console.print("[red]Invalid selection.[/red]")
-                return
+                continue
             anime = watching[idx]
         except ValueError:
             console.print("[red]Invalid input.[/red]")
-            return
+            continue
 
         console.print(f"\n[bold]{anime.name}[/bold]")
         console.print(f"Downloaded: [cyan]{anime.downloaded}[/cyan]")
@@ -473,12 +656,11 @@ def update_watched():
         console.print("\nOptions:")
         console.print("1. Set watched to a specific episode")
         console.print("2. Increment watched by 1")
-        console.print("3. Set watched = downloaded (mark all as watched)")
+        console.print("3. Set watched = downloaded (catch up)")
         console.print("0. Cancel")
-
-        action = Prompt.ask("Choose", choices=["1", "2", "3", "0 OR Press enter to Exit"], default="0")
+        action = Prompt.ask("Choose", choices=["1", "2", "3", "0"], default="0")
         if action == "0":
-            return
+            continue
 
         new_watched = anime.watched
         if action == "1":
@@ -487,43 +669,46 @@ def update_watched():
                 new_watched = int(val)
             except ValueError:
                 console.print("[red]Invalid number.[/red]")
-                return
+                continue
         elif action == "2":
             new_watched = anime.watched + 1
         elif action == "3":
             new_watched = anime.downloaded
 
-        # Sanity check
         if new_watched < 0:
             console.print("[red]Watched cannot be negative.[/red]")
-            return
+            continue
         if new_watched > anime.downloaded:
             if not Confirm.ask(
-                f"[yellow]Watched ({new_watched}) exceeds downloaded ({anime.downloaded}). Continue?[/yellow]"
+                f"[yellow]Watched ({new_watched}) exceeds downloaded "
+                f"({anime.downloaded}). Continue?[/yellow]"
             ):
-                return
+                continue
 
         anime.watched = new_watched
-        save_watchlist(watchlist)
+        save_watchlist(watchlist, file_path)
         console.print(f"[green]✅ {anime.name} watched → {new_watched}[/green]")
 
-def view_available(anime_name=None):
-    watchlist = load_watchlist()
+def view_available(file_path: Path, anime_name: Optional[str] = None):
+    watchlist = load_watchlist(file_path)
     if not watchlist:
-        console.print("[yellow]Watchlist is empty.[/yellow]")
+        console.print(f"[yellow]{file_path.name} is empty.[/yellow]")
         return
 
     if anime_name:
-        anime = get_anime_by_name(anime_name)
+        anime = get_anime_by_name(anime_name, file_path)   # ← added file_path
         if not anime:
-            console.print(f"[red]Anime '{anime_name}' not found.[/red]")
+            console.print(f"[red]Anime '{anime_name}' not found in {file_path.name}.[/red]")
             return
         latest = get_latest_with_fallback(anime)
         if latest == 0:
             console.print(f"[yellow]No episodes found for {anime.name}[/yellow]")
         else:
             missing = get_missing_episodes(anime.downloaded, latest)
-            console.print(f"[cyan]{anime.name}[/cyan]: latest = [green]{latest}[/green], missing = {missing if missing else 'None'}")
+            console.print(
+                f"[cyan]{anime.name}[/cyan]: latest = [green]{latest}[/green], "
+                f"missing = {missing if missing else 'None'}"
+            )
         return
 
     table = Table(title="Available Downloads", title_style="bold magenta", header_style="bold cyan", box=box.ROUNDED)
@@ -543,17 +728,49 @@ def view_available(anime_name=None):
         )
     console.print(table)
 
-def download_submenu():
-    watchlist = load_watchlist()
+
+# ----------------------------------------------------------------
+# Warpers 
+# ----------------------------------------------------------------
+def page_links_entry():
+    ctype = choose_content_type("Page Links")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
+    manage_page_links(file_path)
+
+def view_available_entry():
+    ctype = choose_content_type("View Available")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
+    name = Prompt.ask("Enter anime name (or press Enter for all)", default="")
+    view_available(file_path, name if name else None)
+
+def download_entry():
+    ctype = choose_content_type("Download")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
+    download_submenu(file_path)
+
+# =======================================================
+
+
+def download_submenu(file_path: Path):
+    """Download flow scoped to a specific watchlist file."""
+    watchlist = load_watchlist(file_path)
     watching = [a for a in watchlist if a.status == "watching"]
     if not watching:
-        console.print("[yellow]No anime in 'watching' status.[/yellow]")
+        console.print(
+            f"[yellow]No anime in 'watching' status in {file_path.name}.[/yellow]"
+        )
         return
 
-    console.print("\n[bold cyan]Select Anime to Download[/bold cyan]")
+    console.print(f"\n[bold cyan]Select Anime to Download – {file_path.stem.title()}[/bold cyan]")
     table = Table(box=box.SIMPLE, show_header=True, header_style="bold cyan", pad_edge=False)
     table.add_column("#", justify="right", style="dim", width=4)
-    table.add_column("Anime", style="white", no_wrap=False)
+    table.add_column("Anime", style="white")
     table.add_column("Downloaded", justify="right", style="cyan", width=10)
     table.add_column("Watched", justify="right", style="magenta", width=8)
 
@@ -568,38 +785,51 @@ def download_submenu():
     choice = Prompt.ask(
         "Enter number",
         choices=[str(i) for i in range(len(watching) + 1)],
-        default="0"
+        default="0",
     )
 
     if choice == "0":
         for anime in watching:
-            process_anime_background(anime, watchlist)
+            process_anime_background(anime, watchlist, file_path)
     else:
         try:
             idx = int(choice) - 1
             if 0 <= idx < len(watching):
-                process_anime_background(watching[idx], watchlist)
+                process_anime_background(watching[idx], watchlist, file_path)
             else:
                 console.print("[red]Invalid selection.[/red]")
         except ValueError:
             console.print("[red]Invalid input.[/red]")
 
-def retry_failed():
+
+# -------------------------------------------------------------
+# Retry Failed Functions
+# -------------------------------------------------------------
+#
+def retry_failed(file_path: Path):
     failed = load_failed()
     if not failed:
         console.print("[green]No failed downloads recorded.[/green]")
         return
     console.print(f"[yellow]Found {len(failed)} failed download(s). Retrying...[/yellow]")
-    watchlist = load_watchlist()
+    watchlist = load_watchlist(file_path)
     for name, ep in failed:
-        anime = get_anime_by_name(name)
+        anime = get_anime_by_name(name, file_path)
         if not anime:
-            console.print(f"[red]Anime '{name}' no longer in watchlist; removing from failed log.[/red]")
+            console.print(f"[red]Anime '{name}' not in {file_path.name}; removing from failed log.[/red]")
             remove_success(name, ep)
             continue
         console.print(f"[cyan]Queuing {name} episode {ep}[/cyan]")
-        download_episode_background(anime, ep, watchlist)
+        download_episode_background(anime, ep, watchlist, file_path)
 
+def retry_failed_entry():
+    ctype = choose_content_type("Retry Failed")
+    if ctype is None:
+        return
+    file_path = WATCHLIST_FILES[ctype]
+    retry_failed(file_path)
+
+# ====================================================================
 
 def view_logs():
     log_file = LOGS_DIR / "anime_downloader.log"
@@ -686,13 +916,53 @@ def test_modules():
     console.print("[green]Testing complete.[/green]")
 
 
+# -----------------------------------------------------------
+# Run-Time Toggle
+# ------------------------------------------------------------
+# Runtime state
+_runtime_content_type = None  # None → use config default
+
+
+def get_default_content_type() -> str:
+    """Return the active default content type (config or runtime override)."""
+    return _runtime_content_type or DEFAULT_CONTENT_TYPE
+
+
+def set_default_content_type(ctype: str) -> None:
+    """Persist the runtime default for the rest of the session."""
+    global _runtime_content_type
+    if ctype in ("anime", "donghua"):
+        _runtime_content_type = ctype
+        console.print(f"[green]Default content type → {ctype}[/green]")
+
+
+def switch_default_menu():
+    """Interactive: switch the global default content type."""
+    current = get_default_content_type()
+    console.print(f"\n[bold cyan]Default content type[/bold cyan] (currently: {current})")
+    console.print("1. Anime")
+    console.print("2. Donghua")
+    console.print("0. Cancel")
+    choice = Prompt.ask("Choose", choices=["0", "1", "2"], default="0")
+    if choice == "1":
+        set_default_content_type("anime")
+    elif choice == "2":
+        set_default_content_type("donghua")
+
+
+
+
 # ------------------------------------------------------------
 # Main TUI
 # ------------------------------------------------------------
 
 def tui():
     console.print(Panel.fit(f" Anime Downloader v{VERSION} ", style="bold magenta"))
-    console.print("[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links \\[m]ark completed \\[u]pdate watched \\[quality] \\[t]est \\[e]xit[/dim]\n")
+    console.print(
+    "[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \n"
+    "\\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links\n "
+    "\\[c]hange status \\[u]pdate watched \\[D]efault type \\[quality] \\[t]est \\[e]xit[/dim]\n"
+    )
 
     while True:
         status = QUEUE.get_status()
@@ -703,19 +973,19 @@ def tui():
 
         choice = Prompt.ask(
             "[bold cyan]Command[/bold cyan]",
-            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "m", "u", "t", "e"],
+            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "c", "u", "D", "t", "e"],
             default="w"
         )
 
         if choice == "w":
-            view_watchlist()
+            watchlist_menu()
         elif choice == "d":
-            download_submenu()
+            download_entry()
         elif choice == "v":
-            name = Prompt.ask("Enter anime name (or press Enter for all)", default="")
-            view_available(name if name else None)
+            # name = Prompt.ask("Enter anime name (or press Enter for all)", default="")
+            view_available_entry(name if name else None)
         elif choice == "r":
-            retry_failed()
+            retry_failed_entry()
         elif choice == "s":
             search_anime()
         elif choice == "l":
@@ -723,15 +993,17 @@ def tui():
         elif choice == "q":
             show_queue_status()
         elif choice == "p":
-            manage_page_links()
+            page_links_entry()
         elif choice == "quality":
             set_download_quality()
         elif choice == "t":
             test_modules()
-        elif choice == "m":
-            mark_completed()
+        elif choice == "c":
+            change_status_menu()
         elif choice == "u":
-            update_watched()
+            update_watched_entry()
+        elif choice == "D":
+            switch_default_menu()
         elif choice == "e":
             console.print("[bold green]Goodbye![/bold green]")
             break
@@ -746,38 +1018,43 @@ def main():
     parser.add_argument("--test-anime", type=str, help="Process only this anime name")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     parser.add_argument("--menu", action="store_true", help="Force interactive menu")
-    parser.add_argument("--sync", action="store_true", help="Update watchlist to latest episodes (no download)")
-    parser.add_argument("--sync-links", action="store_true", help="Sync links for all watchlist entries")
+    parser.add_argument("--sync-links", action="store_true", help="Sync links for all watchlists")
+    parser.add_argument("--type", choices=["anime", "donghua"], default=None,
+                        help="Which watchlist to operate on (default: config)")
     args = parser.parse_args()
 
+    # 1. Debug flag (independent of dispatch)
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
         logger.debug("Debug mode enabled")
 
-    if args.sync:
-        sync_watchlist(args.test_anime)
-        return
-    
+    # 2. Dispatch – first matching branch wins
     if args.sync_links:
-        sync_links()
+        for ctype, fp in WATCHLIST_FILES.items():
+            sync_links(fp, ctype)
         return
 
-    if args.menu or (not args.test_anime and not args.menu):
+    if args.menu or (not args.test_anime and not args.sync_links):
         tui()
         return
 
-    if args.test_anime:
-        watchlist = load_watchlist()
-        anime = get_anime_by_name(args.test_anime)
-        if anime:
-            process_anime_background(anime, watchlist)
-        else:
-            logger.error(f"Anime '{args.test_anime}' not found.")
-    else:
-        watchlist = load_watchlist()
-        for anime in watchlist:
-            process_anime_background(anime, watchlist)
+    # 3. Non-interactive download paths
+    ctype = args.type or get_default_content_type()
+    file_path = WATCHLIST_FILES[ctype]
 
+    if args.test_anime:
+        watchlist = load_watchlist(file_path)
+        anime = get_anime_by_name(args.test_anime, file_path)
+        if anime:
+            process_anime_background(anime, watchlist, file_path)
+        else:
+            logger.error(f"Anime '{args.test_anime}' not found in {file_path.name}.")
+        return
+
+    # 4. No specific flag → download all in the chosen content type
+    watchlist = load_watchlist(file_path)
+    for anime in watchlist:
+        process_anime_background(anime, watchlist, file_path)
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,10 @@
-"""Download with yt‑dlp – no renaming, rely on fuzzy checks."""
+"""Download with yt-dlp, with fuzzy post-download file lookup."""
 
 import logging
 import subprocess
 import time
 from pathlib import Path
+from typing import Optional
 
 import requests
 from rich.progress import (
@@ -38,64 +39,96 @@ def set_quality(quality: str):
     if quality in QUALITY_OPTIONS:
         CURRENT_QUALITY = quality
         logger.info(f"Quality set to {quality}")
-    else:
-        logger.warning(f"Unknown quality '{quality}', keeping {CURRENT_QUALITY}")
 
 
-def download_file(url: str, destination: Path, retries: int = RETRY_COUNT) -> bool:
-    # If the destination already exists, we're done.
-    if destination.exists() and destination.stat().st_size > 0:
+def download_file(
+    url: str,
+    destination: Path,
+    retries: int = RETRY_COUNT,
+    anime_name: Optional[str] = None,
+    episode: Optional[int] = None,
+) -> bool:
+    """
+    Download the file.
+    If the canonical destination is not found after download, search for any .mp4
+    in the destination directory containing the episode number.
+    """
+    # Existing valid canonical file → skip
+    if destination.exists() and destination.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
         logger.info(f"✅ File already exists: {destination}")
         return True
 
+    # Existing but too small → delete (preview)
+    if destination.exists() and destination.stat().st_size <= PREVIEW_MAX_SIZE_BYTES:
+        logger.warning(f"Deleting small existing file (preview): {destination}")
+        destination.unlink()
+
     if USE_YT_DLP and _yt_dlp_available():
-        return _download_with_ytdlp(url, destination, retries)
+        return _download_with_ytdlp(url, destination, retries, episode)
     else:
-        return _download_with_requests(url, destination, retries)
+        return _download_with_requests(url, destination, retries, episode)
 
 
 def _yt_dlp_available() -> bool:
     try:
         subprocess.run(["yt-dlp", "--version"], capture_output=True, check=True)
         return True
-    except (subprocess.SubprocessError, FileNotFoundError):
+    except Exception:
         return False
 
-def _download_with_ytdlp(url: str, destination: Path, retries: int) -> bool:
+
+def _download_with_ytdlp(
+    url: str,
+    destination: Path,
+    retries: int,
+    episode: Optional[int] = None,
+) -> bool:
     dest_dir = destination.parent
     dest_dir.mkdir(parents=True, exist_ok=True)
 
-    output_template = str(destination.with_suffix(".%(ext)s"))
+    output_template = str(destination.with_suffix(""))
     format_option = QUALITY_OPTIONS.get(CURRENT_QUALITY, QUALITY_OPTIONS[DEFAULT_QUALITY])
-
-    cmd = [
-        "yt-dlp",
-        url,
-        "-o", output_template,
-        "-f", format_option,
-    ] + YT_DLP_OPTIONS
+    cmd = ["yt-dlp", url, "-o", output_template, "-f", format_option] + YT_DLP_OPTIONS
 
     logger.info(f"📁 Downloading to: {destination} (quality: {CURRENT_QUALITY})")
 
     for attempt in range(retries):
         try:
-            # Let yt-dlp write to stdout/stderr directly so the user sees progress
             result = subprocess.run(cmd, cwd=dest_dir, check=False)
             if result.returncode == 0:
-                # Check if the destination exists and has valid size
+                # 1. Canonical destination exists
                 if destination.exists():
-                    size = destination.stat().st_size
-                    if size > PREVIEW_MAX_SIZE_BYTES:
+                    if destination.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
                         logger.info(f"✅ Downloaded to {destination}")
                         _cleanup_partials(dest_dir, destination.stem)
                         return True
                     else:
-                        logger.warning(f"Downloaded file is too small (preview): {destination} ({size} bytes). Deleting.")
+                        logger.warning(
+                            f"Downloaded file too small (preview): {destination}. Deleting."
+                        )
                         destination.unlink()
                         return False
-                # If destination doesn't exist, maybe yt-dlp saved with a different name due to output template.
-                # We can try to find any .mp4 in dest_dir and rename, but we'll keep it simple – fail.
-                logger.error(f"yt-dlp completed but {destination} does not exist.")
+
+                # 2. Fuzzy search by episode number
+                if episode is not None:
+                    ep_re = _episode_pattern(episode)
+                    for f in dest_dir.glob("*.mp4"):
+                        if ep_re.search(f.name):
+                            if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
+                                logger.info(
+                                    f"✅ Found downloaded file: {f.name} (episode {episode})"
+                                )
+                                return True
+                            else:
+                                logger.warning(
+                                    f"Found file with episode but too small: {f}. Deleting."
+                                )
+                                f.unlink()
+                                return False
+
+                logger.error(
+                    f"yt-dlp completed but no file found for episode {episode}"
+                )
                 return False
             else:
                 logger.warning(f"yt‑dlp attempt {attempt+1} failed (code {result.returncode})")
@@ -104,16 +137,22 @@ def _download_with_ytdlp(url: str, destination: Path, retries: int) -> bool:
                 else:
                     logger.error(f"All yt‑dlp attempts failed for {url}")
                     return False
-        except subprocess.CalledProcessError as e:
-            logger.warning(f"⚠️ yt‑dlp attempt {attempt+1} failed: {e}")
+        except Exception as e:
+            logger.warning(f"yt‑dlp attempt {attempt+1} error: {e}")
             if attempt < retries - 1:
                 time.sleep(RETRY_DELAY)
             else:
-                logger.error(f"❌ All yt‑dlp attempts failed for {url}")
+                logger.error(f"All attempts failed for {url}")
                 return False
     return False
 
-def _download_with_requests(url: str, destination: Path, retries: int) -> bool:
+
+def _download_with_requests(
+    url: str,
+    destination: Path,
+    retries: int,
+    episode: Optional[int] = None,
+) -> bool:
     dest_dir = destination.parent
     dest_dir.mkdir(parents=True, exist_ok=True)
 
@@ -123,7 +162,6 @@ def _download_with_requests(url: str, destination: Path, retries: int) -> bool:
             resp = requests.get(url, headers=HEADERS, stream=True, timeout=TIMEOUT)
             resp.raise_for_status()
             total = int(resp.headers.get("content-length", 0))
-
             with Progress(
                 TextColumn("[progress.description]{task.description}"),
                 BarColumn(),
@@ -137,29 +175,28 @@ def _download_with_requests(url: str, destination: Path, retries: int) -> bool:
                         if chunk:
                             f.write(chunk)
                             progress.update(task, advance=len(chunk))
-            # Check size
             if destination.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
-                _cleanup_partials(dest_dir, destination.stem)
                 logger.info(f"✅ Downloaded to {destination}")
+                _cleanup_partials(dest_dir, destination.stem)
                 return True
             else:
-                logger.warning(f"Downloaded file is too small (preview): {destination} ({destination.stat().st_size} bytes). Deleting.")
+                logger.warning(f"Downloaded file too small (preview): {destination}. Deleting.")
                 destination.unlink()
                 return False
         except Exception as e:
-            logger.warning(f"⚠️ requests attempt {attempt+1} failed: {e}")
+            logger.warning(f"requests attempt {attempt+1} failed: {e}")
             if attempt < retries - 1:
                 time.sleep(RETRY_DELAY)
             else:
-                logger.error(f"❌ All requests attempts failed for {url}")
+                logger.error(f"All requests attempts failed for {url}")
                 return False
     return False
+
 
 def _cleanup_partials(directory: Path, basename: str):
     for pattern in [f"{basename}*.part", f"{basename}*.ytdl", f"{basename}*.temp"]:
         for f in directory.glob(pattern):
             try:
                 f.unlink()
-                logger.debug(f"Removed partial file: {f}")
             except Exception:
                 pass

@@ -11,8 +11,17 @@ from models import Anime
 from .base import Scraper
 from config import HEADERS, TIMEOUT, LUCIFER_DONGHUA_BASE
 from link_manager import LinkManager
-
+from scraper.rejected_log import log_candidates
 logger = logging.getLogger(__name__)
+
+    # -----------------------------------------------------------------------
+    #  Modular Functions
+    # -----------------------------------------------------------------------
+def _strip_meta(title: str) -> str:
+    """Remove bracketed alt-titles and parenthesized years for comparison."""
+    t = re.sub(r"\[[^\]]*\]", "", title)
+    t = re.sub(r"\(\s*\d{4}\s*\)", "", t)
+    return t.strip()
 
 
 class LuciferDonghuaScraper(Scraper):
@@ -51,6 +60,7 @@ class LuciferDonghuaScraper(Scraper):
             return 0, None
         primary = int(nums[0])
         return primary, source
+        
 
     # ----------------------------------------------------------------------
     # Search and series discovery
@@ -147,44 +157,82 @@ class LuciferDonghuaScraper(Scraper):
             if cached:
                 logger.debug(f"Using cached link for {anime.name}::{season_str}: {cached}")
                 return cached
-
+     
         results = self.search_anime(anime.name)
         if not results:
             logger.warning(f"No search results for {anime.name}")
+            log_candidates(anime.name, anime.season or "", "", [])
             return None
 
-        candidates = []
+        base_name = self._normalize_name(_strip_meta(anime.name))
+        season_num = self._extract_season_number(anime.season)
+
+        scored = []  # (score, title, url, reason)
         for title, url, _ in results:
-            norm_title = self._normalize_name(title)
+            display_title = title
+            title_for_cmp = _strip_meta(title)
+            norm_title = self._normalize_name(title_for_cmp)
+
             score = 0
-            if norm_title == normalized_name:
+            reason_parts = []
+
+            # Name match
+            if norm_title == base_name:
                 score += 100
-            elif normalized_name in norm_title or norm_title in normalized_name:
+                reason_parts.append("exact-name")
+            elif base_name in norm_title or norm_title in base_name:
                 score += 50
+                reason_parts.append("substring")
             else:
                 score += 10
-            if season_num is not None:
-                if f"season {season_num}" in title.lower():
-                    score += 30
-                elif f"season {season_num}" in url.lower():
+                reason_parts.append("weak-name")
+
+            # Season handling
+            m = re.search(r"season\s*(\d+)", title_for_cmp, re.I)
+            season_in_title = int(m.group(1)) if m else None
+            m = re.search(r"season-(\d+)", url, re.I)
+            season_in_url = int(m.group(1)) if m else None
+            site_season = season_in_title if season_in_title is not None else season_in_url
+
+            if season_num is None or season_num == 1:
+                if site_season is not None and site_season == season_num:
                     score += 20
-            if len(title.split()) > 8:
+                    reason_parts.append("season-match")
+            else:
+                if site_season == season_num:
+                    score += 60
+                    reason_parts.append("season-match")
+                elif site_season is None:
+                    score -= 20
+                    reason_parts.append("season-missing")
+                else:
+                    score -= 40
+                    reason_parts.append(f"season-mismatch({site_season})")
+
+            # Heuristics
+            if len(title_for_cmp.split()) > 8:
                 score -= 20
-            if not self._is_likely_anime_result(title, url):
+                reason_parts.append("long-title")
+            if not self._is_likely_anime_result(title_for_cmp, url):
                 score -= 50
-            candidates.append((score, title, url))
+                reason_parts.append("non-anime")
 
-        candidates.sort(key=lambda x: x[0], reverse=True)
-        best_score, best_title, best_url = candidates[0]
+            scored.append((score, display_title, url, "+".join(reason_parts)))
 
-        MIN_ACCEPT_SCORE = 50
+        scored.sort(key=lambda x: x[0], reverse=True)
+        best_score, best_title, best_url, best_reason = scored[0]
+
+        MIN_ACCEPT_SCORE = 70
         if best_score < MIN_ACCEPT_SCORE:
-            logger.warning(f"No strong match for {anime.name} (best score {best_score}); recording not_found")
+            logger.warning(
+                f"No strong match for {anime.name} (best score {best_score}); recording not_found"
+            )
+            log_candidates(anime.name, anime.season or "", "", scored)
             return None
 
         logger.info(f"Best match for {anime.name}: {best_title} (score {best_score})")
+        log_candidates(anime.name, anime.season or "", best_url, scored)
         return best_url
-
     # ----------------------------------------------------------------------
     # Episode discovery
     # ----------------------------------------------------------------------

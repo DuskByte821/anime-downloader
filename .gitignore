@@ -12,3 +12,12 @@ downloads/
 
 .DS_Store
 Thumbs.db
+
+
+data/anime.txt
+data/links.txt
+
+logs/*.log
+logs/failed_downloads.txt
+
+AnimeDL

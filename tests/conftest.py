@@ -114,3 +114,45 @@ def load_fixture():
         return (base / relative_path).read_text(encoding="utf-8")
 
     return _load
+
+
+
+
+
+# ----------------------------------------------------------------------
+# Fixtures for test_link_cache.py
+# ----------------------------------------------------------------------
+
+@pytest.fixture
+def env(tmp_path):
+    """Return (links_dir, watchlist_paths) rooted in a temp dir."""
+    links = tmp_path / "links"
+    links.mkdir()
+    paths = {
+        "anime": tmp_path / "anime.txt",
+        "donghua": tmp_path / "donghua.txt",
+    }
+    return links, paths
+
+
+@pytest.fixture
+def write_cache():
+    """Write a link-cache file. Returns the Path."""
+    def _write(path, *, title=None, ctype=None, source=None,
+               episodes=None, raw=None):
+        if raw is not None:
+            path.write_text(raw, encoding="utf-8")
+            return path
+        lines = []
+        if title is not None:
+            lines.append(f"# title: {title}")
+        if ctype is not None:
+            lines.append(f"# type: {ctype}")
+        if source is not None:
+            lines.append(f"# source: {source}")
+        lines.append("")
+        for ep, url in (episodes or {}).items():
+            lines.append(f"{ep}::{url}")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        return path
+    return _write

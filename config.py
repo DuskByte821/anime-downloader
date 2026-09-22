@@ -8,10 +8,12 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 LOGS_DIR = BASE_DIR / "logs"
 DOWNLOAD_DIR = BASE_DIR / "downloads"
+LINK_CACHE_DIR = DATA_DIR / "links"          
 
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+LINK_CACHE_DIR.mkdir(parents=True, exist_ok=True)  
 
 # --- Watchlist files --------------------------------------------------
 ANIME_WATCHLIST_FILE = DATA_DIR / "anime.txt"
@@ -59,7 +61,7 @@ DEBUG = False
 
 # Default content type for menus that don't explicitly ask.
 # Change here, or toggle at runtime via the [t] shortcut.
-DEFAULT_CONTENT_TYPE = "anime"   # "anime" or "donghua"
+DEFAULT_CONTENT_TYPE = "donghua"   # "anime" or "donghua"
 
 ABBREVIATIONS = {
     "the demon hunter": ["tdh", "demon hunter", "demonhunter"],

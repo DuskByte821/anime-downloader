@@ -13,6 +13,7 @@ from rich.columns import Columns
 from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
 
+from link_cache import scan_links_dir, get_cached_url
 from link_manager import LinkManager
 from config import (
     DOWNLOAD_DIR, LOGS_DIR, DEBUG, VERSION,
@@ -70,6 +71,14 @@ def choose_content_type(prompt_label: str = "Select content type") -> Optional[s
     if choice == "":
         return current
     return "anime" if choice == "1" else "donghua"
+
+def _content_type_for_path(file_path: Path) -> Optional[str]:
+    """Map a watchlist file path back to its content type, or None."""
+    fp = Path(file_path)
+    for ct, p in WATCHLIST_FILES.items():
+        if Path(p) == fp:
+            return ct
+    return None
 
 
 def watchlist_menu():
@@ -209,7 +218,8 @@ def download_episode_background(anime, episode, watchlist, file_path: Path):
 
     # 3. Queue the download
     try:
-        link = get_download_link_with_fallback(anime, episode)
+        ctype = _content_type_for_path(file_path)
+        link = get_download_link_with_fallback(anime, episode, content_type=ctype)
         if not link:
             logger.error(f"No link for {anime.name} ep {episode}")
             add_failed(anime.name, episode)
@@ -293,7 +303,28 @@ def get_latest_with_fallback(anime):
     return 0
 
 
-def get_download_link_with_fallback(anime, episode):
+def get_download_link_with_fallback(anime, episode, content_type=None):
+    """
+    Resolve an episode URL.
+
+    Order:
+      1. Persistent per-series link cache (data/links/*.txt)
+      2. Existing primary scraper
+      3. Existing fallback scraper
+
+    The cache is additive: a miss falls through to the existing behavior.
+    """
+    # 1. Link cache — content-type aware
+    if content_type:
+        cached = get_cached_url(anime.name, content_type, episode)
+        if cached:
+            logger.info(
+                f"Using cached link for {anime.name} ep {episode} "
+                f"({content_type})"
+            )
+            return cached
+
+    # 2. Existing scraper behavior, unchanged
     try:
         return SCRAPER_PRIMARY.get_download_link(anime, episode)
     except:
@@ -754,6 +785,45 @@ def download_entry():
     file_path = WATCHLIST_FILES[ctype]
     download_submenu(file_path)
 
+def scan_new_links_entry():
+    """Discover new series from data/links/ and add them to the watchlist.
+
+    DISCOVERY ONLY — no downloads, no progress mutations.
+    """
+    console.print("\n[bold cyan]Scanning data/links/...[/bold cyan]\n")
+    try:
+        report = scan_links_dir()
+    except Exception as e:
+        logger.exception("Link cache scan failed")
+        console.print(f"[red]Scan failed: {e}[/red]")
+        return
+
+    for title, ctype in report.already_tracked:
+        console.print(
+            f"  [green]✓[/green] {title} [dim]({ctype})[/dim] — already in watchlist"
+        )
+    for title, ctype in report.added:
+        console.print(
+            f"  [bold green]+[/bold green] {title} [dim]({ctype})[/dim] "
+            f"— added to watchlist"
+        )
+    for path, reason in report.invalid:
+        console.print(f"  [yellow]![/yellow] {path.name} — skipped ({reason})")
+
+    console.print()
+    console.print(f"[bold]{report.scanned}[/bold] link file(s) scanned")
+    console.print(
+        f"[bold green]{len(report.added)}[/bold green] new entry added"
+    )
+    console.print(
+        f"[bold]{len(report.already_tracked)}[/bold] already tracked"
+    )
+    if report.invalid:
+        console.print(
+            f"[yellow]{len(report.invalid)}[/yellow] invalid file(s) skipped"
+        )
+    console.print("\n[dim]No downloads performed.[/dim]")
+
 # =======================================================
 
 
@@ -958,10 +1028,24 @@ def switch_default_menu():
 
 def tui():
     console.print(Panel.fit(f" Anime Downloader v{VERSION} ", style="bold magenta"))
+
+    # Quiet startup scan: discover new link caches without user action.
+    # Never downloads; only adds missing watchlist entries.
+    try:
+        startup_report = scan_links_dir()
+        if startup_report.added:
+            console.print(
+                f"[green]Link cache: {len(startup_report.added)} new entry(ies) "
+                f"added — run [bold]scan[/bold] for details[/green]"
+            )
+    except Exception:
+        logger.exception("Startup link-cache scan failed")
+
     console.print(
-    "[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \n"
-    "\\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links\n "
-    "\\[c]hange status \\[u]pdate watched \\[D]efault type \\[quality] \\[t]est \\[e]xit[/dim]\n"
+        "[dim]Shortcuts: \\[w]atchlist \\[d]ownload \\[v]iew available \n"
+        "\\[r]etry failed \\[s]earch \\[l]ogs \\[q]ueue status \\[p]age links\n "
+        "\\[scan] links \\[c]hange status \\[u]pdate watched \\[D]efault type "
+        "\\[quality] \\[t]est \\[e]xit[/dim]\n"
     )
 
     while True:
@@ -973,7 +1057,7 @@ def tui():
 
         choice = Prompt.ask(
             "[bold cyan]Command[/bold cyan]",
-            choices=["w", "d", "v", "r", "s", "l", "q", "p", "quality", "c", "u", "D", "t", "e"],
+            choices=["w", "d", "v", "r", "s", "l", "q", "p", "scan", "quality", "c", "u", "D", "t", "e"],
             default="w"
         )
 
@@ -1004,6 +1088,8 @@ def tui():
             update_watched_entry()
         elif choice == "D":
             switch_default_menu()
+        elif choice == "scan":
+            scan_new_links_entry()
         elif choice == "e":
             console.print("[bold green]Goodbye![/bold green]")
             break

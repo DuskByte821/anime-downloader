@@ -29,6 +29,7 @@ from watchlist import (    load_watchlist, save_watchlist, normalize_name,
     change_status, VALID_STATUSES,
 )
 from queue_manager import DownloadQueue
+from utils.filename import find_existing_file, episode_pattern
 
 # Setup logging
 logging.basicConfig(
@@ -111,17 +112,6 @@ def watchlist_menu():
 # ------------------------------------------------------------
 # Episode Matching Functions
 
-def _episode_pattern(episode: int) -> Pattern[str]:
-    """
-    Match 'ep<episode>' (or 'e<episode>', 'episode <episode>') with a
-    digit boundary on the right so 'ep21' does not match 'ep211'.
-    """
-    # Matches: ep21, e21, episode 21, episode-21, episode_21
-    # Not matched: ep211, ep210, e219
-    return re.compile(
-        rf"(?:ep|e|episode[\s_-]?)(?P<n>{episode})(?!\d)",
-        re.IGNORECASE,
-    )
 
 
 def _anime_matches_filename(anime_name: str, filename: str) -> bool:
@@ -148,43 +138,6 @@ def _anime_matches_filename(anime_name: str, filename: str) -> bool:
     present = sum(1 for t in anime_tokens if t in file_slug)
     return present / len(anime_tokens) >= 0.6
 
-def find_existing_file(
-    anime_name: str,
-    episode: int,
-    season: Optional[str] = None,
-) -> Optional[Path]:
-    """
-    Search DOWNLOAD_DIR for a file matching the anime and episode.
-
-    A match requires:
-      - the anime name to appear in the filename (fuzzy, 60% token overlap)
-      - the episode number to match with a digit boundary (ep21 != ep211)
-
-    If a matching file exists but is below PREVIEW_MAX_SIZE_BYTES,
-    it is deleted and the search continues (preview file).
-    """
-    if not DOWNLOAD_DIR.exists():
-        return None
-
-    ep_re = _episode_pattern(episode)
-
-    for f in DOWNLOAD_DIR.glob("*.mp4"):
-        # 1. Episode match (with digit boundary)
-        if not ep_re.search(f.name):
-            continue
-
-        # 2. Anime match (fuzzy, but must be non-empty)
-        if not _anime_matches_filename(anime_name, f.name):
-            continue
-
-        # 3. Size check
-        if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
-            return f
-        else:
-            logger.warning(f"Deleting small file (preview): {f} ({f.stat().st_size} bytes)")
-            f.unlink()
-
-    return None
 
 def download_episode_background(anime, episode, watchlist, file_path: Path):
     # Build canonical destination
@@ -436,7 +389,7 @@ def sync_links(file_path: Path, content_type: str):
                     console.print(f"  ✗ {anime.name} → not_found")
 
     if changed:
-        save_watchlist(watchlist)
+        save_watchlist(watchlist, file_path) ## file_path added
     console.print("\n[bold green]Link sync complete![/bold green]")
 
 
@@ -455,7 +408,7 @@ def sync_watchlist(anime_name=None):
             updated += 1
             console.print(f"[green]✓[/green] {anime.name}: {old} → {latest}")
     if updated:
-        save_watchlist(watchlist)
+        save_watchlist(watchlist, file_path) ## file_path added
         console.print(f"[bold green]Synced {updated} anime(s) to latest episodes.[/bold green]")
     else:
         console.print("[yellow]All anime are already up to date.[/yellow]")

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Optional
 
 import requests
+from utils.filename import episode_pattern 
 from rich.progress import (
     BarColumn,
     DownloadColumn,
@@ -110,21 +111,24 @@ def _download_with_ytdlp(
                         return False
 
                 # 2. Fuzzy search by episode number
-                if episode is not None:
-                    ep_re = _episode_pattern(episode)
+                candidates = episode_candidates_from_url(url, primary=episode)
+                for cand in candidates:
+                    pat = episode_pattern(cand)
                     for f in dest_dir.glob("*.mp4"):
-                        if ep_re.search(f.name):
-                            if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
-                                logger.info(
-                                    f"✅ Found downloaded file: {f.name} (episode {episode})"
-                                )
-                                return True
-                            else:
-                                logger.warning(
-                                    f"Found file with episode but too small: {f}. Deleting."
-                                )
-                                f.unlink()
-                                return False
+                        if not pat.search(f.name):
+                            continue
+                        if anime_name and not anime_matches_filename(anime_name, f.name):
+                            continue
+                        if f.stat().st_size > PREVIEW_MAX_SIZE_BYTES:
+                            logger.info(
+                                f"✅ Found downloaded file: {f.name} "
+                                f"(matched episode {cand})"
+                            )
+                            return True
+                        else:
+                            logger.warning(f"Deleting undersized file: {f}")
+                            f.unlink()
+                            return False
 
                 logger.error(
                     f"yt-dlp completed but no file found for episode {episode}"
@@ -200,3 +204,20 @@ def _cleanup_partials(directory: Path, basename: str):
                 f.unlink()
             except Exception:
                 pass
+
+
+
+
+# -------------------------------------------------------------
+#   Helper Function
+# -------------------------------------------------------------
+def episode_candidates_from_url(url: str, primary: Optional[int] = None) -> Set[int]:
+    """
+    Extract every episode number present in a URL of the form
+    '...episode-30-96-...' or '...episode-30-...'.
+    Includes the primary episode number if given.
+    """
+    nums = {int(n) for n in re.findall(r"episode-(\d+)", url, re.I)}
+    if primary is not None:
+        nums.add(primary)
+    return nums

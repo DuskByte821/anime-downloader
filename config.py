@@ -64,7 +64,7 @@ DEBUG = False
 DEFAULT_CONTENT_TYPE = "donghua"   # "anime" or "donghua"
 
 ABBREVIATIONS = {
-    "the demon hunter": ["tdh", "demon hunter", "demonhunter"],
+    "the demon hunter": ["tdh", "demon hunter", "demonhunter", "dh"],
     "battle through the heavens": ["btth"],
     "perfect world": ["pw"],
     "renegade immortal": ["ri"],

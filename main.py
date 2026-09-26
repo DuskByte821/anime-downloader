@@ -17,7 +17,7 @@ from link_cache import scan_links_dir, get_cached_url
 from link_manager import LinkManager
 from config import (
     DOWNLOAD_DIR, LOGS_DIR, DEBUG, VERSION,
-    QUALITY_OPTIONS, DEFAULT_QUALITY, PREVIEW_MAX_SIZE_BYTES, ABBREVIATIONS,
+    QUALITY_OPTIONS, DEFAULT_QUALITY, PREVIEW_MAX_SIZE_BYTES, 
     WATCHLIST_FILES, ANIME_WATCHLIST_FILE, DONGHUA_WATCHLIST_FILE, DEFAULT_CONTENT_TYPE,
 )
 from downloader import set_quality, CURRENT_QUALITY
@@ -29,7 +29,8 @@ from watchlist import (    load_watchlist, save_watchlist, normalize_name,
     change_status, VALID_STATUSES,
 )
 from queue_manager import DownloadQueue
-from utils.filename import find_existing_file, episode_pattern
+from utils.filename import find_existing_file, episode_pattern, anime_matches_filename
+from models import Anime
 
 # Setup logging
 logging.basicConfig(
@@ -112,31 +113,15 @@ def watchlist_menu():
 # ------------------------------------------------------------
 # Episode Matching Functions
 
+def get_anime_by_name(name: str, file_path: Path) -> Optional[Anime]:
+    """Look up an anime in the given watchlist by name (case/whitespace-insensitive)."""
+    watchlist = load_watchlist(file_path)
+    key = normalize_name(name)
+    for a in watchlist:
+        if normalize_name(a.name) == key:
+            return a
+    return None
 
-
-def _anime_matches_filename(anime_name: str, filename: str) -> bool:
-    """
-    Fuzzy match: at least one abbreviation for this anime must appear in
-    the filename, OR 60% of anime-name tokens must appear.
-    """
-    def slug(s: str) -> str:
-        return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
-
-    file_slug = slug(filename)
-    name_key = anime_name.lower().strip()
-
-    # 1. Abbreviation check
-    abbrs = ABBREVIATIONS.get(name_key, [])
-    for ab in abbrs:
-        if ab in file_slug:
-            return True
-
-    # 2. Token overlap check
-    anime_tokens = [t for t in slug(anime_name).split() if len(t) > 1]
-    if not anime_tokens:
-        return False
-    present = sum(1 for t in anime_tokens if t in file_slug)
-    return present / len(anime_tokens) >= 0.6
 
 
 def download_episode_background(anime, episode, watchlist, file_path: Path):
@@ -393,37 +378,9 @@ def sync_links(file_path: Path, content_type: str):
     console.print("\n[bold green]Link sync complete![/bold green]")
 
 
-def sync_watchlist(anime_name=None):
-    watchlist = load_watchlist()
-    updated = 0
-    for anime in watchlist:
-        if anime.status == "completed":
-            continue
-        if anime_name and anime.name.lower() != anime_name.lower():
-            continue
-        latest = get_latest_with_fallback(anime)
-        if latest > 0 and latest > anime.downloaded:
-            old = anime.downloaded
-            anime.downloaded = latest
-            updated += 1
-            console.print(f"[green]✓[/green] {anime.name}: {old} → {latest}")
-    if updated:
-        save_watchlist(watchlist, file_path) ## file_path added
-        console.print(f"[bold green]Synced {updated} anime(s) to latest episodes.[/bold green]")
-    else:
-        console.print("[yellow]All anime are already up to date.[/yellow]")
-
-
 # ------------------------------------------------------------
 # Page Links Manager
-def page_links_menu():
-    ctype = choose_content_type("Page Links")
-    if ctype is None:
-        return
-    file_path = WATCHLIST_FILES[ctype]
-    manage_page_links(file_path)
-
-
+# ------------------------------------------------------------
 def manage_page_links(file_path: Path):
     """Interactive page-link manager scoped to one watchlist file."""
     from link_manager import LinkManager
@@ -915,7 +872,7 @@ def set_download_quality():
 
 def test_modules():
     console.print("\n[bold cyan]Testing Modules[/bold cyan]")
-    watchlist = load_watchlist()
+    watchlist = load_watchlist(file_path)
     console.print(f"Watchlist loaded: {len(watchlist)} entries")
     if watchlist:
         test_anime = watchlist[0]
@@ -1019,8 +976,7 @@ def tui():
         elif choice == "d":
             download_entry()
         elif choice == "v":
-            # name = Prompt.ask("Enter anime name (or press Enter for all)", default="")
-            view_available_entry(name if name else None)
+            view_available_entry()
         elif choice == "r":
             retry_failed_entry()
         elif choice == "s":

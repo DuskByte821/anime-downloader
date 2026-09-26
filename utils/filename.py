@@ -3,9 +3,9 @@
 
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Set
 
-from config import DOWNLOAD_DIR, PREVIEW_MAX_SIZE_BYTES
+from config import DOWNLOAD_DIR, PREVIEW_MAX_SIZE_BYTES, ABBREVIATIONS
 
 
 def episode_pattern(episode: int) -> re.Pattern:
@@ -18,19 +18,43 @@ def episode_pattern(episode: int) -> re.Pattern:
         re.IGNORECASE,
     )
 
-
 def anime_matches_filename(anime_name: str, filename: str) -> bool:
-    """60% token overlap between anime name and filename."""
+    """
+    Fuzzy match: at least one abbreviation for this anime must appear in
+    the filename, OR 60% of anime-name tokens must appear.
+    """
     def slug(s: str) -> str:
         return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
 
+    file_slug = slug(filename)
+    name_key = anime_name.lower().strip()
+
+    # 1. Abbreviation check
+    abbrs = ABBREVIATIONS.get(name_key, [])
+    for ab in abbrs:
+	    if re.search(rf"\b{re.escape(ab)}\b", file_slug):
+	        return True
+
+    # 2. Token overlap check
     anime_tokens = [t for t in slug(anime_name).split() if len(t) > 1]
     if not anime_tokens:
         return False
-    file_slug = slug(filename)
     present = sum(1 for t in anime_tokens if t in file_slug)
     return present / len(anime_tokens) >= 0.6
 
+def episode_candidates_from_url(url: str, primary: Optional[int] = None) -> Set[int]:
+    """
+    Extract every episode number present in a URL like:
+        ...episode-30-96-...   -> {30, 96}
+        ...episode-30-...      -> {30}
+    """
+    nums: Set[int] = set()
+    for m in re.finditer(r"episode-([\d-]+)", url, re.I):
+        for n in re.findall(r"\d+", m.group(1)):
+            nums.add(int(n))
+    if primary is not None:
+        nums.add(primary)
+    return nums
 
 def find_existing_file(
     anime_name: str, episode: int, season: Optional[str] = None

@@ -3,11 +3,15 @@
 import logging
 import subprocess
 import time
+import re
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Set
 
 import requests
-from utils.filename import episode_pattern 
+from utils.filename import (
+    episode_pattern,
+    episode_candidates_from_url,
+    anime_matches_filename )
 from rich.progress import (
     BarColumn,
     DownloadColumn,
@@ -65,9 +69,9 @@ def download_file(
         destination.unlink()
 
     if USE_YT_DLP and _yt_dlp_available():
-        return _download_with_ytdlp(url, destination, retries, episode)
+        return _download_with_ytdlp(url, destination, retries, anime_name, episode )
     else:
-        return _download_with_requests(url, destination, retries, episode)
+        return _download_with_requests(url, destination, retries, anime_name, episode)
 
 
 def _yt_dlp_available() -> bool:
@@ -82,6 +86,7 @@ def _download_with_ytdlp(
     url: str,
     destination: Path,
     retries: int,
+    anime_name: Optional[str] = None,
     episode: Optional[int] = None,
 ) -> bool:
     dest_dir = destination.parent
@@ -155,6 +160,7 @@ def _download_with_requests(
     url: str,
     destination: Path,
     retries: int,
+    anime_name: Optional[str] = None,
     episode: Optional[int] = None,
 ) -> bool:
     dest_dir = destination.parent
@@ -205,19 +211,3 @@ def _cleanup_partials(directory: Path, basename: str):
             except Exception:
                 pass
 
-
-
-
-# -------------------------------------------------------------
-#   Helper Function
-# -------------------------------------------------------------
-def episode_candidates_from_url(url: str, primary: Optional[int] = None) -> Set[int]:
-    """
-    Extract every episode number present in a URL of the form
-    '...episode-30-96-...' or '...episode-30-...'.
-    Includes the primary episode number if given.
-    """
-    nums = {int(n) for n in re.findall(r"episode-(\d+)", url, re.I)}
-    if primary is not None:
-        nums.add(primary)
-    return nums

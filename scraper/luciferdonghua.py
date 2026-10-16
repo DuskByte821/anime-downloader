@@ -1,18 +1,34 @@
 """Scraper for Lucifer Donghua – deterministic discovery with link manager."""
-
+import json
 import logging
 import re
-from typing import Dict, List, Optional, Tuple
-
+import subprocess
+from dataclasses import dataclass
+from typing import (
+    Dict,
+    List, 
+    Optional, 
+    Tuple,
+)
 import requests
 from bs4 import BeautifulSoup
-
 from models import Anime
 from .base import Scraper
-from config import HEADERS, TIMEOUT, LUCIFER_DONGHUA_BASE
 from link_manager import LinkManager
 from scraper.rejected_log import log_candidates
+from config import (
+    HEADERS, TIMEOUT, LUCIFER_DONGHUA_BASE,
+    MAX_MIRRORS, SOURCE_PRIORITY, DIRECT_MEDIA_EXTENSIONS,
+    YTDLP_METADATA_TIMEOUT, MIN_EPISODE_DURATION_SECONDS,
+)
+
 logger = logging.getLogger(__name__)
+
+@dataclass
+class SourceCandidate:
+    kind: str            # "iframe" | "direct_media"
+    url: str
+    provider: str        # "dailymotion", "rumble", "other", "archive", "direct"
 
     # -----------------------------------------------------------------------
     #  Modular Functions
@@ -59,8 +75,7 @@ class LuciferDonghuaScraper(Scraper):
         if not nums:
             return 0, None
         primary = int(nums[0])
-        return primary, source
-        
+        return primary, source    
 
     # ----------------------------------------------------------------------
     # Search and series discovery
@@ -301,25 +316,69 @@ class LuciferDonghuaScraper(Scraper):
         return ep_map[episode]
 
     def get_direct_video_url(self, anime: Anime, episode: int) -> Optional[str]:
+        """
+        Return the direct iframe/video URL from the episode page.
+        Used so yt-dlp doesn't have to parse the page itself (avoids
+        the generic extractor's broken src parsing on this theme).
+        """
         episode_url = self.get_download_link(anime, episode)
         try:
             resp = requests.get(episode_url, headers=HEADERS, timeout=TIMEOUT)
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
-            iframe = soup.find("iframe", src=re.compile(r"(dailymotion|youtube|player\.vimeo)"))
-            if iframe and iframe.get("src"):
-                return iframe["src"]
+
+            def _clean(src: str) -> Optional[str]:
+                if not src:
+                    return None
+                src = src.strip()
+                # Reject anything with embedded whitespace, quotes, or `>` —
+                # those are symptoms of mis-parsed attributes.
+                if not src.startswith("http"):
+                    return None
+                if any(ch in src for ch in (" ", '"', "'", ">", "<")):
+                    return None
+                return src
+
+            # 1. Standard iframe with src=
+            iframe = soup.find(
+                "iframe",
+                src=re.compile(r"(dailymotion|youtube|player\.vimeo)", re.I),
+            )
+            if iframe:
+                cleaned = _clean(iframe.get("src", ""))
+                if cleaned:
+                    return cleaned
+
+            # 2. Lazy-loaded iframes sometimes use data-src=
+            iframe = soup.find(
+                "iframe",
+                attrs={"data-src": re.compile(r"dailymotion", re.I)},
+            )
+            if iframe:
+                cleaned = _clean(iframe.get("data-src", ""))
+                if cleaned:
+                    return cleaned
+
+            # 3. <video><source src=...>
             video = soup.find("video")
             if video:
                 source = video.find("source")
-                if source and source.get("src"):
-                    return source["src"]
+                if source:
+                    cleaned = _clean(source.get("src", ""))
+                    if cleaned:
+                        return cleaned
+
+            # 4. .mp4 link
             for a in soup.find_all("a", href=True):
-                if a["href"].endswith(".mp4"):
-                    return a["href"]
+                href = a["href"]
+                if href.endswith(".mp4"):
+                    cleaned = _clean(href)
+                    if cleaned:
+                        return cleaned
+
             return None
         except Exception as e:
-            logger.exception(f"Failed to extract direct video URL: {e}")
+            logger.exception(f"Failed to extract direct video URL for {anime.name} ep {episode}: {e}")
             return None
 
     # ----------------------------------------------------------------------
@@ -333,3 +392,201 @@ class LuciferDonghuaScraper(Scraper):
             return "found", url
         else:
             return "not_found", ""
+
+    # ----------------------------------------------------------------------
+    # Extraction helpers
+    # ----------------------------------------------------------------------
+
+    def _classify_iframe(self, url: str) -> Optional[str]:
+        """Return the provider name if the URL is a known iframe host."""
+        lower = url.lower()
+        for token in SOURCE_PRIORITY:
+            if token in lower:
+                return token.split(".")[0]     # "dailymotion", "rumble", etc.
+        return None
+
+
+    def _extract_iframe_sources(self, soup) -> List[SourceCandidate]:
+        """Return all iframe-based sources on the page."""
+        out: List[SourceCandidate] = []
+        for iframe in soup.find_all("iframe"):
+            src = (iframe.get("src") or iframe.get("data-src") or "").strip()
+            if not src or not src.startswith("http"):
+                continue
+            # Reject the garbage strings we saw earlier (with embedded whitespace/quotes)
+            if any(ch in src for ch in (" ", '"', "'", ">", "<")):
+                continue
+            provider = self._classify_iframe(src) or "other"
+            out.append(SourceCandidate(kind="iframe", url=src, provider=provider))
+        return out
+
+
+    def _extract_direct_media(self, soup) -> List[SourceCandidate]:
+        """Return all direct .mp4/.mkv/etc. URLs on the page."""
+        out: List[SourceCandidate] = []
+
+        # <video><source src=...>
+        for video in soup.find_all("video"):
+            for source in video.find_all("source"):
+                src = (source.get("src") or "").strip()
+                if src.startswith("http") and src.lower().endswith(DIRECT_MEDIA_EXTENSIONS):
+                    provider = "archive" if "archive.org" in src.lower() else "direct"
+                    out.append(SourceCandidate(kind="direct_media", url=src, provider=provider))
+
+        # <a href="...mp4">
+        for a in soup.find_all("a", href=True):
+            href = a["href"].strip()
+            if href.startswith("http") and href.lower().endswith(DIRECT_MEDIA_EXTENSIONS):
+                provider = "archive" if "archive.org" in href.lower() else "direct"
+                out.append(SourceCandidate(kind="direct_media", url=href, provider=provider))
+
+        return out
+
+
+    def _rank_sources(self, candidates: List[SourceCandidate]) -> List[SourceCandidate]:
+        """
+        Rank candidates: dailymotion > rumble > other iframe > direct (non-archive)
+        > archive.org. Deduplicate by URL.
+        """
+        def score(c: SourceCandidate) -> int:
+            if c.provider == "dailymotion":
+                return 0
+            if c.provider == "rumble":
+                return 1
+            if c.kind == "iframe" and c.provider != "archive":
+                return 2
+            if c.kind == "direct_media" and c.provider != "archive":
+                return 3
+            if c.provider == "archive":
+                return 4
+            return 5
+
+        seen = set()
+        unique = []
+        for c in sorted(candidates, key=score):
+            if c.url in seen:
+                continue
+            seen.add(c.url)
+            unique.append(c)
+        return unique
+
+
+    # ----------------------------------------------------------------------
+    # Public API
+    # ----------------------------------------------------------------------
+
+    def _fetch_episode_soup(self, episode_url: str):
+        """Fetch an episode page and return its soup, or None on failure."""
+        try:
+            resp = requests.get(episode_url, headers=HEADERS, timeout=TIMEOUT)
+            resp.raise_for_status()
+            return BeautifulSoup(resp.text, "html.parser")
+        except Exception as e:
+            logger.warning(f"[resolve] failed to fetch {episode_url}: {e}")
+            return None
+
+
+    def get_playable_sources(self, anime: Anime, episode: int) -> List[SourceCandidate]:
+        """
+        Collect candidate sources from the episode page and its mirrors
+        (/v/1 .. /v/MAX_MIRRORS). Ranked best-first.
+        """
+        base_url = self.get_download_link(anime, episode)
+        if not base_url:
+            return []
+
+        all_candidates: List[SourceCandidate] = []
+
+        # Base page
+        soup = self._fetch_episode_soup(base_url)
+        if soup:
+            all_candidates.extend(self._extract_iframe_sources(soup))
+            all_candidates.extend(self._extract_direct_media(soup))
+
+        # Mirrors: append /v/N/ to the base URL (strip trailing slash first)
+        base = base_url.rstrip("/")
+        for n in range(1, MAX_MIRRORS + 1):
+            mirror_url = f"{base}/v/{n}"
+            soup = self._fetch_episode_soup(mirror_url)
+            if not soup:
+                continue
+            found = (
+                self._extract_iframe_sources(soup)
+                + self._extract_direct_media(soup)
+            )
+            if found:
+                logger.debug(f"[resolve] {anime.name} ep {episode} mirror /v/{n}: {len(found)} source(s)")
+                all_candidates.extend(found)
+
+        ranked = self._rank_sources(all_candidates)
+        logger.info(
+            f"[resolve] {anime.name} ep {episode}: {len(all_candidates)} candidate(s) "
+            f"from {1 + MAX_MIRRORS} page(s); top = "
+            f"{ranked[0].provider if ranked else 'none'}"
+        )
+        return ranked
+
+
+    def resolve_episode_source(self, anime: Anime, episode: int):
+        """
+        Pre-flight: return (ok, kind, url, duration, reason).
+
+        - ok=True  -> a playable source was found and passes duration filter
+        - ok=False -> reason explains why (no_source / preview_only / fetch_failed)
+        """
+        candidates = self.get_playable_sources(anime, episode)
+        if not candidates:
+            return (False, "", "", None, "no_source")
+
+        for cand in candidates:
+            # For iframe sources, probe duration via yt-dlp -J.
+            if cand.kind == "iframe":
+                duration = self._probe_duration(cand.url)
+                if duration is None:
+                    # Can't determine duration — accept but log
+                    logger.info(
+                        f"[resolve] {anime.name} ep {episode}: "
+                        f"{cand.provider} duration unknown, accepting"
+                    )
+                    return (True, cand.kind, cand.url, None, "ok_unknown_duration")
+                if duration < MIN_EPISODE_DURATION_SECONDS:
+                    logger.info(
+                        f"[resolve] {anime.name} ep {episode}: "
+                        f"{cand.provider} duration={duration}s < "
+                        f"{MIN_EPISODE_DURATION_SECONDS}s → preview, trying next"
+                    )
+                    continue
+                return (True, cand.kind, cand.url, duration, "ok")
+
+            # Direct media: no metadata endpoint; accept and rely on post-download size check.
+            if cand.kind == "direct_media":
+                logger.info(
+                    f"[resolve] {anime.name} ep {episode}: "
+                    f"direct media from {cand.provider}, accepting (size check after download)"
+                )
+                return (True, cand.kind, cand.url, None, "ok_direct")
+
+        # Every candidate was a preview or unusable
+        return (False, "", "", None, "preview_only")
+
+
+    def _probe_duration(self, url: str) -> Optional[int]:
+        """
+        Run `yt-dlp -J --skip-download <url>` and return duration in seconds.
+        Returns None on failure or if the field is missing.
+        """
+        import json
+        import subprocess
+        from config import YTDLP_METADATA_TIMEOUT
+
+        try:
+            proc = subprocess.run(
+                ["yt-dlp", "-J", "--skip-download", "--no-warnings", url],
+                capture_output=True, text=True, timeout=YTDLP_METADATA_TIMEOUT, check=True,
+            )
+            info = json.loads(proc.stdout)
+            d = info.get("duration")
+            return int(d) if d else None
+        except Exception as e:
+            logger.debug(f"[resolve] duration probe failed for {url}: {e}")
+            return None

@@ -1,0 +1,215 @@
+App {
+    background: ansi_default;
+}
+
+Screen {
+    background: ansi_default;
+    color: $text;
+
+}
+/* Textual's default "screen background" wrapper */
+Screen > * {
+    background: transparent;
+}
+
+/* Panels that used to be solid */
+.selector-col {
+    min-height: 12;
+    border: round $primary-darken-2;
+    padding: 0 1;
+    height: auto;              /* grows to fit content, not full screen */
+    margin-right: 1;
+    background: transparent;
+}
+
+#home-history {
+    background: transparent;
+    width: 70%;
+    height: 8;
+    border: round $primary-darken-2;
+    padding: 0 1;
+}
+
+#search-results {
+    background: transparent;
+    height: 1fr;
+}
+
+#details-root {
+    padding: 1 2;
+    background: transparent;
+}
+
+/* ---------- Home ---------- */
+#home-root {
+    align: center middle;
+    padding: 1 2;
+}
+
+#logo-wrap {
+    height: auto;
+    margin-bottom: 1;
+}
+
+#logo {
+    width: auto;
+    height: auto;
+    color: $accent;
+}
+
+#version {
+    text-align: center;
+    width: 100%;
+    padding: 1 0;
+    color: $text-muted;
+}
+
+#home-search-wrap {
+    width: 70%;
+    margin: 1 0;
+}
+
+#home-search {
+    border: tall $accent;
+    background: $panel;
+    padding: 0 1;
+}
+
+.section-title {
+    padding: 0 0 1 0;
+    color: $accent;
+}
+
+#home-footer {
+    margin-top: 1;
+    color: $text-muted;
+}
+
+/* ---------- Search ---------- */
+#search-root {
+    padding: 1 2;
+}
+
+#search-header {
+    padding: 0 0 1 0;
+}
+
+.result-card {
+    padding: 1 2;
+    margin: 0 0 1 0;
+    border: round $primary-darken-2;
+}
+
+.result-card.selected {
+    border: round $accent;
+    background: $accent 15%;
+}
+
+/* ---------- Details ---------- */
+
+#details-header {
+    padding: 0 0 1 0;
+    height: auto;
+}
+
+#details-body {
+    height: 1fr;
+}
+/* ---------- Details columns ---------- */
+#details-body {
+    height: 1fr;
+    align: left top;
+}
+
+#seasons-col {
+    width: 16;
+}
+
+#episodes-col {
+    width: 22;
+}
+
+#streams-col {
+    width: 1fr;
+    height: 1fr;               /* streams may be tall; let it fill */
+}
+
+.selector-col.focused {
+    border: round $accent;
+}
+
+.col-title {
+    color: $accent;
+    padding: 0 0 1 0;
+}
+
+.selector-item {
+    padding: 0 1;
+}
+
+.selector-item.selected {
+    background: $accent 20%;
+    color: $text;
+}
+
+#streams-table {
+    height: 1fr;
+}
+
+#details-footer {
+    height: auto;
+    padding: 1 0 0 0;
+    color: $text-muted;
+}
+
+/* ---------- Modal ---------- */
+#info-modal {
+    width: 70%;
+    height: 70%;
+    border: round $accent;
+    background: $panel;
+    padding: 1 2;
+}
+
+#info-modal-title {
+    padding: 0 0 1 0;
+}
+
+#info-modal-body {
+    height: 1fr;
+}
+
+#info-modal-close {
+    margin-top: 1;
+}
+
+#episodes-list {
+    overflow-y: hidden;
+}
+
+#season-list {
+    overflow-y: hidden;
+}
+
+/* ------ Data Table Configurations ------- */
+
+DataTable {
+    background: transparent;
+}
+
+DataTable > .datatable--header {
+    background: transparent;
+}
+
+DataTable > .datatable--cursor {
+    background: $accent 40%;
+}
+
+DataTable > .datatable--hover {
+    background: $accent 20%;
+}
+
+DataTable > .datatable--odd-row,
+DataTable > .datatable--even-row {
+    background: transparent;
+}

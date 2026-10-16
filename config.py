@@ -24,6 +24,7 @@ WATCHLIST_FILES = {
     "donghua": DONGHUA_WATCHLIST_FILE,
 }
 
+
 # Legacy alias (kept for backwards-compatible imports)
 WATCHLIST_FILE = ANIME_WATCHLIST_FILE
 
@@ -46,12 +47,39 @@ QUALITY_OPTIONS = {
 }
 DEFAULT_QUALITY = "720p"
 
+# ----------------------------------------------------------------------
+# Source resolution & preview detection
+# ----------------------------------------------------------------------
+
+# Minimum acceptable episode duration (seconds). Previews are typically < 2 min.
+MIN_EPISODE_DURATION_SECONDS = 300
+
+# Max mirrors to try when walking /v/1, /v/2, ... on an episode page.
+MAX_MIRRORS = 4
+
+# Timeout for yt-dlp metadata probe (pre-flight duration check).
+YTDLP_METADATA_TIMEOUT = 30
+
+# Preferred iframe providers, in priority order. Checked against the
+# iframe's src URL (case-insensitive substring match).
+SOURCE_PRIORITY = [
+    "dailymotion.com",
+    "dailymotion",
+    "rumble.com",
+    "rumble",
+    "youtube.com",
+    "youtu.be",
+    "vimeo.com",
+]
+
+# Extensions treated as direct media links (downloaded via wget, not yt-dlp).
+DIRECT_MEDIA_EXTENSIONS = (".mp4", ".mkv", ".webm", ".m4v")
+
 USE_YT_DLP = True
 YT_DLP_OPTIONS = [
     "--no-playlist",
     "--no-warnings",
     "--merge-output-format", "mp4",
-    "--output", "%(title)s.%(ext)s",
 ]
 
 LUCIFER_DONGHUA_BASE = "https://luciferdonghua.in"
@@ -72,7 +100,7 @@ ABBREVIATIONS = {
     "stellar transformation": ["st"],
     "soul land 2": ["sl2", "soulland2"],
     "tomb of fallen gods": ["tofg"],
-    "beyond the timescape": ["btt", "timescape"],
+    "beyond the timescape": ["btt", "timescape", "btts"],
     "shrouding the heavens": ["sth"],
     "the great ruler": ["tgr"],
     "the divine emperor of destiny": ["tdeod"],

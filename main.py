@@ -28,28 +28,39 @@ from updater import update_watchlist
 from watchlist import (    load_watchlist, save_watchlist, normalize_name,
     change_status, VALID_STATUSES,
 )
-from queue_manager import DownloadQueue
+from queue_manager import QUEUE, DownloadQueue
 from utils.filename import find_existing_file, episode_pattern, anime_matches_filename
 from models import Anime
 
+# New: TUI launcher (deferred import so existing CLI stays light)
+def _launch_tui():
+    from tui.app import AnimeDownloaderApp
+    AnimeDownloaderApp().run()
+
 # Setup logging
+# Logs go to the file only, so the TUI stays clean. Set DEBUG = True in
+# config.py to also mirror them to the terminal.
+_log_handlers = [logging.FileHandler(LOGS_DIR / "anime_downloader.log", encoding="utf-8")]
+if DEBUG:
+    _log_handlers.append(logging.StreamHandler(sys.stdout))
 logging.basicConfig(
     level=logging.DEBUG if DEBUG else logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler(LOGS_DIR / "anime_downloader.log"),
-        logging.StreamHandler(sys.stdout),
-    ]
+    handlers=_log_handlers,
 )
 logger = logging.getLogger(__name__)
 
 console = Console()
 SCRAPER_PRIMARY = LuciferDonghuaScraper()
 SCRAPER_FALLBACK = CartoonsAreaScraper()
-QUEUE = DownloadQueue(max_workers=2)
 
 
+def _queue_event(kind: str, message: str) -> None:
+    """Single-line, user-facing notices from download workers."""
+    style = "green" if kind == "success" else "red"
+    console.print(f"[{style}]{message}[/{style}]")
 
+QUEUE.on_event = _queue_event 
 
 # -----------------------------------------------------------
 # Content-Type Functions
@@ -125,7 +136,7 @@ def get_anime_by_name(name: str, file_path: Path) -> Optional[Anime]:
 
 
 def download_episode_background(anime, episode, watchlist, file_path: Path):
-    # Build canonical destination
+    # Build canonical destination (unchanged)
     if anime.season:
         season_num = re.search(r'\d+', anime.season)
         season_str = f"_s{season_num.group(0)}" if season_num else ""
@@ -139,39 +150,55 @@ def download_episode_background(anime, episode, watchlist, file_path: Path):
         size = canonical_dest.stat().st_size
         if size > PREVIEW_MAX_SIZE_BYTES:
             logger.info(f"✅ Episode {episode} of {anime.name} already downloaded (canonical).")
-            update_watchlist(watchlist, anime, episode, file_path=file_path)   # ← FIX
+            update_watchlist(watchlist, anime, episode, file_path=file_path)
             return True
         else:
             logger.warning(f"Deleting small canonical file (preview): {canonical_dest}")
             canonical_dest.unlink()
-            add_failed(anime.name, episode)
-            return False
 
     # 2. Fuzzy existing file
     existing = find_existing_file(anime.name, episode, anime.season)
     if existing:
         logger.info(f"✅ Episode {episode} of {anime.name} already downloaded (found as {existing.name}).")
-        update_watchlist(watchlist, anime, episode, file_path=file_path)       # ← FIX
+        update_watchlist(watchlist, anime, episode, file_path=file_path)
         return True
 
-    # 3. Queue the download
+    # 3. PRE-FLIGHT: resolve a playable source before queueing
+    ctype = _content_type_for_path(file_path)
     try:
-        ctype = _content_type_for_path(file_path)
-        link = get_download_link_with_fallback(anime, episode, content_type=ctype)
-        if not link:
-            logger.error(f"No link for {anime.name} ep {episode}")
-            add_failed(anime.name, episode)
-            return False
+        ok, kind, url, duration, reason = SCRAPER_PRIMARY.resolve_episode_source(anime, episode)
+    except Exception as e:
+        logger.exception(
+            f"[resolve] {anime.name} ep {episode} crashed: {e}"
+        )
+        add_failed(anime.name, episode)
+        return False
+
+    if not ok:
+        logger.warning(
+            f"[resolve] {anime.name} ep {episode}: no playable source "
+            f"(reason={reason}); not queueing"
+        )
+        add_failed(anime.name, episode)
+        return False
+
+    logger.info(
+        f"[resolve] {anime.name} ep {episode}: using {kind}/{url[:60]}… "
+        f"(duration={duration or 'unknown'}, reason={reason})"
+    )
+
+    # 4. Queue with the resolved URL
+    try:
         QUEUE.add_job(
-            anime, episode, watchlist, canonical_dest, link,
+            anime, episode, watchlist, canonical_dest, url,
             watchlist_file=file_path,
         )
         return True
     except Exception as e:
-        logger.exception(f"Error queuing {anime.name} ep {episode}: {e}")
+        logger.exception(f"[queue] {anime.name} ep {episode} failed to enqueue: {e}")
         add_failed(anime.name, episode)
         return False
-
+        
 # ------------------------------------------------------------
 # Changes Media Status
 # ------------------------------------------------------------
@@ -240,37 +267,42 @@ def get_latest_with_fallback(anime):
         logger.warning(f"Fallback scraper failed: {e}")
     return 0
 
-
 def get_download_link_with_fallback(anime, episode, content_type=None):
     """
     Resolve an episode URL.
 
     Order:
       1. Persistent per-series link cache (data/links/*.txt)
-      2. Existing primary scraper
-      3. Existing fallback scraper
-
-    The cache is additive: a miss falls through to the existing behavior.
+      2. Direct video URL from primary scraper (Dailymotion, etc.)
+      3. Episode page URL from primary scraper
+      4. Episode page URL from fallback scraper
     """
-    # 1. Link cache — content-type aware
+    # 1. Link cache
     if content_type:
         cached = get_cached_url(anime.name, content_type, episode)
         if cached:
-            logger.info(
-                f"Using cached link for {anime.name} ep {episode} "
-                f"({content_type})"
-            )
+            logger.info(f"Using cached link for {anime.name} ep {episode} ({content_type})")
             return cached
 
-    # 2. Existing scraper behavior, unchanged
+    # 2. Direct video URL (avoids yt-dlp generic extractor parsing the page)
+    try:
+        direct = SCRAPER_PRIMARY.get_direct_video_url(anime, episode)
+        if direct:
+            logger.info(f"Using direct video URL for {anime.name} ep {episode}: {direct}")
+            return direct
+    except Exception as e:
+        logger.warning(f"Direct video extraction failed for {anime.name} ep {episode}: {e}")
+
+    # 3. Episode page URL from primary
     try:
         return SCRAPER_PRIMARY.get_download_link(anime, episode)
-    except:
+    except Exception:
+        # 4. Fallback scraper
         try:
             return SCRAPER_FALLBACK.get_download_link(anime, episode)
-        except:
+        except Exception:
             raise RuntimeError("No download link found")
-
+            
 def process_anime_background(anime, watchlist, file_path: Path):
     if anime.status == "completed":
         return
@@ -1014,6 +1046,7 @@ def main():
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     parser.add_argument("--menu", action="store_true", help="Force interactive menu")
     parser.add_argument("--sync-links", action="store_true", help="Sync links for all watchlists")
+    parser.add_argument("--tui", action="store_true", help="Launch the interactive TUI")
     parser.add_argument("--type", choices=["anime", "donghua"], default=None,
                         help="Which watchlist to operate on (default: config)")
     args = parser.parse_args()
@@ -1022,6 +1055,9 @@ def main():
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
         logger.debug("Debug mode enabled")
+    if args.tui:
+        _launch_tui()
+        return
 
     # 2. Dispatch – first matching branch wins
     if args.sync_links:

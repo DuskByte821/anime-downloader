@@ -31,9 +31,14 @@ def anime_matches_filename(anime_name: str, filename: str) -> bool:
 
     # 1. Abbreviation check
     abbrs = ABBREVIATIONS.get(name_key, [])
-    for ab in abbrs:
-	    if re.search(rf"\b{re.escape(ab)}\b", file_slug):
-	        return True
+    for ab in ABBREVIATIONS.get(name_key, []):
+        ab_slug = slug(ab)
+        pat = (
+            rf"(?<![a-z0-9]){re.escape(ab_slug)}"
+            rf"(?:(?![a-z0-9])|(?=e(?:p|pisode)?\d))"
+        )
+        if re.search(pat, file_slug):
+            return True
 
     # 2. Token overlap check
     anime_tokens = [t for t in slug(anime_name).split() if len(t) > 1]

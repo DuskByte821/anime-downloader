@@ -17,26 +17,39 @@ def update_watchlist(
     new_episode: int,
     file_path: Optional[Path] = None,
 ) -> None:
-    """
-    Update the downloaded episode for one anime and save the watchlist
-    back to the file the caller loaded it from.
-
-    `file_path` must be provided by callers operating on a specific
-    watchlist (anime.txt vs donghua.txt). If omitted, falls back to the
-    legacy anime.txt location.
-    """
     if file_path is None:
         file_path = ANIME_WATCHLIST_FILE
 
     try:
-        logger.info(
-            f"🔄 Updating {anime.name}: downloaded {anime.downloaded} → {new_episode}"
-        )
+        # Reload fresh so parallel jobs don't clobber each other
+        fresh = load_watchlist(file_path)
+        target = None
+        for a in fresh:
+            if a.name == anime.name and a.season == anime.season:
+                target = a
+                break
+        if target is None:
+            logger.warning(
+                f"[updater] {anime.name} not found in {file_path.name}; "
+                f"writing in-memory object as-is"
+            )
+            target = anime
+
+        if new_episode <= target.downloaded:
+            logger.info(
+                f"⏭️  Skipping update for {anime.name}: "
+                f"downloaded={target.downloaded} >= new={new_episode}"
+            )
+            return
+
+        logger.info(f"🔄 Updating {anime.name}: downloaded {target.downloaded} → {new_episode}")
+        target.downloaded = new_episode
+        # Keep in-memory object consistent with disk
         anime.downloaded = new_episode
-        save_watchlist(anime_list, file_path)
+        save_watchlist(fresh, file_path)
         logger.info(f"💾 Watchlist saved to {file_path.resolve()}")
 
-        # Verify the write
+        # Verify
         reloaded = load_watchlist(file_path)
         for a in reloaded:
             if a.name == anime.name and a.season == anime.season:
@@ -44,7 +57,7 @@ def update_watchlist(
                     logger.info(f"✅ Verified: {anime.name} downloaded={new_episode}")
                 else:
                     logger.warning(
-                        f"⚠️ Verification mismatch: {anime.name} "
+                        f"⚠️  Verification mismatch: {anime.name} "
                         f"has downloaded={a.downloaded}, expected {new_episode}"
                     )
                 break

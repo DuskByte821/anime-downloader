@@ -6,7 +6,7 @@ import time
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 from downloader import download_file
 from updater import update_watchlist
@@ -27,7 +27,12 @@ class DownloadJob:
 
 
 class DownloadQueue:
-    def __init__(self, max_workers: int = 2):
+    def __init__(
+       self,
+        max_workers: int = 2,
+        on_event: Optional[Callable[[str, str], None]] = None,
+    ):
+        self.on_event = on_event      # on_event(kind, message); kind: success | failure
         self.queue = deque()
         self.jobs = {}
         self.lock = threading.Lock()
@@ -58,6 +63,13 @@ class DownloadQueue:
             self.queue.append(self.job_counter)
             self._start_workers()
         return self.job_counter
+
+    def _emit(self, kind: str, message: str) -> None:
+        if self.on_event:
+            try:
+                self.on_event(kind, message)
+            except Exception:
+                logger.exception("on_event callback failed")
 
     def _start_workers(self):
         if not self.running:
@@ -93,6 +105,7 @@ class DownloadQueue:
         )
         if success:
             job.status = "completed"
+            old_count = job.anime.downloaded
             update_watchlist(
                 job.watchlist,
                 job.anime,
@@ -101,10 +114,19 @@ class DownloadQueue:
             )
             remove_success(job.anime.name, job.episode)
             logger.info(f"✅ Job {job_id} completed")
+            self._emit(
+                "success",
+                f"✔ {job.anime.name} ep {job.episode} — watchlist updated "
+                f"({old_count} → {job.anime.downloaded})",
+            )
         else:
             job.status = "failed"
             add_failed(job.anime.name, job.episode)
             logger.error(f"❌ Job {job_id} failed")
+            self._emit(
+                "failure",
+                f"✖ {job.anime.name} ep {job.episode} failed — see logs",
+            )
 
     def get_status(self):
         with self.lock:
@@ -112,3 +134,6 @@ class DownloadQueue:
                 jid: (job.status, job.anime.name, job.episode)
                 for jid, job in self.jobs.items()
             }
+
+
+QUEUE = DownloadQueue(max_workers=2)

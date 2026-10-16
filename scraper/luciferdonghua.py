@@ -87,7 +87,7 @@ class LuciferDonghuaScraper(Scraper):
         try:
             search_url = f"{self.BASE_URL}/?s={query.replace(' ', '+')}"
             logger.debug(f"Searching: {search_url}")
-            resp = requests.get(search_url, headers=HEADERS, timeout=TIMEOUT)
+            resp = fetch_html(search_url, headers=HEADERS, timeout=TIMEOUT)
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -122,7 +122,7 @@ class LuciferDonghuaScraper(Scraper):
 
     def _fetch_latest_episode_from_series(self, series_url: str) -> int:
         try:
-            resp = requests.get(series_url, headers=HEADERS, timeout=TIMEOUT)
+            resp = fetch_html(series_url, headers=HEADERS, timeout=TIMEOUT)
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
             ep_links = soup.select("ul#episode_page li a")
@@ -253,35 +253,115 @@ class LuciferDonghuaScraper(Scraper):
     # ----------------------------------------------------------------------
 
     def _build_episode_map(self, series_url: str) -> Dict[int, str]:
-        try:
-            resp = requests.get(series_url, headers=HEADERS, timeout=TIMEOUT)
-            resp.raise_for_status()
-            soup = BeautifulSoup(resp.text, "html.parser")
-            ep_map = {}
-            ep_links = soup.select("ul#episode_page li a")
-            if not ep_links:
-                ep_links = soup.select("div.anime_video_body ul li a")
-            if not ep_links:
-                ep_links = soup.find_all("a", href=re.compile(r"episode-\d+", re.I))
-            for a in ep_links:
-                href = a.get("href")
-                if not href:
-                    continue
-                if not href.startswith("http"):
-                    href = self.BASE_URL + href
-                match = re.search(r"episode-(\d+)", href, re.I)
-                if match:
-                    ep_num = int(match.group(1))
-                else:
-                    text = a.get_text(strip=True)
-                    ep_num, _ = self._parse_episode_string(text)
-                    if ep_num == 0:
-                        continue
-                ep_map[ep_num] = href
-            return ep_map
-        except Exception as e:
-            logger.exception(f"Failed to build episode map from {series_url}: {e}")
+        """
+        Return {episode_number: episode_url}.
+
+        Uses a disk cache with a 1-day TTL. On fetch failure with a stale
+        cache present, returns the stale cache and logs a warning. On
+        fetch failure with no cache, returns {}.
+        """
+        from scraper.cache import read_episode_map, write_episode_map
+        from scraper.http import fetch_html
+
+        cached, fresh = read_episode_map(series_url)
+        if cached is not None and fresh:
+            logger.debug(f"[epmap] fresh cache hit for {series_url}")
+            return {int(k): v for k, v in cached.items()}
+
+        if cached is not None:
+            logger.info(f"[epmap] stale cache for {series_url}; refreshing")
+
+        text = fetch_html(series_url)
+        if text is None:
+            if cached is not None:
+                logger.warning(
+                    f"[epmap] fetch failed; using stale cache for {series_url}"
+                )
+                return {int(k): v for k, v in cached.items()}
             return {}
+
+        soup = BeautifulSoup(text, "html.parser")
+        ep_map: Dict[int, str] = {}
+
+        ep_links = soup.select("ul#episode_page li a")
+        if not ep_links:
+            ep_links = soup.select("div.anime_video_body ul li a")
+        if not ep_links:
+            ep_links = soup.find_all("a", href=re.compile(r"episode-\d+", re.I))
+
+        for a in ep_links:
+            href = a.get("href")
+            if not href:
+                continue
+            if not href.startswith("http"):
+                href = self.BASE_URL + href
+            match = re.search(r"episode-(\d+)", href, re.I)
+            if match:
+                ep_num = int(match.group(1))
+            else:
+                ep_text = a.get_text(strip=True)
+                ep_num, _ = self._parse_episode_string(ep_text)
+                if ep_num == 0:
+                    continue
+            ep_map[ep_num] = href
+
+        if ep_map:
+            write_episode_map(series_url, ep_map)
+        else:
+            logger.warning(f"[epmap] parsed empty for {series_url}, not caching")
+
+        return ep_map
+    
+    # ----------------------------------------------------------------------
+    # MetaData
+    # ----------------------------------------------------------------------
+    def get_series_metadata(self, series_url: str) -> dict:
+        """
+        Return series metadata, using disk cache when possible.
+
+        On cache miss: fetch and write.
+        On fresh cache: return as-is.
+        On stale cache: attempt fetch; on failure, return stale.
+        On fetch failure with no cache: return empty structure.
+        """
+        from scraper.cache import read_series_meta, write_series_meta
+
+        cached, fresh = read_series_meta(series_url)
+        if cached is not None and fresh:
+            logger.debug(f"[meta] fresh cache hit for {series_url}")
+            return cached
+
+        if cached is not None:
+            logger.info(f"[meta] stale cache for {series_url}; refreshing")
+
+        text = fetch_html(series_url, use_cache=True)
+        if text is None:
+            if cached is not None:
+                logger.warning(f"[meta] fetch failed; using stale cache for {series_url}")
+                return cached
+            logger.warning(f"[meta] fetch failed and no cache for {series_url}")
+            return _empty_metadata()
+
+        from scraper.metadata_parser import parse_series_metadata
+        parsed = parse_series_metadata(text)
+
+        # Only write on successful parse (parsed has a title or description)
+        if parsed.get("title") or parsed.get("description"):
+            write_series_meta(series_url, parsed)
+        else:
+            logger.warning(f"[meta] parsed empty for {series_url}, not caching")
+
+        return parsed
+
+
+    def _empty_metadata() -> dict:
+        return {
+            "title": None, "alt_titles": [], "description": "",
+            "status": None, "network": None, "studio": None,
+            "released": None, "duration": None, "season": None,
+            "country": None, "type": None, "episodes": None,
+            "fansub": None, "genres": [],
+        }
 
     # ----------------------------------------------------------------------
     # Public API (implements Scraper)
@@ -323,7 +403,7 @@ class LuciferDonghuaScraper(Scraper):
         """
         episode_url = self.get_download_link(anime, episode)
         try:
-            resp = requests.get(episode_url, headers=HEADERS, timeout=TIMEOUT)
+            resp = fetch_html(episode_url, headers=HEADERS, timeout=TIMEOUT)
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -478,7 +558,7 @@ class LuciferDonghuaScraper(Scraper):
     def _fetch_episode_soup(self, episode_url: str):
         """Fetch an episode page and return its soup, or None on failure."""
         try:
-            resp = requests.get(episode_url, headers=HEADERS, timeout=TIMEOUT)
+            resp = fetch_html(episode_url, headers=HEADERS, timeout=TIMEOUT)
             resp.raise_for_status()
             return BeautifulSoup(resp.text, "html.parser")
         except Exception as e:

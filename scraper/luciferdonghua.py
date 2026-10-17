@@ -17,10 +17,11 @@ from .base import Scraper
 from link_manager import LinkManager
 from scraper.rejected_log import log_candidates
 from config import (
-    HEADERS, TIMEOUT, LUCIFER_DONGHUA_BASE,
+    LUCIFER_DONGHUA_BASE,
     MAX_MIRRORS, SOURCE_PRIORITY, DIRECT_MEDIA_EXTENSIONS,
     YTDLP_METADATA_TIMEOUT, MIN_EPISODE_DURATION_SECONDS,
 )
+from scraper.http import fetch_html
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +40,14 @@ def _strip_meta(title: str) -> str:
     t = re.sub(r"\(\s*\d{4}\s*\)", "", t)
     return t.strip()
 
+def _empty_metadata() -> dict:
+    return {
+        "title": None, "alt_titles": [], "description": "",
+        "status": None, "network": None, "studio": None,
+        "released": None, "duration": None, "season": None,
+        "country": None, "type": None, "episodes": None,
+        "fansub": None, "genres": [],
+    }
 
 class LuciferDonghuaScraper(Scraper):
     BASE_URL = LUCIFER_DONGHUA_BASE
@@ -80,51 +89,50 @@ class LuciferDonghuaScraper(Scraper):
     # ----------------------------------------------------------------------
     # Search and series discovery
     # ----------------------------------------------------------------------
-
     def search_anime(self, query: str) -> List[Tuple[str, str, int]]:
-        """Search Lucifer Donghua and return all anime-like results."""
-        results = []
-        try:
+        from scraper.search import (
+            search_via_ajax, search_via_html, _matches_query,
+        )
+
+        pairs = search_via_ajax(query)
+        method = "ajax"
+        if pairs is None:
             search_url = f"{self.BASE_URL}/?s={query.replace(' ', '+')}"
-            logger.debug(f"Searching: {search_url}")
-            resp = fetch_html(search_url, headers=HEADERS, timeout=TIMEOUT)
-            resp.raise_for_status()
-            soup = BeautifulSoup(resp.text, "html.parser")
+            text = fetch_html(search_url)
+            if text is None:
+                logger.warning(f"[search] query={query!r} all methods failed")
+                return []
+            pairs = search_via_html(text)
+            method = "html"
 
-            for a in soup.find_all("a", href=True):
-                href = a.get("href")
-                if not href:
-                    continue
-                if "/anime/" not in href:
-                    continue
-                if href.rstrip("/") == self.BASE_URL + "/anime":
-                    continue
-                title = a.get_text(strip=True)
-                if not title:
-                    title = href.split("/")[-2] if href.endswith("/") else href.split("/")[-1]
-                    title = title.replace("-", " ").title()
-                if not href.startswith("http"):
-                    href = self.BASE_URL + href
-                latest = self._fetch_latest_episode_from_series(href)
-                results.append((title, href, latest))
+        logger.debug(
+            f"[search] query={query!r} method={method} results={len(pairs)}"
+        )
 
-            # Remove duplicates
-            seen = set()
-            unique = []
-            for title, url, latest in results:
-                if url not in seen:
-                    seen.add(url)
-                    unique.append((title, url, latest))
-            return unique
-        except Exception as e:
-            logger.exception(f"Search failed for '{query}': {e}")
-            return []
+        results: List[Tuple[str, str, int]] = []
+        filtered = 0
+        for title, href, latest in pairs:
+            if not _matches_query(title, query):
+                filtered += 1
+                logger.debug(
+                    f"[search] candidate filtered: title={title!r} reason='no-query-token'"
+                )
+                continue
+            if not href.startswith("http"):
+                href = self.BASE_URL + href
+            results.append((title, href, latest))
 
+        if filtered:
+            logger.debug(f"[search] filtered {filtered} irrelevant candidate(s)")
+
+        return results
+                    
     def _fetch_latest_episode_from_series(self, series_url: str) -> int:
         try:
-            resp = fetch_html(series_url, headers=HEADERS, timeout=TIMEOUT)
-            resp.raise_for_status()
-            soup = BeautifulSoup(resp.text, "html.parser")
+            text = fetch_html(series_url)
+            if text is None:
+                return 0
+            soup = BeautifulSoup(text, "html.parser")
             ep_links = soup.select("ul#episode_page li a")
             if not ep_links:
                 ep_links = soup.select("div.anime_video_body ul li a")
@@ -353,16 +361,6 @@ class LuciferDonghuaScraper(Scraper):
 
         return parsed
 
-
-    def _empty_metadata() -> dict:
-        return {
-            "title": None, "alt_titles": [], "description": "",
-            "status": None, "network": None, "studio": None,
-            "released": None, "duration": None, "season": None,
-            "country": None, "type": None, "episodes": None,
-            "fansub": None, "genres": [],
-        }
-
     # ----------------------------------------------------------------------
     # Public API (implements Scraper)
     # ----------------------------------------------------------------------
@@ -403,10 +401,10 @@ class LuciferDonghuaScraper(Scraper):
         """
         episode_url = self.get_download_link(anime, episode)
         try:
-            resp = fetch_html(episode_url, headers=HEADERS, timeout=TIMEOUT)
-            resp.raise_for_status()
-            soup = BeautifulSoup(resp.text, "html.parser")
-
+            text = fetch_html(episode_url)
+            if text is None:
+                return None
+            soup = BeautifulSoup(text, "html.parser")
             def _clean(src: str) -> Optional[str]:
                 if not src:
                     return None
@@ -558,9 +556,11 @@ class LuciferDonghuaScraper(Scraper):
     def _fetch_episode_soup(self, episode_url: str):
         """Fetch an episode page and return its soup, or None on failure."""
         try:
-            resp = fetch_html(episode_url, headers=HEADERS, timeout=TIMEOUT)
-            resp.raise_for_status()
-            return BeautifulSoup(resp.text, "html.parser")
+            text = fetch_html(episode_url)
+            if text is None:
+                logger.warning(f"[resolve] fetch failed for {episode_url}")
+                return None
+            return BeautifulSoup(text, "html.parser")
         except Exception as e:
             logger.warning(f"[resolve] failed to fetch {episode_url}: {e}")
             return None

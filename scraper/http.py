@@ -59,3 +59,27 @@ def fetch_html(url: str, use_cache: bool = True) -> Optional[str]:
     if use_cache:
         html_set(url, text)
     return text
+
+
+def post_json(url: str, data: dict) -> Optional[dict]:
+    """
+    POST form data, expect a JSON response.
+
+    - Applies the same per-host rate limiting as fetch_html.
+    - Returns None on failure or non-JSON response.
+    - Does not cache (search results are user-input dependent).
+    """
+    host = urlparse(url).netloc
+    _wait_for_host(host)
+
+    try:
+        resp = requests.post(url, data=data, headers=HEADERS, timeout=TIMEOUT)
+        resp.raise_for_status()
+        return resp.json()
+    except requests.HTTPError as e:
+        status = e.response.status_code if e.response is not None else "?"
+        logger.warning(f"[http] POST {status} for {url}")
+        return None
+    except (requests.RequestException, ValueError) as e:
+        logger.warning(f"[http] POST failed {url}: {e}")
+        return None

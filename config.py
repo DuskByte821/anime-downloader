@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-VERSION = "2.2.1"
+VERSION = "2.2.2"
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"

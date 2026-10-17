@@ -29,7 +29,7 @@ three rows of box/boxes appears
 
 |---------------------------------------|   
 | |- -| Game Of thrones                 |
-| |   | ⭐9.2  2019 Series [MovieBox]   |
+| |art| ⭐9.2  2019 Series [MovieBox]   | 
 | |- -| Description                     |
 |---------------------------------------|
 
@@ -43,8 +43,8 @@ three rows of box/boxes appears
 |--Streams-----------------------------------------------------------------|
 | RES     Size    Media Tags     Source         Release                    |
 | 1080p   543MB   HVEC           MOVIEBOX CDN   S07E01                     |
-| 720p   284MB   HVEC           MOVIEBOX CDN   S07E01                      |
-| 480p   148MB   HVEC           MOVIEBOX CDN   S07E01                      |
+| 720p    284MB   HVEC           MOVIEBOX CDN   S07E01                     |
+| 480p    148MB   HVEC           MOVIEBOX CDN   S07E01                     |
 |--------------------------------------------------------------------------|
 
 
@@ -52,6 +52,7 @@ three rows of box/boxes appears
 [Enter] Select  [d] Download Episode    [Tab] Steams   [f] Fav  [i] Info
 
 Enter Option:
+where 'art' refers to the poster picture
 Its working is as follows
 Enter Selects on Audio | Season | Episode
 Enter Plays When on Streams
@@ -76,11 +77,3 @@ like from third stage to second stage
 second stage to first stage or main menu
 
 if anything, ask questions
-
-
-
-
-up down
-
-
-do the step 2 from deepseek to continue

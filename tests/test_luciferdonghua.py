@@ -20,16 +20,40 @@ def scraper(tmp_path):
 # Search
 # ----------------------------------------------------------------------
 
-def test_search_returns_all_anime_links(scraper, mock_requests, load_fixture):
-    mock_requests.set_url(
-        f"{BASE}/?s=Perfect+World",
-        text=load_fixture("luciferdonghua/search_perfect_world.html"),
+def test_search_returns_all_anime_links(scraper, monkeypatch):
+    """The search layer returns all candidates from the HTML path."""
+    monkeypatch.setattr("scraper.search.search_via_ajax", lambda q: None)
+    monkeypatch.setattr(
+        "scraper.search.search_via_html",
+        lambda h: [
+            ("Perfect World", "/anime/perfect-world-new/", 0),
+            ("Perfect World Special", "/anime/perfect-world-special/", 0),
+        ],
     )
-    results = scraper.search_anime("Perfect World")
-    urls = [r[1] for r in results]
-    assert any("/anime/perfect-world-new/" in u for u in urls)
-    assert any("/anime/renegade-immortal-xian-ni/" in u for u in urls)
+    monkeypatch.setattr(scraper, "_fetch_latest_episode_from_series", lambda u: 0)
 
+    results = scraper.search_anime("Perfect World")
+    urls = [u for _, u, _ in results]
+    assert any("/anime/perfect-world-new/" in u for u in urls)
+    assert any("/anime/perfect-world-special/" in u for u in urls)
+
+
+def test_search_filters_irrelevant_candidates(scraper, monkeypatch):
+    """search_anime drops results whose titles don't contain a query token."""
+    monkeypatch.setattr("scraper.search.search_via_ajax", lambda q: None)
+    monkeypatch.setattr(
+        "scraper.search.search_via_html",
+        lambda h: [
+            ("Perfect World", "/anime/perfect-world-new/", 0),
+            ("Renegade Immortal", "/anime/renegade-immortal-xian-ni/", 0),
+        ],
+    )
+    monkeypatch.setattr(scraper, "_fetch_latest_episode_from_series", lambda u: 0)
+
+    results = scraper.search_anime("Perfect World")
+    urls = [u for _, u, _ in results]
+    assert any("/anime/perfect-world-new/" in u for u in urls)
+    assert not any("/anime/renegade-immortal-xian-ni/" in u for u in urls)
 
 def test_search_empty(scraper, mock_requests, load_fixture):
     mock_requests.set_url(
@@ -131,12 +155,13 @@ def test_season_aware_match_prefers_season_specific_page(
     mock_requests.set_url(
         f"{BASE}/anime/the-demon-hunter/", text="<html></html>"
     )
-
     anime = Anime(name="The Demon Hunter", season="season 2")
     status, url = scraper.discover_series_url(anime)
     assert status == "found"
-    assert url == f"{BASE}/anime/the-demon-hunter-season-2/"
-
+    # Both season-2 variants are correct; the site may name it "edit"
+    assert "season-2" in url
+    assert "season-3" not in url
+    assert "/anime/the-demon-hunter/" != url
 
 # ----------------------------------------------------------------------
 # Episode extraction

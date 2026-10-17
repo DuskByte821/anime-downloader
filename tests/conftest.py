@@ -22,6 +22,20 @@ def tmp_watchlist(tmp_path: Path) -> Path:
 def tmp_links(tmp_path: Path) -> Path:
     return tmp_path / "links.txt"
 
+# Isolate cache
+@pytest.fixture(autouse=True)
+def isolated_cache(tmp_path, monkeypatch):
+    """Redirect scraper/cache to a temp dir per test."""
+    meta_dir = tmp_path / "meta"
+    meta_dir.mkdir()
+    monkeypatch.setattr("scraper.cache.META_DIR", meta_dir)
+
+@pytest.fixture(autouse=True)
+def isolated_meta_cache(tmp_path, monkeypatch):
+    """Redirect scraper/cache JSON storage to a temp dir per test."""
+    meta_dir = tmp_path / "meta"
+    meta_dir.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr("scraper.cache.META_DIR", meta_dir)
 
 # ----------------------------------------------------------------------
 # Sample Anime objects

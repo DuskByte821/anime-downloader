@@ -1,500 +1,69 @@
 # Anime Downloader Roadmap
 
-This file describes the long-term goals and design direction of the project.
+## Purpose
 
----
+Maintain a reliable command-line and Textual interface for discovering anime and donghua episodes, reusing cached source links, tracking progress, and downloading only when the user requests it. Preserve the existing file-based workflow and keep anime and donghua state separate.
 
-# Primary Goal
+## Current foundation
 
-Build a reliable Anime and Donghua downloader that can discover episode sources, persist useful source links, maintain user watchlists, and download episodes when explicitly requested.
+The repository contains a CLI entry point in `main.py`, an optional Textual TUI, watchlist files for anime and donghua, scraper/search modules, link-cache and link-management code, a download queue manager, downloader logic, logging, and automated tests. `main.py` exposes options for the interactive menu, TUI, link synchronization, debug logging, content type, and targeting a title. Existing scraper support includes Lucifer Donghua and CartoonsArea modules. Treat these as code paths present in the repository, not as a guarantee that every upstream page or workflow currently succeeds.
 
-The project should minimize unnecessary repeated scraping while keeping the workflow understandable and controllable.
+The TUI has Home, Search, and Title Details screens. The details screen defines an eight-entry episode window. Its `f` binding calls a no-op favorite action and reports that favorites are not implemented. Do not list favorites as a working feature. Audio-language filtering and external-player playback are not present in the current details-screen implementation; they remain future work unless verified in a later code change.
 
-The core principle is:
+## Non-negotiable design rules
 
-```text
-Discover → Cache → Track → Download on demand
-```
+- Keep anime and donghua watchlists separate (`data/anime.txt` and `data/donghua.txt`).
+- Preserve existing watchlist formats, sections, and progress when adding discovery or download features.
+- Keep discovery/synchronization separate from downloading. Scanning for links must not start downloads implicitly.
+- Prefer usable cached links to repeated scraping, but retain a clear fallback/error path when cache entries are absent or stale.
+- Do not discard cached source data merely because a download succeeded.
+- Route progress updates to the correct content type and watchlist path.
+- Keep scraper-specific parsing in scraper modules and avoid coupling UI widgets directly to website HTML.
+- Make tests deterministic and avoid relying on live websites for ordinary unit tests.
 
----
+## Priorities
 
-# Supported Content
+### P0 — Correctness and test reliability
 
-Anime and Donghua are both first-class content types.
+- Fix the current test failures before treating the suite as a reliable regression gate.
+- Remove accidental live-network dependence from tests; use fixtures and mocked HTTP responses.
+- Add regression tests for watchlist type/path selection, progress preservation, duplicate discovery, cache reuse, failed downloads, and malformed upstream responses.
+- Ensure logs and errors identify the affected title, episode, and source without silently corrupting local state.
 
-They must remain separated throughout the application.
+### P1 — Complete and clarify the TUI
 
-```text
-Anime
-  ↓
-data/anime.txt
+- Implement or remove the placeholder favorites action; do not imply that it persists favorites until storage and behavior exist.
+- Implement audio-language filtering only after stream metadata exposes a dependable language field.
+- Add external-player playback only with an explicit player invocation and clear handling when the player is unavailable.
+- Ensure selecting a season loads that season's episodes, selecting an episode loads its streams, and download actions use the selected episode and stream.
+- Keep the streams table visible alongside the selectors where practical, and keep contextual key hints synchronized with actual bindings.
+- Document slash commands and shortcuts from the bindings that exist in code, not from a design proposal.
 
-Donghua
-  ↓
-data/donghua.txt
-```
+### P1 — Scraper and cache resilience
 
-The project must never accidentally update the wrong content type's watchlist.
+- Add fixture-based coverage for supported scrapers and common upstream changes.
+- Make stale, empty, rejected, or malformed cached links distinguishable from valid links.
+- Improve diagnostics when a source changes markup or blocks a request.
+- Keep source-specific behavior isolated so adding a scraper does not require rewriting watchlist or downloader logic.
 
----
+### P2 — Download management
 
-# Expected Workflow
+- Improve retry and resume behavior only where the downloader backend supports it safely.
+- Make queue state, failures, and completion visible and recoverable.
+- Review output naming and destination rules for anime and donghua without changing watchlist storage semantics.
+- Preserve existing files and progress when a download fails or is interrupted.
 
-The intended workflow is no longer automatic downloading on every program start.
+### P2 — Usability and maintenance
 
-Instead:
+- Keep the README, architecture, project-state, conventions, and roadmap aligned with verified code.
+- Keep configuration centralized and avoid unnecessary hard-coded paths.
+- Add focused tests for each bug fix and avoid broad refactors without a concrete benefit.
+- Keep user-facing commands and help text consistent with argparse definitions and TUI bindings.
 
-```text
-Load / scan project data
-        ↓
-Discover new titles and episode links
-        ↓
-Store links in data/links/
-        ↓
-Add missing titles to the correct watchlist
-        ↓
-Wait for explicit user action
-        ↓
-User chooses Download
-        ↓
-Use cached episode links
-        ↓
-Download missing episodes
-        ↓
-Update the same watchlist
-```
+## Out of scope until justified
 
-Discovery and downloading must remain separate operations.
+Do not introduce a database, large plugin framework, automatic downloading on startup, or broad parallel-download machinery just for abstraction's sake. Evaluate new sources and features against reliability, maintenance cost, and the existing modular design.
 
----
+## Definition of done
 
-# Persistent Link Cache
-
-A major project goal is to avoid scraping external sources every time an episode is downloaded.
-
-Episode/source links should be persistently stored under:
-
-```text
-data/links/
-```
-
-The cache should allow the project to:
-
-* discover links once
-* reuse them later
-* avoid unnecessary repeated scraping
-* preserve source information after successful downloads
-* support manual link collection/import
-* provide a foundation for future source management
-
-The cache is source data, not progress data.
-
----
-
-# Watchlist
-
-The watchlist remains the authoritative source for user state.
-
-Each content type has its own file:
-
-```text
-data/anime.txt
-data/donghua.txt
-```
-
-Each file contains:
-
-```text
-watching
-ended
-dropped
-completed
-```
-
-Existing entry formats must remain supported:
-
-```text
-title::season X::downloaded N::watched M
-```
-
-and:
-
-```text
-title::downloaded N::watched M
-```
-
-The project should preserve human-readable text files rather than introducing a database for this functionality.
-
----
-
-# Watchlist Goals
-
-The watchlist system should provide:
-
-* Anime/Donghua separation
-* four mutually exclusive statuses
-* season support
-* downloaded episode tracking
-* watched episode tracking
-* safe persistence
-* duplicate prevention
-* backwards compatibility with existing entries
-* predictable status movement
-* preservation of empty sections
-
-Future watchlist improvements may include:
-
-* aliases
-* richer season handling
-* overall episode counts
-* tags
-* additional metadata
-
-These should extend the existing model rather than replace it unnecessarily.
-
----
-
-# Downloading
-
-Downloading must happen only as the result of an explicit user action.
-
-Scanning for new links must never automatically start downloads.
-
-The downloader should:
-
-* consume cached episode links when available
-* support existing scraper fallback behavior
-* download only missing episodes
-* handle failures without destroying watchlist state
-* preserve cached links after successful downloads
-* report useful progress and errors
-
-Potential future downloader improvements include:
-
-* yt-dlp integration
-* aria2 support
-* resume support
-* improved retry handling
-* parallel downloads
-
----
-
-# Scrapers
-
-Scrapers should provide external source discovery.
-
-Adding a new website should ideally require adding a scraper rather than rewriting unrelated application logic.
-
-Potential sources include:
-
-```text
-scraper/
-├── cartoonsarea.py
-├── luciferdonghua.py
-└── ...
-```
-
-Scrapers should be reusable for:
-
-* initial link discovery
-* cache refreshes
-* recovering missing links
-* adding support for new sources
-
-The project should prefer cached information when it is already available and usable.
-
----
-
-# Discovery
-
-The discovery system should be able to scan:
-
-```text
-data/links/
-```
-
-and detect new link files.
-
-When a new link cache is found:
-
-```text
-link file
-   ↓
-detect title/type
-   ↓
-check watchlist
-   ↓
-add missing entry
-```
-
-If the title already exists:
-
-```text
-do nothing to its existing progress
-```
-
-Repeated scans must be idempotent.
-
-Most importantly:
-
-```text
-DISCOVERY MUST NOT DOWNLOAD.
-```
-
----
-
-# Download Management
-
-Downloaded files should eventually be organized consistently.
-
-Example:
-
-```text
-Anime/
-└── One Piece/
-    ├── Episode 1135.mp4
-    └── Episode 1136.mp4
-```
-
-```text
-Donghua/
-└── Battle Through The Heavens/
-    ├── Episode 208.mp4
-    └── Episode 209.mp4
-```
-
-Folder organization should remain independent from watchlist storage.
-
----
-
-# Logging
-
-The application should provide useful logs for:
-
-* discovered episodes
-* cached links
-* downloads
-* skipped episodes
-* failures
-* retries
-* watchlist updates
-* scraper failures
-
-Logs should help diagnose problems without requiring the user to inspect internal code.
-
----
-
-# Error Handling
-
-One failed series should not unnecessarily stop the entire workflow.
-
-For example:
-
-```text
-Series A → success
-Series B → failure → log error
-Series C → continue
-```
-
-Failures should be isolated wherever practical.
-
-The project should fail clearly rather than silently corrupting watchlist or cache data.
-
----
-
-# Modularity
-
-Each module should have one primary responsibility.
-
-The architecture should remain roughly:
-
-```text
-TUI / CLI
-    ↓
-Watchlist
-    ↓
-Models
-    ↓
-Discovery / Scrapers
-    ↓
-Link Cache
-    ↓
-Downloader
-    ↓
-Updater
-```
-
-Modules should communicate through clear interfaces rather than reaching into unrelated components.
-
----
-
-# Maintainability
-
-Readable code is preferred over clever code.
-
-Goals:
-
-* short functions
-* clear names
-* type hints
-* useful docstrings
-* minimal duplication
-* pathlib for filesystem operations
-* meaningful exceptions
-* limited global state
-* no unnecessary abstractions
-* no broad rewrites when a focused change is sufficient
-
-Business logic should remain as independent from I/O as practical.
-
----
-
-# Configurability
-
-User-editable configuration should remain centralized where appropriate.
-
-Examples include:
-
-* download directory
-* request timeout
-* HTTP headers
-* retry count
-* parallel download settings
-* source configuration
-
-Hardcoded paths should be avoided.
-
----
-
-# Testing
-
-Testing is a core project goal.
-
-Every important component should eventually have automated tests.
-
-Tests should work without internet access whenever possible.
-
-Important coverage includes:
-
-```text
-Watchlist
-├── parsing
-├── saving
-├── statuses
-├── seasons
-├── progress
-└── Anime/Donghua separation
-
-Link Cache
-├── parsing
-├── discovery
-├── new titles
-├── duplicate detection
-├── repeated scans
-└── malformed files
-
-Downloader
-├── cached links
-├── missing episodes
-└── failure handling
-
-Updater
-├── progress updates
-├── correct watchlist selection
-└── state preservation
-```
-
-Tests must not modify the real project watchlists.
-
----
-
-# Data Safety
-
-The project should prioritize safe handling of user data.
-
-Important rules:
-
-* never update the wrong watchlist
-* never overwrite unrelated entries
-* never reset existing progress during discovery
-* never delete cached links after downloading
-* never duplicate titles during repeated scans
-* never automatically download during link scanning
-
-The system should preserve existing user data whenever possible.
-
----
-
-# Future Direction
-
-Future improvements should build on the current architecture rather than replacing it unnecessarily.
-
-Potential areas include:
-
-* better source selection
-* multiple source links per episode
-* cache validation
-* automatic cache refresh
-* richer metadata
-* aliases
-* better season management
-* download queues
-* resume support
-* improved TUI controls
-* additional Anime/Donghua sources
-* stronger integration tests
-
-These features should preserve the fundamental separation between:
-
-```text
-User State
-     │
-     ▼
-Watchlist
-
-Source Data
-     │
-     ▼
-Link Cache
-
-Actual Transfer
-     │
-     ▼
-Downloader
-```
-
----
-
-# Definition of Done
-
-The project should be considered mature when it can reliably:
-
-* support Anime and Donghua separately
-* maintain both watchlists safely
-* discover and import new titles
-* persist episode links
-* reuse cached links
-* avoid unnecessary repeated scraping
-* download episodes only after explicit user action
-* update the correct watchlist after successful downloads
-* preserve cached links after downloads
-* organize downloaded files
-* provide useful logs
-* recover gracefully from individual failures
-* run a comprehensive automated test suite
-
-The long-term objective is not simply to automate downloading.
-
-It is to build a reliable system that:
-
-```text
-DISCOVERS
-    ↓
-CACHES
-    ↓
-TRACKS
-    ↓
-DOWNLOADS ON DEMAND
-    ↓
-UPDATES SAFELY
-```
+A change is ready when its behavior matches the code and documentation, the correct watchlist and cache are preserved, errors are handled without damaging user data, tests cover the relevant success and failure paths, and the focused tests pass. Run the full test suite before describing the repository as green; report failures and environment limitations honestly.

@@ -183,10 +183,12 @@ def _download_with_ytdlp(
                     logger.error(f"All yt‑dlp attempts failed for {url}")
                     return False
         except Exception as e:
-            logger.warning(
-                f"[download] yt-dlp attempt {attempt+1} failed (code {result.returncode}): "
-                f"{result.stderr.strip().splitlines()[-1] if result.stderr else '(no stderr)'}"
-            )
+            logger.warning(f"[download] yt-dlp attempt {attempt+1} raised: {e}")
+            if attempt < retries - 1:
+                time.sleep(RETRY_DELAY)
+            else:
+                logger.error(f"All attempts failed for {url}")
+                return False
             if attempt < retries - 1:
                 time.sleep(RETRY_DELAY)
             else:

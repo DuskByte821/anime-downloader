@@ -29,7 +29,7 @@ def test_small_existing_file_deleted_then_downloaded(tmp_path, monkeypatch):
     dest.write_bytes(b"x" * 100)
 
     called = {}
-    def fake_ytdlp(url, dest_, retries, episode):
+    def fake_ytdlp(*args, **kwargs):
         called["called"] = True
         return True
 
@@ -46,6 +46,11 @@ def test_ytdlp_success_creates_file(tmp_path, monkeypatch):
 
     class FakeProc:
         returncode = 0
+        stdout = ""
+        stderr = ""
+        def check_returncode(self):
+            if self.returncode != 0:
+                raise subprocess.CalledProcessError(self.returncode, "")
 
     def fake_run(cmd, cwd=None, check=False, **kwargs):
         # Simulate yt-dlp creating the file
@@ -66,6 +71,7 @@ def test_ytdlp_failure_returns_false(tmp_path, monkeypatch):
 
     class FakeProc:
         returncode = 1
+        stderr = "fake error"     # or ""
 
     def fake_run(cmd, cwd=None, check=False, **kwargs):
         return FakeProc()

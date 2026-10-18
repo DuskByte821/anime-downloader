@@ -27,13 +27,11 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class SourceCandidate:
-    kind: str            # "iframe" | "direct_media"
+    kind: str                    # "iframe" | "direct_media" | "dailymotion_script"
     url: str
-    provider: str        # "dailymotion", "rumble", "other", "archive", "direct"
+    provider: str                # "dailymotion", "rumble", "other", "archive", "direct"
+    duration: Optional[int] = None   # seconds, from page metadata if available
 
-    # -----------------------------------------------------------------------
-    #  Modular Functions
-    # -----------------------------------------------------------------------
 def _strip_meta(title: str) -> str:
     """Remove bracketed alt-titles and parenthesized years for comparison."""
     t = re.sub(r"\[[^\]]*\]", "", title)
@@ -475,6 +473,84 @@ class LuciferDonghuaScraper(Scraper):
     # Extraction helpers
     # ----------------------------------------------------------------------
 
+    def _extract_dailymotion_scripts(self, soup) -> List[SourceCandidate]:
+        """
+        Extract Dailymotion embeds from <script src="…dailymotion…/player/X.js"
+        data-video="VIDEO_ID">.
+
+        The modern Dailymotion embed doesn't use an iframe — it's a JS file
+        that constructs the player at runtime. yt-dlp accepts the .html variant:
+            https://geo.dailymotion.com/player/X.html?video=VIDEO_ID
+        """
+        out: List[SourceCandidate] = []
+
+        # Grab the primary player's duration from the adjacent meta tag,
+        # if present. This is the ISO 8601 duration (e.g. P1125S, PT18M45S).
+        duration = self._extract_duration_from_meta(soup)
+
+        for script in soup.find_all("script", src=True):
+            src = script["src"]
+            video_id = script.get("data-video")
+            if not video_id:
+                continue
+            if "dailymotion.com" not in src.lower():
+                continue
+
+            # src is e.g. https://geo.dailymotion.com/player/xdcdz.js
+            # We need https://geo.dailymotion.com/player/xdcdz.html?video=ID
+            player_html = re.sub(r"\.js(\?|$)", r".html\1", src)
+            if ".html" not in player_html:
+                # Fallback: replace at end
+                player_html = src.rsplit(".js", 1)[0] + ".html"
+            # Strip any existing query and add video param
+            player_html = player_html.split("?", 1)[0]
+            url = f"{player_html}?video={video_id}"
+            out.append(SourceCandidate(
+                kind="dailymotion_script",
+                url=url,
+                provider="dailymotion",
+                duration=duration,
+            ))
+
+        return out
+
+
+    def _extract_duration_from_meta(self, soup) -> Optional[int]:
+        """
+        Find <meta itemprop="duration" content="P…S"> and parse to seconds.
+        Returns None if no such meta or unparseable.
+        """
+        meta = soup.find("meta", attrs={"itemprop": "duration"})
+        if not meta:
+            return None
+        raw = (meta.get("content") or "").strip()
+        return self._parse_iso8601_duration(raw)
+
+
+    @staticmethod
+    def _parse_iso8601_duration(raw: str) -> Optional[int]:
+        """
+        Parse ISO 8601 durations like:
+            P1125S        → 1125
+            PT1125S       → 1125
+            PT18M45S      → 1125
+            PT1H2M3S      → 3723
+        Returns None on unparseable input.
+        """
+        if not raw:
+            return None
+        m = re.match(
+            r"^P(?:\d+D)?(?:T)?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$",
+            raw, re.I,
+        )
+        if not m:
+            return None
+        h = int(m.group(1) or 0)
+        mi = int(m.group(2) or 0)
+        s = int(m.group(3) or 0)
+        total = h * 3600 + mi * 60 + s
+        return total if total > 0 else None
+
     def _classify_iframe(self, url: str) -> Optional[str]:
         """Return the provider name if the URL is a known iframe host."""
         lower = url.lower()
@@ -565,25 +641,20 @@ class LuciferDonghuaScraper(Scraper):
             logger.warning(f"[resolve] failed to fetch {episode_url}: {e}")
             return None
 
-
     def get_playable_sources(self, anime: Anime, episode: int) -> List[SourceCandidate]:
-        """
-        Collect candidate sources from the episode page and its mirrors
-        (/v/1 .. /v/MAX_MIRRORS). Ranked best-first.
-        """
         base_url = self.get_download_link(anime, episode)
         if not base_url:
             return []
 
         all_candidates: List[SourceCandidate] = []
 
-        # Base page
         soup = self._fetch_episode_soup(base_url)
         if soup:
+            all_candidates.extend(self._extract_dailymotion_scripts(soup))   # NEW
             all_candidates.extend(self._extract_iframe_sources(soup))
             all_candidates.extend(self._extract_direct_media(soup))
 
-        # Mirrors: append /v/N/ to the base URL (strip trailing slash first)
+        # Mirrors — same additions
         base = base_url.rstrip("/")
         for n in range(1, MAX_MIRRORS + 1):
             mirror_url = f"{base}/v/{n}"
@@ -591,11 +662,11 @@ class LuciferDonghuaScraper(Scraper):
             if not soup:
                 continue
             found = (
-                self._extract_iframe_sources(soup)
-                + self._extract_direct_media(soup)
+                self._extract_dailymotion_scripts(soup) +                   # NEW
+                self._extract_iframe_sources(soup) +
+                self._extract_direct_media(soup)
             )
             if found:
-                logger.debug(f"[resolve] {anime.name} ep {episode} mirror /v/{n}: {len(found)} source(s)")
                 all_candidates.extend(found)
 
         ranked = self._rank_sources(all_candidates)
@@ -605,25 +676,34 @@ class LuciferDonghuaScraper(Scraper):
             f"{ranked[0].provider if ranked else 'none'}"
         )
         return ranked
-
-
+    
     def resolve_episode_source(self, anime: Anime, episode: int):
-        """
-        Pre-flight: return (ok, kind, url, duration, reason).
-
-        - ok=True  -> a playable source was found and passes duration filter
-        - ok=False -> reason explains why (no_source / preview_only / fetch_failed)
-        """
         candidates = self.get_playable_sources(anime, episode)
         if not candidates:
             return (False, "", "", None, "no_source")
 
         for cand in candidates:
-            # For iframe sources, probe duration via yt-dlp -J.
-            if cand.kind == "iframe":
-                duration = self._probe_duration(cand.url)
-                if duration is None:
-                    # Can't determine duration — accept but log
+            # If the page already told us the duration, use it.
+            if cand.duration is not None:
+                if cand.duration < MIN_EPISODE_DURATION_SECONDS:
+                    logger.info(
+                        f"[resolve] {anime.name} ep {episode}: "
+                        f"{cand.provider} duration={cand.duration}s < "
+                        f"{MIN_EPISODE_DURATION_SECONDS}s → preview, trying next"
+                    )
+                    continue
+                return (True, cand.kind, cand.url, cand.duration, "ok")
+
+            # Otherwise probe via yt-dlp for iframes and dailymotion scripts
+            if cand.kind in ("iframe", "dailymotion_script"):
+                duration, status = self._probe_duration(cand.url)
+                if status == "unreachable":
+                    logger.info(
+                        f"[resolve] {anime.name} ep {episode}: "
+                        f"{cand.provider} unreachable, trying next"
+                    )
+                    continue
+                if status == "no_duration":
                     logger.info(
                         f"[resolve] {anime.name} ep {episode}: "
                         f"{cand.provider} duration unknown, accepting"
@@ -638,35 +718,32 @@ class LuciferDonghuaScraper(Scraper):
                     continue
                 return (True, cand.kind, cand.url, duration, "ok")
 
-            # Direct media: no metadata endpoint; accept and rely on post-download size check.
             if cand.kind == "direct_media":
                 logger.info(
                     f"[resolve] {anime.name} ep {episode}: "
-                    f"direct media from {cand.provider}, accepting (size check after download)"
+                    f"direct media from {cand.provider}, accepting "
+                    f"(size check after download)"
                 )
                 return (True, cand.kind, cand.url, None, "ok_direct")
 
-        # Every candidate was a preview or unusable
         return (False, "", "", None, "preview_only")
 
 
-    def _probe_duration(self, url: str) -> Optional[int]:
-        """
-        Run `yt-dlp -J --skip-download <url>` and return duration in seconds.
-        Returns None on failure or if the field is missing.
-        """
-        import json
-        import subprocess
-        from config import YTDLP_METADATA_TIMEOUT
-
+    def _probe_duration(self, url: str) -> tuple[Optional[int], str]:
         try:
             proc = subprocess.run(
                 ["yt-dlp", "-J", "--skip-download", "--no-warnings", url],
-                capture_output=True, text=True, timeout=YTDLP_METADATA_TIMEOUT, check=True,
+                capture_output=True, text=True,
+                timeout=YTDLP_METADATA_TIMEOUT, check=True,
             )
             info = json.loads(proc.stdout)
             d = info.get("duration")
-            return int(d) if d else None
+            if d:
+                return (int(d), "ok")
+            return (None, "no_duration")
+        except subprocess.CalledProcessError as e:
+            logger.debug(f"[resolve] probe unreachable for {url}: {e}")
+            return (None, "unreachable")
         except Exception as e:
-            logger.debug(f"[resolve] duration probe failed for {url}: {e}")
-            return None
+            logger.debug(f"[resolve] probe error for {url}: {e}")
+            return (None, "unreachable")

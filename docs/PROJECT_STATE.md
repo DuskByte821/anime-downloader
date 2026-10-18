@@ -14,7 +14,7 @@
 - **Downloads:** quality presets are best, 1080p, and 720p (default). The downloader can use yt-dlp, and direct-media paths use wget with a requests fallback. Queue status and failed-download tracking exist. Preview/short-file checks and optional ffprobe validation are present in code.
 - **Caching/links:** scraper HTTP/session caching, disk metadata/episode caches, link-cache management, and link synchronization exist. Explicitly selected cached series URLs are protected from ordinary link synchronization.
 - **TUI:** Home accepts a search query or slash command; Search loads results asynchronously and supports up/down/Enter/Escape; Details displays a season selector, an episode list with an eight-item sliding window, and a streams table. The Details screen has focus regions and a `d` download binding. Slash commands recognized by `app.py` are `/help`, `/watchlist`, `/downloads`, `/settings`, `/scraper`, `/quality`, `/type`, and `/clear`.
-- **Tests:** 122 tests collected, 112 passed, 10 failed as of 2026-10-17, pytest 9.0.2, Python 3.14
+- **Tests:** 123 tests collected, 123 passed as of 2026-10-17, pytest 9.0.2, Python 3.14
  
 ## Incomplete or missing — confirmed in code
 

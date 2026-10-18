@@ -291,3 +291,62 @@ def test_explicit_cached_link_not_invalidated(scraper, tmp_path):
         scraper.link_manager.get_url("Perfect World", "luciferdonghua", "")
         == f"{BASE}/anime/perfect-world-new/"
     )
+
+
+
+def test_extract_dailymotion_from_script_tag(scraper):
+    html = '''
+    <div class="player-embed" id="pembed">
+      <meta itemprop="duration" content="P1125S">
+      <script src="https://geo.dailymotion.com/player/xdcdz.js"
+              data-video="k3r650p3p1wLDkLRfGS"></script>
+    </div>
+    '''
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, "html.parser")
+    candidates = scraper._extract_dailymotion_scripts(soup)
+    assert len(candidates) == 1
+    c = candidates[0]
+    assert c.provider == "dailymotion"
+    assert c.kind == "dailymotion_script"
+    assert c.duration == 1125
+    assert "geo.dailymotion.com/player/xdcdz.html" in c.url
+    assert "video=k3r650p3p1wLDkLRfGS" in c.url
+
+
+def test_parse_iso8601_duration():
+    from scraper.luciferdonghua import LuciferDonghuaScraper
+    p = LuciferDonghuaScraper._parse_iso8601_duration
+    assert p("P1125S") == 1125
+    assert p("PT1125S") == 1125
+    assert p("PT18M45S") == 1125
+    assert p("PT1H2M3S") == 3723
+    assert p("garbage") is None
+
+
+def test_resolver_uses_page_duration_without_probe(scraper, monkeypatch):
+    """When the meta duration is present, no yt-dlp probe is needed."""
+    from models import Anime
+    from scraper.luciferdonghua import SourceCandidate
+
+    def fake_sources(anime, episode):
+        return [SourceCandidate(
+            kind="dailymotion_script",
+            url="https://geo.dailymotion.com/player/x.html?video=abc",
+            provider="dailymotion",
+            duration=1125,
+        )]
+    monkeypatch.setattr(scraper, "get_playable_sources", fake_sources)
+
+    probe_called = {"n": 0}
+    def fake_probe(url):
+        probe_called["n"] += 1
+        return (None, "unreachable")
+    monkeypatch.setattr(scraper, "_probe_duration", fake_probe)
+
+    a = Anime(name="x")
+    ok, kind, url, dur, reason = scraper.resolve_episode_source(a, 1)
+    assert ok is True
+    assert dur == 1125
+    assert reason == "ok"
+    assert probe_called["n"] == 0
